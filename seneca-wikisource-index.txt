@@ -1,0 +1,32 @@
+{{header
+ | title    = Moral letters to Lucilius (Epistulae morales ad Lucilium)
+ | author   = Seneca
+ | translator = Richard Mott Gummere
+ | section  =
+ | previous =
+ | next     =
+ | notes    = A Loeb Classical Library edition; volume 1 published 1917; volume 2 published 1920; volume 3 published 1925
+}}
+{{default layout|Layout 2}}
+<pages index="Ad Lucilium epistulae morales, volume 1.djvu" include=7 />
+{{ppb}}
+<pages index="Ad Lucilium epistulae morales, volume 1.djvu" include=9 />
+<pages index="Ad Lucilium epistulae morales, volume 1.djvu" include=10 />
+
+{{Engine}}
+{{ppb}}
+<pages index="Ad Lucilium epistulae morales, volume 1.djvu" from=11 to=13 />
+
+<pages index="Ad Lucilium epistulae morales (IA adlucilium02sene).pdf" from=11 to=12 />
+
+<pages index="Ad Lucilium epistulae morales, volume 3.djvu" from=11 to=12 />
+
+{{PD/US|1969}}
+
+[[Category:Ancient Roman philosophical works]]
+[[Category:Works originally in Latin]]
+
+[[ar:رسائل أخلاقية إلى لوسيليوس]]
+[[la:Epistulae morales ad Lucilium]]
+[[es:Cartas a Lucilio]]
+[[fr:Lettres à Lucilius]]
