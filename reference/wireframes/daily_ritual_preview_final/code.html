@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FieldSong - Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&amp;family=Manrope:wght@400;500;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-primary": "#735c00",
+                        "outline": "#99907c",
+                        "error-container": "#93000a",
+                        "surface-container": "#20201f",
+                        "surface-variant": "#353535",
+                        "on-tertiary-fixed-variant": "#27438a",
+                        "surface-bright": "#393939",
+                        "tertiary-fixed": "#dbe1ff",
+                        "primary-fixed": "#ffe088",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "on-background": "#e5e2e1",
+                        "surface-container-highest": "#353535",
+                        "secondary-fixed": "#efe0cf",
+                        "on-secondary-fixed": "#221a10",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary": "#082b72",
+                        "outline-variant": "#4d4635",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#131313",
+                        "on-secondary-container": "#c1b3a3",
+                        "tertiary-container": "#97b0ff",
+                        "on-primary-container": "#554300",
+                        "on-secondary-fixed-variant": "#4f4539",
+                        "surface-dim": "#131313",
+                        "primary-container": "#d4af37",
+                        "secondary-fixed-dim": "#d3c4b4",
+                        "on-secondary": "#382f24",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-fixed": "#241a00",
+                        "inverse-on-surface": "#313030",
+                        "secondary": "#d3c4b4",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-tint": "#e9c349",
+                        "on-primary-fixed-variant": "#574500",
+                        "on-surface": "#e5e2e1",
+                        "primary": "#f2ca50",
+                        "on-primary": "#3c2f00",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#d0c5af",
+                        "tertiary": "#bfcdff",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#254188",
+                        "background": "#131313",
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+        }
+        .reading-progress-ribbon {
+            height: 2px;
+            background-color: #BFCDFF;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        .ritual-card-gradient {
+            background: linear-gradient(135deg, rgba(53, 53, 53, 0.4) 0%, rgba(28, 27, 27, 0.2) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- Reading Progress Ribbon -->
+<div class="reading-progress-ribbon"></div>
+<!-- Top Navigation -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 h-16 bg-[#131313]">
+<div class="font-['Newsreader'] text-[#F2CA50] text-2xl lowercase tracking-tighter" style="">FieldSong</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-label uppercase tracking-widest text-outline" style="">100% Complete</span>
+</div>
+</header>
+<main class="min-h-screen pt-24 pb-12 px-6 flex flex-col items-center justify-center max-w-4xl mx-auto">
+<!-- Hero Section -->
+<section class="w-full text-center mb-12">
+<h1 class="font-headline italic text-5xl md:text-7xl text-on-surface mb-6 leading-tight tracking-tight" style="">
+                Your first ritual awaits.
+            </h1>
+<p class="font-body text-lg text-on-surface-variant max-w-lg mx-auto leading-relaxed" style="">
+                Everything is ready for your first daily clarity session. We've curated a space just for your thoughts.
+            </p>
+</section>
+<!-- Signature Component: Ritual Card Preview (Updated) -->
+<div class="w-full max-w-md relative group">
+<!-- Subtle Ambient Glow -->
+<div class="absolute -inset-4 bg-primary/5 rounded-[2.5rem] blur-3xl group-hover:bg-primary/10 transition-all duration-700"></div>
+<div class="relative ritual-card-gradient backdrop-blur-md rounded-xl p-8 shadow-[0_-4px_40px_rgba(212,175,55,0.06)] border border-outline-variant/10 overflow-hidden">
+<!-- Card Header -->
+<div class="flex justify-between items-start mb-8">
+<div class="space-y-1">
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-primary" style="">Today's Wisdom</span>
+<div class="font-headline text-2xl text-on-surface" style="">Daily Ritual Preview</div>
+</div>
+</div>
+<!-- Card Content: The Verse -->
+<div class="space-y-6">
+<!-- Sanskrit Text -->
+<div class="text-on-surface-variant/70 italic font-body text-sm leading-relaxed tracking-wide">
+    karmaṇy evādhikāras te mā phaleṣu kadācana
+</div>
+<!-- Translation -->
+<h2 class="font-headline text-2xl text-on-surface leading-tight" style="">
+    "Thy right is to work only, but never with its fruits; let not the fruits of actions be thy motive, nor let thy attachment be to inaction."
+</h2>
+<!-- Reference -->
+<div class="text-outline font-label text-[10px] uppercase tracking-[0.15em]" style="">
+    Bhagavad Gita 2.47
+</div>
+<div class="h-px w-12 bg-outline-variant/30"></div>
+<!-- Plain Terms Section -->
+<div class="space-y-2">
+<span class="font-label text-[10px] uppercase tracking-widest text-primary/80" style="">In plain terms</span>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed" style="">
+        This is probably the most famous verse in the Gita, and it's famous because it solves about half of your problems in one line. You get to do the work. You don't get to control the results. The second you start working for the outcome instead of the work itself, you've lost the thread.
+    </p>
+</div>
+<!-- Stoic Parallel Card -->
+<div class="bg-surface-container-low/50 rounded-lg p-5 border border-outline-variant/10 mt-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="font-label text-[10px] uppercase tracking-widest text-primary/80" style="">Stoic Parallel</span>
+</div>
+<p class="font-headline italic text-[15px] text-on-surface leading-snug" style="">
+        "Externals are not in my power: will is in my power. Where shall I seek the good and the bad? Within, in the things which are my own."
+    </p>
+<div class="mt-2 text-on-surface-variant/60 font-label text-[9px] uppercase tracking-wider" style="">
+        — Epictetus, Discourses 2.5
+    </div>
+</div><div class="space-y-2 mt-6">
+<span class="font-label text-[10px] uppercase tracking-widest text-primary/80">Try this today</span>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed">
+        Pick one thing you've been agonizing over today. Do the part that's yours. Then put it down.
+    </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Call to Action -->
+<section class="mt-16 w-full flex flex-col items-center gap-8">
+<button class="px-12 py-5 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-body font-semibold text-lg hover:scale-105 active:scale-95 transition-all duration-400 flex items-center gap-3 group shadow-xl shadow-primary/10" style=""><div class="flex flex-col items-center">
+<div class="flex items-center gap-3">
+        Open FieldSong
+        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+<span class="text-[10px] font-label uppercase tracking-widest opacity-80 mt-1">Day 1 of your clarity practice</span>
+</div></button>
+</section>
+</main>
+<!-- Background Accents -->
+<div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-tertiary/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+<!-- Layout Spacer for visual balance -->
+<div class="h-24"></div>
+</body></html>

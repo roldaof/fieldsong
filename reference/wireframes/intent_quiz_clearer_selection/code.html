@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FieldSong - Intent Quiz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#735c00",
+              "outline": "#99907c",
+              "error-container": "#93000a",
+              "surface-container": "#20201f",
+              "surface-variant": "#353535",
+              "on-tertiary-fixed-variant": "#27438a",
+              "surface-bright": "#393939",
+              "tertiary-fixed": "#dbe1ff",
+              "primary-fixed": "#ffe088",
+              "tertiary-fixed-dim": "#b4c5ff",
+              "on-background": "#e5e2e1",
+              "surface-container-highest": "#353535",
+              "secondary-fixed": "#efe0cf",
+              "on-secondary-fixed": "#221a10",
+              "surface-container-high": "#2a2a2a",
+              "on-tertiary": "#082b72",
+              "outline-variant": "#4d4635",
+              "on-error-container": "#ffdad6",
+              "surface": "#131313",
+              "on-secondary-container": "#c1b3a3",
+              "tertiary-container": "#97b0ff",
+              "on-primary-container": "#554300",
+              "on-secondary-fixed-variant": "#4f4539",
+              "surface-dim": "#131313",
+              "primary-container": "#d4af37",
+              "secondary-fixed-dim": "#d3c4b4",
+              "on-secondary": "#382f24",
+              "surface-container-low": "#1c1b1b",
+              "surface-container-lowest": "#0e0e0e",
+              "on-primary-fixed": "#241a00",
+              "inverse-on-surface": "#313030",
+              "secondary": "#d3c4b4",
+              "inverse-surface": "#e5e2e1",
+              "surface-tint": "#e9c349",
+              "on-primary-fixed-variant": "#574500",
+              "on-surface": "#e5e2e1",
+              "primary-fixed-dim": "#e9c349",
+              "secondary-container": "#4f4539",
+              "on-tertiary-fixed": "#00174b",
+              "on-primary": "#3c2f00",
+              "error": "#ffb4ab",
+              "on-surface-variant": "#d0c5af",
+              "tertiary": "#bfcdff",
+              "on-error": "#690005",
+              "on-tertiary-container": "#254188",
+              "background": "#131313",
+              "primary": "#f2ca50"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .reading-ribbon {
+        height: 2px;
+        background: #BFCDFF;
+        width: 33%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 60;
+      }
+      body {
+        min-height: 100dvh;
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen selection:bg-primary-container/30">
+<!-- Reading Progress Ribbon -->
+<div class="reading-ribbon"></div>
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 h-16 bg-[#131313]">
+<div class="bg-gradient-to-r from-[#BFCDFF] to-transparent h-[2px] w-full absolute top-0 left-0"></div>
+<button class="text-[#F2CA50] hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<span class="font-headline text-[#F2CA50] text-2xl lowercase tracking-tighter">FieldSong</span>
+<div class="w-10"></div>
+</header>
+<main class="pt-24 pb-48 px-6 max-w-2xl mx-auto">
+<!-- Headline Section -->
+<section class="mb-12">
+<p class="font-label tracking-widest text-[10px] uppercase mb-4 opacity-70 text-outline-variant">Step 1 of 3</p>
+<h1 class="font-headline italic text-4xl md:text-5xl text-on-surface leading-tight tracking-tight mb-4">
+                What are you seeking most <span class="text-primary-container">right now?</span>
+</h1>
+<p class="text-on-surface-variant font-body text-sm">Pick up to 3. This shapes your first week.</p>
+</section>
+<!-- 2x3 Grid of Quiz Cards -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Card 1: Clarity (Selected) -->
+<button class="group flex flex-col p-6 aspect-square bg-surface-container rounded-xl text-left border-2 border-primary-container shadow-[0_0_20px_rgba(212,175,55,0.1)] transition-all duration-300 relative bg-primary-container/10">
+<span class="material-symbols-outlined text-primary mb-4 block text-xl" data-icon="visibility">visibility</span>
+<span class="font-body text-sm font-medium leading-tight">Clarity in decisions</span>
+<span class="material-symbols-outlined absolute top-4 right-4 text-primary text-lg font-bold">check</span></button>
+<!-- Card 2: Courage -->
+<button class="group flex flex-col p-6 aspect-square bg-surface-container rounded-xl text-left border-2 border-transparent hover:border-outline-variant transition-all duration-300">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary mb-4 block text-xl" data-icon="bolt">bolt</span>
+<span class="font-body text-sm font-medium leading-tight text-on-surface-variant group-hover:text-on-surface">Courage to act</span>
+</button>
+<!-- Card 3: Patience (Selected) -->
+<button class="group flex flex-col p-6 aspect-square bg-surface-container rounded-xl text-left border-2 border-primary-container shadow-[0_0_20px_rgba(212,175,55,0.1)] transition-all duration-300 relative bg-primary-container/10">
+<span class="material-symbols-outlined text-primary mb-4 block text-xl" data-icon="hourglass_empty">hourglass_empty</span>
+<span class="font-body text-sm font-medium leading-tight">Patience with uncertainty</span>
+<span class="material-symbols-outlined absolute top-4 right-4 text-primary text-lg font-bold">check</span></button>
+<!-- Card 4: Acceptance -->
+<button class="group flex flex-col p-6 aspect-square bg-surface-container rounded-xl text-left border-2 border-transparent hover:border-outline-variant transition-all duration-300">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary mb-4 block text-xl" data-icon="back_hand">back_hand</span>
+<span class="font-body text-sm font-medium leading-tight text-on-surface-variant group-hover:text-on-surface">Acceptance of what I can't control</span>
+</button>
+<!-- Card 5: Discipline -->
+<button class="group flex flex-col p-6 aspect-square bg-surface-container rounded-xl text-left border-2 border-transparent hover:border-outline-variant transition-all duration-300">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary mb-4 block text-xl" data-icon="track_changes">track_changes</span>
+<span class="font-body text-sm font-medium leading-tight text-on-surface-variant group-hover:text-on-surface">Discipline and focus</span>
+</button>
+<!-- Card 6: Perspective -->
+<button class="group flex flex-col p-6 aspect-square bg-surface-container rounded-xl text-left border-2 border-transparent hover:border-outline-variant transition-all duration-300">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary mb-4 block text-xl" data-icon="landscape">landscape</span>
+<span class="font-body text-sm font-medium leading-tight text-on-surface-variant group-hover:text-on-surface">Perspective on what matters</span>
+</button>
+</div>
+</main>
+<!-- Bottom Actions Shell -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex flex-col items-center gap-4 px-6 pt-6 pb-10 bg-[#353535]/90 backdrop-blur-xl rounded-t-[2rem] border-t border-outline-variant/30">
+<button class="w-full max-w-sm px-12 py-4 rounded-full bg-gradient-to-br from-[#F2CA50] to-[#D4AF37] text-[#3C2F00] font-bold tracking-tight hover:scale-105 active:scale-95 transition-all duration-400 flex items-center justify-center gap-2 group shadow-lg shadow-primary/20">
+<span class="font-label uppercase tracking-widest text-[12px]">Continue</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary font-label uppercase tracking-[0.2em] text-[10px] transition-colors py-2">
+            Skip for now
+        </button>
+</footer>
+</body></html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FieldSong | Daily Clarity Practice</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#131313",
+              "surface-bright": "#393939",
+              "tertiary-container": "#97b0ff",
+              "primary-fixed-dim": "#e9c349",
+              "surface-tint": "#e9c349",
+              "on-tertiary": "#082b72",
+              "on-primary": "#3c2f00",
+              "inverse-on-surface": "#313030",
+              "tertiary": "#bfcdff",
+              "surface-variant": "#353535",
+              "on-secondary": "#382f24",
+              "background": "#131313",
+              "surface": "#131313",
+              "secondary-container": "#4f4539",
+              "secondary-fixed": "#efe0cf",
+              "tertiary-fixed": "#dbe1ff",
+              "surface-container-low": "#1c1b1b",
+              "secondary-fixed-dim": "#d3c4b4",
+              "outline-variant": "#4d4635",
+              "on-error": "#690005",
+              "on-background": "#e5e2e1",
+              "surface-container-high": "#2a2a2a",
+              "on-surface-variant": "#d0c5af",
+              "on-surface": "#e5e2e1",
+              "on-secondary-fixed": "#221a10",
+              "on-primary-fixed-variant": "#574500",
+              "error": "#ffb4ab",
+              "primary-fixed": "#ffe088",
+              "on-secondary-container": "#c1b3a3",
+              "on-error-container": "#ffdad6",
+              "surface-container": "#20201f",
+              "on-primary-container": "#554300",
+              "surface-container-lowest": "#0e0e0e",
+              "on-secondary-fixed-variant": "#4f4539",
+              "error-container": "#93000a",
+              "outline": "#99907c",
+              "on-tertiary-fixed-variant": "#27438a",
+              "on-tertiary-container": "#254188",
+              "on-tertiary-fixed": "#00174b",
+              "primary": "#f2ca50",
+              "on-primary-fixed": "#241a00",
+              "tertiary-fixed-dim": "#b4c5ff",
+              "surface-container-highest": "#353535",
+              "secondary": "#d3c4b4",
+              "primary-container": "#d4af37",
+              "inverse-surface": "#e5e2e1",
+              "inverse-primary": "#735c00"
+            },
+            fontFamily: {
+              "headline": ["Newsreader", "serif"],
+              "body": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #131313;
+        color: #e5e2e1;
+        -webkit-font-smoothing: antialiased;
+      }
+      .reading-progress {
+        height: 2px;
+        background-color: #bfcdff;
+        width: 65%; /* Simulation of scroll depth */
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body selection:bg-primary/30">
+<!-- Top Navigation Anchor -->
+<header class="bg-[#1C1B1B] text-[#F2CA50] docked full-width top-0 z-50 flex justify-between items-center w-full px-6 py-4 sticky">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined hover:opacity-80 transition-opacity duration-400 cursor-pointer">menu</span>
+<h1 class="text-2xl font-serif italic text-[#F2CA50] tracking-tight">FieldSong</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/20 hover:opacity-80 transition-opacity duration-400 cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a thoughtful middle-aged man with short beard in warm studio lighting, professional and calm aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEA2JjzTLIs2A3C2cJrUYz_dMYRnVrRjMc631n7NAkmt6v034fzIeRA3sP5rrOovmoscIOy8nnG-7821HaCJCrmL1c1RCc_pDwWsfoYWzAbcNdPJN2imtOo_O0tGn1YjPV-uLY9AiwxMMP1wRq0CuBToQCiXMJuBReWgAerv-D_7pWju86Q1PtCkjcn_XX9OcKrWCFsq1l7K2mX5xsE4PhTvqqCAftw_fwbpCmbCRVpZGeq8BL-2U6w4jZdFGGQ5Mgq3rk5u2_LLQ"/>
+</div>
+</header>
+<!-- Reading Progress Ribbon -->
+<div class="reading-progress sticky top-[72px] z-40"></div>
+<main class="max-w-screen-md mx-auto px-6 pt-12 pb-32 space-y-24">
+<!-- Section 1: Intent Selection -->
+<section class="space-y-8">
+<div class="space-y-2">
+<span class="font-label text-xs uppercase tracking-[0.1em] text-primary-container font-semibold">Day 14 of your clarity practice</span>
+<h2 class="text-4xl md:text-5xl font-headline italic leading-tight text-on-surface">What do you need most today?</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+<button class="py-3 px-6 rounded-full border border-primary text-primary bg-primary/10 font-label text-sm transition-all duration-400">clarity</button>
+<button class="py-3 px-6 rounded-full border border-outline-variant/20 text-on-surface-variant hover:border-primary/40 transition-all duration-400 font-label text-sm">courage</button>
+<button class="py-3 px-6 rounded-full border border-outline-variant/20 text-on-surface-variant hover:border-primary/40 transition-all duration-400 font-label text-sm">patience</button>
+<button class="py-3 px-6 rounded-full border border-outline-variant/20 text-on-surface-variant hover:border-primary/40 transition-all duration-400 font-label text-sm">acceptance</button>
+<button class="py-3 px-6 rounded-full border border-outline-variant/20 text-on-surface-variant hover:border-primary/40 transition-all duration-400 font-label text-sm">discipline</button>
+<button class="py-3 px-6 rounded-full border border-outline-variant/20 text-on-surface-variant hover:border-primary/40 transition-all duration-400 font-label text-sm">perspective</button>
+</div>
+</section>
+<!-- Section 2: The Verse -->
+<section class="flex flex-col md:flex-row gap-8 items-start">
+<div class="flex-1 space-y-6">
+<p class="font-headline italic text-on-surface-variant text-lg opacity-80 leading-relaxed">karmaṇy evādhikāras te mā phaleṣu kadācana</p>
+<blockquote class="text-2xl md:text-3xl font-headline leading-snug text-on-surface">
+                    “Thy right is to work only, but never with its fruits; let not the fruits of actions be thy motive, nor let thy attachment be to inaction.”
+                </blockquote>
+<p class="font-label text-xs uppercase tracking-widest text-outline">Bhagavad Gita 2.47</p>
+</div>
+<div class="w-full md:w-1/3 aspect-[4/5] rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="abstract photograph of golden sunlight reflecting on ripples of dark water, creating soft bokeh and warm highlights, calm meditative mood" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH-lB0JeJ2cWbRiXbTMMY1dGM2wdoXAuKrGaOyx4Yklkp-41tTs0Xb3btcFFgsNzPDt0zK-iKdd4no6iSQFxKuMMRG7qSxym7g3xo_eJYmXJFexrAMhmh-jpoUfLhJcPFaG2UTq_k6oo7O7qmbFQEBPVXQU8v4QDaVjIDTOazpRJVf7zjXmojvPeJTtRki_AhZ6y0K3is7HLLrSYt3ZXvg2oUob_mWsuZebuX7GsGASXmvXKyOeWtVExIZlVhhSzBoq-VbWFvp6sc"/>
+</div>
+</section>
+<!-- Section 3: In Plain Terms -->
+<section class="space-y-4">
+<h3 class="font-label text-xs uppercase tracking-[0.15em] text-outline font-bold">In Plain Terms</h3>
+<p class="text-xl font-body leading-relaxed text-on-surface-variant max-w-2xl">
+                This is probably the most famous verse in the Gita, and it's famous because it solves about half of your problems in one line. <span class="text-primary">You get to do the work. You don't get to control the results.</span>
+</p>
+</section>
+<!-- Section 4: Stoic Parallel -->
+<section class="bg-surface-container-low p-8 md:p-12 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-9xl">temple_buddhist</span>
+</div>
+<div class="relative space-y-6">
+<p class="text-xl md:text-2xl font-headline italic text-on-surface leading-relaxed">
+                    “Externals are not in my power: will is in my power. Where shall I seek the good and the bad? Within, in the things which are my own.”
+                </p>
+<div class="flex justify-between items-end border-t border-outline-variant/10 pt-6">
+<p class="font-label text-xs uppercase tracking-widest text-outline">Epictetus, Discourses 2.5</p>
+</div>
+<p class="text-sm text-on-surface-variant/80 font-body leading-relaxed max-w-lg">
+                    Both traditions teach that focus should remain only on what is within our direct control.
+                </p>
+</div>
+</section>
+<!-- Section 5: Today's Action -->
+<section class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<h3 class="font-label text-xs uppercase tracking-[0.15em] text-outline font-bold">Try This Today</h3>
+</div>
+<p class="text-2xl font-headline leading-relaxed text-on-surface">
+                Pick one thing you've been agonizing over today. Do the part that's yours. Then put it down.
+            </p>
+</section>
+<!-- Section 6: Reflect -->
+<section class="space-y-6 bg-surface-container-lowest p-8 rounded-2xl border-b border-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+<h3 class="font-label text-xs uppercase tracking-[0.15em] text-outline font-bold">Reflect</h3>
+</div>
+<p class="text-xl font-headline text-on-surface leading-snug">
+                What is one part of your work today where you've been overly attached to the outcome?
+            </p>
+<div class="relative">
+<textarea class="w-full bg-transparent border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-body py-4 min-h-[120px] resize-none placeholder:text-outline/40" placeholder="Write here... or reply to your morning email"></textarea>
+<div class="flex justify-between items-center mt-4">
+<span class="text-xs font-label text-outline/60">280</span>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary font-label font-bold text-xs tracking-widest py-3 px-8 rounded-full hover:opacity-90 transition-all duration-400 uppercase">Save</button>
+</div>
+</div>
+</section>
+<!-- Section 7: Feedback -->
+<section class="flex flex-col items-center py-12 border-t border-outline-variant/10 space-y-6">
+<h4 class="font-label text-xs uppercase tracking-[0.2em] text-outline">Did today's verse land?</h4>
+<div class="flex gap-12">
+<button class="text-outline hover:text-primary transition-colors duration-400">
+<span class="material-symbols-outlined text-3xl">thumb_up</span>
+</button>
+<button class="text-outline hover:text-primary transition-colors duration-400">
+<span class="material-symbols-outlined text-3xl">thumb_down</span>
+</button>
+<button class="text-outline hover:text-primary transition-colors duration-400">
+<span class="material-symbols-outlined text-3xl">bookmark</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#353535]/80 backdrop-blur-xl z-50 rounded-t-2xl shadow-[0_-4px_40px_rgba(212,175,55,0.06)]">
+<a class="flex flex-col items-center justify-center text-[#F2CA50] bg-[#2A2A2A] rounded-xl px-4 py-1 scale-95 transition-all duration-400 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-sans Manrope uppercase tracking-[0.05rem] text-[10px] mt-1">Today</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#A0A0A0] opacity-60 hover:text-[#F2CA50] transition-colors duration-400" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-sans Manrope uppercase tracking-[0.05rem] text-[10px] mt-1">Journal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#A0A0A0] opacity-60 hover:text-[#F2CA50] transition-colors duration-400" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-sans Manrope uppercase tracking-[0.05rem] text-[10px] mt-1">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#A0A0A0] opacity-60 hover:text-[#F2CA50] transition-colors duration-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-sans Manrope uppercase tracking-[0.05rem] text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
