@@ -66,9 +66,6 @@ export function SignUpScreen({ navigation, route }: any) {
           Your practice, your journal, your data. Private by default.
         </Text>
 
-        <TouchableOpacity style={styles.oauthButton} activeOpacity={0.7} onPress={() => handleOAuth('apple')}>
-          <Text style={styles.oauthText}>Continue with Apple</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.oauthButton} activeOpacity={0.7} onPress={() => handleOAuth('google')}>
           <Text style={styles.oauthText}>Continue with Google</Text>
         </TouchableOpacity>
