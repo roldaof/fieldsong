@@ -1,0 +1,185 @@
+import React, { useEffect, useState, useCallback } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
+import { supabase } from '../../config/supabase';
+import { useAuth } from '../../hooks/useAuth';
+import { VerseBookmark } from '../../types';
+
+export function SavedScreen() {
+  const { user } = useAuth();
+  const [bookmarks, setBookmarks] = useState<VerseBookmark[]>([]);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchBookmarks = useCallback(async () => {
+    if (!user?.id) return;
+    const { data } = await supabase
+      .from('verse_bookmarks')
+      .select('*, verse:verses(*)')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false });
+    if (data) setBookmarks(data);
+  }, [user?.id]);
+
+  useEffect(() => {
+    fetchBookmarks();
+  }, [fetchBookmarks]);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchBookmarks();
+    setRefreshing(false);
+  };
+
+  const renderBookmark = ({ item }: { item: VerseBookmark }) => {
+    const isExpanded = expandedId === item.id;
+    return (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => setExpandedId(isExpanded ? null : item.id)}
+        activeOpacity={0.7}
+      >
+        {item.verse && (
+          <>
+            <Text style={styles.ref}>
+              Bhagavad Gita {item.verse.chapter}.{item.verse.verse}
+            </Text>
+            <Text style={styles.sanskrit}>{item.verse.sanskrit_line}</Text>
+            <Text style={styles.preview} numberOfLines={isExpanded ? undefined : 2}>
+              {item.verse.in_plain_terms}
+            </Text>
+            {isExpanded && (
+              <View style={styles.expanded}>
+                <Text style={styles.translation}>
+                  {`\u201C${item.verse.translation}\u201D`}
+                </Text>
+                <Text style={styles.stoicQuote}>
+                  {`\u201C${item.verse.stoic_parallel_quote}\u201D`}
+                </Text>
+                <Text style={styles.stoicSource}>
+                  {item.verse.stoic_parallel_source}
+                </Text>
+              </View>
+            )}
+          </>
+        )}
+      </TouchableOpacity>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="light" />
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Saved</Text>
+      </View>
+      <FlatList
+        data={bookmarks}
+        renderItem={renderBookmark}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.list}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={colors.primary}
+          />
+        }
+        ListEmptyComponent={
+          <View style={styles.empty}>
+            <Text style={styles.emptyText}>
+              Bookmark verses during your daily ritual to revisit them here.
+            </Text>
+          </View>
+        }
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.surface,
+  },
+  header: {
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.lg,
+  },
+  headerTitle: {
+    fontFamily: fonts.serif.semiBold,
+    fontSize: 28,
+    color: colors.textPrimary,
+  },
+  list: {
+    paddingHorizontal: spacing.xl,
+    paddingBottom: spacing['4xl'],
+  },
+  card: {
+    backgroundColor: colors.surfaceContainerLow,
+    borderRadius: borderRadius.xl,
+    padding: spacing.xl,
+    marginBottom: spacing.lg,
+  },
+  ref: {
+    ...typography.labelSm,
+    color: colors.primary,
+    marginBottom: spacing.sm,
+  },
+  sanskrit: {
+    fontFamily: fonts.serif.italic,
+    fontSize: 14,
+    color: colors.textSecondary,
+    marginBottom: spacing.md,
+  },
+  preview: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    lineHeight: 22,
+    color: colors.textSecondary,
+  },
+  expanded: {
+    marginTop: spacing.lg,
+    paddingTop: spacing.lg,
+    borderTopWidth: 1,
+    borderTopColor: colors.outlineVariant,
+  },
+  translation: {
+    fontFamily: fonts.serif.semiBold,
+    fontSize: 16,
+    lineHeight: 26,
+    color: colors.textPrimary,
+    marginBottom: spacing.lg,
+  },
+  stoicQuote: {
+    fontFamily: fonts.serif.italic,
+    fontSize: 15,
+    lineHeight: 24,
+    color: colors.textPrimary,
+    marginBottom: spacing.sm,
+  },
+  stoicSource: {
+    ...typography.labelSm,
+    color: colors.textMuted,
+  },
+  empty: {
+    paddingVertical: spacing['5xl'],
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 15,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    paddingHorizontal: spacing['3xl'],
+  },
+});
