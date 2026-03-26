@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#735c00",
+              "outline": "#99907c",
+              "error-container": "#93000a",
+              "surface-container": "#20201f",
+              "surface-variant": "#353535",
+              "on-tertiary-fixed-variant": "#27438a",
+              "surface-bright": "#393939",
+              "tertiary-fixed": "#dbe1ff",
+              "primary-fixed": "#ffe088",
+              "tertiary-fixed-dim": "#b4c5ff",
+              "on-background": "#e5e2e1",
+              "surface-container-highest": "#353535",
+              "secondary-fixed": "#efe0cf",
+              "on-secondary-fixed": "#221a10",
+              "surface-container-high": "#2a2a2a",
+              "on-tertiary": "#082b72",
+              "outline-variant": "#4d4635",
+              "on-error-container": "#ffdad6",
+              "surface": "#131313",
+              "on-secondary-container": "#c1b3a3",
+              "tertiary-container": "#97b0ff",
+              "on-primary-container": "#554300",
+              "on-secondary-fixed-variant": "#4f4539",
+              "surface-dim": "#131313",
+              "primary-container": "#d4af37",
+              "secondary-fixed-dim": "#d3c4b4",
+              "on-secondary": "#382f24",
+              "surface-container-low": "#1c1b1b",
+              "surface-container-lowest": "#0e0e0e",
+              "on-primary-fixed": "#241a00",
+              "inverse-on-surface": "#313030",
+              "secondary": "#d3c4b4",
+              "inverse-surface": "#e5e2e1",
+              "surface-tint": "#e9c349",
+              "on-primary-fixed-variant": "#574500",
+              "on-surface": "#e5e2e1",
+              "primary-fixed-dim": "#e9c349",
+              "secondary-container": "#4f4539",
+              "on-tertiary-fixed": "#00174b",
+              "on-primary": "#3c2f00",
+              "error": "#ffb4ab",
+              "on-surface-variant": "#d0c5af",
+              "tertiary": "#bfcdff",
+              "on-error": "#690005",
+              "on-tertiary-container": "#254188",
+              "background": "#131313",
+              "primary": "#f2ca50"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 min-h-screen">
+<!-- Progress Ribbon -->
+<div class="fixed top-0 left-0 w-full h-1 bg-surface-container-lowest z-[60]">
+<div class="h-full bg-tertiary w-[40%] transition-all duration-700 ease-in-out"></div>
+</div>
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 h-16 bg-[#131313]">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#BFCDFF] to-transparent"></div>
+<button class="hover:opacity-80 transition-opacity duration-400 text-[#4D4635]">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<span class="font-['Newsreader'] text-[#F2CA50] text-2xl lowercase tracking-tighter">FieldSong</span>
+<div class="w-6"></div> <!-- Spacer for symmetry -->
+</header>
+<main class="pt-24 pb-32 px-8 max-w-lg mx-auto min-h-screen flex flex-col">
+<!-- Editorial Header -->
+<section class="mt-12 mb-16">
+<h1 class="font-headline italic text-5xl md:text-6xl text-on-surface leading-tight tracking-tight">
+                When shall we meet?
+            </h1>
+<p class="mt-4 text-on-surface-variant text-lg font-light leading-relaxed max-w-[80%]">
+                Choose a moment in your daily journey to pause and reflect with the fields.
+            </p>
+</section>
+<!-- Time Picker Interface (Intentional Asymmetry) -->
+<div class="relative flex flex-col gap-12">
+<div class="flex items-center justify-start gap-4">
+<div class="bg-surface-container-low p-8 rounded-xl flex items-center justify-center min-w-[140px] shadow-[0_-4px_40px_rgba(212,175,55,0.04)]">
+<div class="flex flex-col items-center">
+<span class="text-6xl font-headline italic text-primary">07</span>
+<span class="font-label uppercase tracking-widest text-[10px] mt-2 text-outline">hour</span>
+</div>
+</div>
+<div class="text-4xl font-headline text-outline">:</div>
+<div class="bg-surface-container-low p-8 rounded-xl flex items-center justify-center min-w-[140px] shadow-[0_-4px_40px_rgba(212,175,55,0.04)]">
+<div class="flex flex-col items-center">
+<span class="text-6xl font-headline italic text-primary">30</span>
+<span class="font-label uppercase tracking-widest text-[10px] mt-2 text-outline">minute</span>
+</div>
+</div>
+</div>
+<!-- Meridiem Toggle (Glassmorphism) -->
+<div class="flex bg-surface-container-high p-1.5 rounded-full w-fit">
+<button class="px-8 py-2 rounded-full bg-surface-container-highest text-primary font-label text-sm tracking-widest transition-all duration-400">AM</button>
+<button class="px-8 py-2 rounded-full text-outline font-label text-sm tracking-widest hover:text-on-surface transition-all duration-400">PM</button>
+</div>
+<!-- Subtle Illustration / Ambient Element -->
+<div class="absolute -right-12 top-0 -z-10 opacity-20 pointer-events-none">
+<div class="w-64 h-64 rounded-full bg-gradient-to-br from-primary to-transparent blur-3xl"></div>
+</div>
+</div>
+<!-- Settings Section -->
+<div class="mt-20 space-y-12">
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex flex-col gap-1">
+<label class="font-body text-on-surface text-lg">Send me a daily email reminder</label>
+<span class="text-outline text-sm">Receive a morning reflection directly in your inbox.</span>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-7 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-outline after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary/20 peer-checked:after:bg-primary"></div>
+</div>
+</div>
+<!-- Inset Card for context -->
+<div class="bg-surface-container-low p-6 rounded-xl border-l-2 border-primary/30">
+<div class="flex">
+<p class="text-on-surface-variant italic font-headline text-md leading-snug">"It's not at all that we have too short a time to live, but that we squander a great deal of it." — Seneca, On the Brevity of Life</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center px-10 py-6 bg-[#353535]/80 backdrop-blur-xl rounded-t-[2rem] shadow-[0_-4px_40px_rgba(212,175,55,0.06)]">
+<div class="flex items-center gap-8">
+<button class="flex items-center justify-center text-[#F2CA50] w-12 h-12 hover:scale-105 active:scale-95 transition-all duration-400">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+</div>
+<button class="bg-gradient-to-br from-[#F2CA50] to-[#D4AF37] text-[#3C2F00] font-label font-semibold tracking-widest px-10 py-4 rounded-full hover:scale-105 active:scale-95 transition-all duration-400 shadow-lg shadow-primary/10">
+            NEXT
+        </button>
+<div class="flex items-center gap-8">
+<button class="flex items-center justify-center text-[#F2CA50] w-12 h-12 hover:scale-105 active:scale-95 transition-all duration-400">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</footer>
+<!-- Background Decorative Image -->
+<div class="fixed inset-0 -z-20 opacity-5">
+<img class="w-full h-full object-cover" data-alt="abstract minimalist landscape of a wheat field in the soft grey light of pre-dawn with subtle morning mist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZsysAzfCPlM5ByE21hr8KsFisysAMEJStw10NY9WW9LxkV4oJEhojiQ_OmNGgsWPhL0__uIypHT48W8Xs4qkmtaStmQMyGel0hBL0hRjmmG4cb4pymj9wI6j9xBEWLcfp2nIo2dItgQvt7i8Yh-i8Nn2jVYTxV9WXTyOhy6ZZj_cnVmftTZW6g0LnVSvCEghGjjrXxY-hrFtMsUxQcZJGFudQoJOlvV8BzgKdAV_WKGB0by5kslt2N9hyAKikazrpcfwc0BaDU5w"/>
+</div>
+</body></html>
