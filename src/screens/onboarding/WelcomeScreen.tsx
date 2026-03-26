@@ -1,17 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography } from '../../config/theme';
 import { Button } from '../../components/Button';
 
 export function WelcomeScreen({ navigation }: any) {
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top + spacing.xl, paddingBottom: insets.bottom + spacing.xl }]}>
       <StatusBar style="light" />
-      <View style={styles.topLine} />
       <View style={styles.content}>
-        <Text style={styles.wordmark}>FieldSong</Text>
+        <Text style={styles.wordmark}>Field{'\n'}Song</Text>
         <Text style={styles.subtitle}>Ancient clarity for modern decisions.</Text>
+        <Text style={styles.description}>
+          A 2-minute daily ritual pairing the Bhagavad Gita with Stoic philosophy. No religion. Just wisdom that works.
+        </Text>
         <Button
           title="Begin"
           onPress={() => navigation.navigate('IntentQuiz')}
@@ -19,13 +24,9 @@ export function WelcomeScreen({ navigation }: any) {
         />
       </View>
       <View style={styles.footer}>
-        <View style={styles.bottomLine} />
         <Text style={styles.footerBrand}>fieldsong.</Text>
-        <Text style={styles.copyright}>
-          {'\u00A9 2026 FIELDSONG ARCHIVE. ALL RIGHTS RESERVED.'}
-        </Text>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -34,31 +35,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.surface,
   },
-  topLine: {
-    height: 2,
-    backgroundColor: colors.primary,
-    marginHorizontal: spacing['3xl'],
-    marginTop: spacing.xl,
-    opacity: 0.6,
-  },
   content: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     paddingHorizontal: spacing['3xl'],
   },
   wordmark: {
-    fontFamily: fonts.serif.bold,
-    fontSize: 56,
+    fontFamily: fonts.serif.semiBold,
+    fontSize: 64,
+    lineHeight: 72,
     color: colors.primary,
-    fontStyle: 'italic',
-    marginBottom: spacing.lg,
+    marginBottom: spacing.xl,
   },
   subtitle: {
     fontFamily: fonts.serif.regular,
-    fontSize: 20,
+    fontSize: 22,
+    lineHeight: 30,
+    color: colors.textPrimary,
+    marginBottom: spacing.lg,
+  },
+  description: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 16,
+    lineHeight: 24,
     color: colors.textSecondary,
-    textAlign: 'center',
     marginBottom: spacing['4xl'],
   },
   button: {
@@ -66,23 +66,11 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingHorizontal: spacing['3xl'],
-    paddingBottom: spacing['3xl'],
-  },
-  bottomLine: {
-    height: 1,
-    backgroundColor: colors.textMuted,
-    marginBottom: spacing.lg,
-    opacity: 0.3,
   },
   footerBrand: {
     fontFamily: fonts.serif.italic,
-    fontSize: 18,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    marginBottom: spacing.sm,
-  },
-  copyright: {
-    ...typography.labelSm,
+    fontSize: 16,
     color: colors.textMuted,
+    textAlign: 'center',
   },
 });
