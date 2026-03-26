@@ -32,11 +32,7 @@ export function RitualTimeScreen({ navigation, route }: any) {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.backArrow}>{'\u2190'}</Text>
-        </TouchableOpacity>
         <Text style={styles.headerTitle}>fieldsong</Text>
-        <View style={{ width: 24 }} />
       </View>
       <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
         <Text style={styles.headline}>
@@ -100,23 +96,13 @@ export function RitualTimeScreen({ navigation, route }: any) {
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.navArrow}>{'\u2190'}</Text>
-        </TouchableOpacity>
         <Button
-          title="NEXT"
+          title="Next"
           onPress={() =>
             navigation.navigate('SignUp', { intents, ritualTime: formatTime() })
           }
           style={styles.nextButton}
         />
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('SignUp', { intents, ritualTime: formatTime() })
-          }
-        >
-          <Text style={styles.navArrow}>{'\u2192'}</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -128,15 +114,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
   },
   header: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.md,
-  },
-  backArrow: {
-    fontSize: 24,
-    color: colors.textPrimary,
   },
   headerTitle: {
     fontFamily: fonts.serif.italic,
@@ -252,18 +232,11 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   footer: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.lg,
   },
-  navArrow: {
-    fontSize: 24,
-    color: colors.textPrimary,
-    padding: spacing.sm,
-  },
   nextButton: {
-    minWidth: 120,
+    width: '100%',
   },
 });

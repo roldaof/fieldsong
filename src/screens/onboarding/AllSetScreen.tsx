@@ -1,8 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
+import { useAuth } from '../../hooks/useAuth';
+import { useProfile } from '../../hooks/useProfile';
 
 const PREVIEW_VERSE = {
   sanskrit_line: 'karma\u1E47y ev\u0101dhik\u0101ras te m\u0101 phale\u1E63u kad\u0101cana',
@@ -19,7 +21,31 @@ const PREVIEW_VERSE = {
     "Pick one thing you've been agonizing over today. Do the part that's yours. Then put it down.",
 };
 
-export function AllSetScreen({ navigation }: any) {
+export function AllSetScreen({ navigation, route }: any) {
+  const { user } = useAuth();
+  const { updateIntents, updateRitualTime } = useProfile(user?.id);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const intents = route.params?.intents ?? ['clarity'];
+  const ritualTime = route.params?.ritualTime ?? '07:30 AM';
+
+  const handleOpenApp = async () => {
+    setIsLoading(true);
+    try {
+      await updateRitualTime(ritualTime, true);
+      // Save intents last — this triggers RootNavigator to switch to MainNavigator
+      const result = await updateIntents(intents.length > 0 ? intents : ['clarity']);
+      if (result?.error) {
+        Alert.alert('Error', 'Could not save your preferences. Please try again.');
+        setIsLoading(false);
+      }
+      // RootNavigator will auto-switch to Main when profile.onboarding_intents is set
+    } catch {
+      Alert.alert('Error', 'Something went wrong. Please try again.');
+      setIsLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
@@ -60,8 +86,9 @@ export function AllSetScreen({ navigation }: any) {
         </View>
 
         <Button
-          title={'Open FieldSong  \u2192'}
-          onPress={() => navigation.getParent()?.reset({ index: 0, routes: [{ name: 'Main' }] })}
+          title={isLoading ? 'Loading...' : 'Open FieldSong'}
+          onPress={handleOpenApp}
+          disabled={isLoading}
           style={styles.openButton}
         />
         <Text style={styles.dayLabel}>DAY 1 OF YOUR CLARITY PRACTICE</Text>

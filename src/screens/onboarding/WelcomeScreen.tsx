@@ -22,7 +22,7 @@ export function WelcomeScreen({ navigation }: any) {
         <View style={styles.bottomLine} />
         <Text style={styles.footerBrand}>fieldsong.</Text>
         <Text style={styles.copyright}>
-          {'\u00A9 2024 FIELDSONG ARCHIVE. ALL RIGHTS RESERVED.'}
+          {'\u00A9 2026 FIELDSONG ARCHIVE. ALL RIGHTS RESERVED.'}
         </Text>
       </View>
     </SafeAreaView>

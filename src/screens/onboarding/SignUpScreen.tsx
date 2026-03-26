@@ -13,6 +13,7 @@ import { StatusBar } from 'expo-status-bar';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
+import { supabase } from '../../config/supabase';
 
 export function SignUpScreen({ navigation, route }: any) {
   const { signUp, signIn } = useAuth();
@@ -20,6 +21,9 @@ export function SignUpScreen({ navigation, route }: any) {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
+
+  const intents = route.params?.intents ?? [];
+  const ritualTime = route.params?.ritualTime ?? '';
 
   const handleSubmit = async () => {
     if (!email || !password) {
@@ -34,7 +38,14 @@ export function SignUpScreen({ navigation, route }: any) {
     if (error) {
       Alert.alert('Error', error.message);
     } else {
-      navigation.navigate('AllSet');
+      navigation.navigate('AllSet', { intents, ritualTime });
+    }
+  };
+
+  const handleOAuth = async (provider: 'apple' | 'google') => {
+    const { error } = await supabase.auth.signInWithOAuth({ provider });
+    if (error) {
+      Alert.alert('OAuth not configured yet. Please use email signup.');
     }
   };
 
@@ -42,11 +53,7 @@ export function SignUpScreen({ navigation, route }: any) {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.backArrow}>{'\u2190'}</Text>
-        </TouchableOpacity>
         <Text style={styles.headerTitle}>fieldsong</Text>
-        <View style={{ width: 24 }} />
       </View>
       <ScrollView
         style={styles.scrollContent}
@@ -54,15 +61,15 @@ export function SignUpScreen({ navigation, route }: any) {
         keyboardShouldPersistTaps="handled"
       >
         <Text style={styles.step}>STEP 02 OF 03</Text>
-        <Text style={styles.headline}>Create your{'\n'}space.</Text>
+        <Text style={styles.headline}>Create your{'\n'}account.</Text>
         <Text style={styles.description}>
-          A sanctuary for your thoughts and digital curation.
+          Your practice, your journal, your data. Private by default.
         </Text>
 
-        <TouchableOpacity style={styles.oauthButton} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.oauthButton} activeOpacity={0.7} onPress={() => handleOAuth('apple')}>
           <Text style={styles.oauthText}>Continue with Apple</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.oauthButton} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.oauthButton} activeOpacity={0.7} onPress={() => handleOAuth('google')}>
           <Text style={styles.oauthText}>Continue with Google</Text>
         </TouchableOpacity>
 
@@ -131,15 +138,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
   },
   header: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.md,
-  },
-  backArrow: {
-    fontSize: 24,
-    color: colors.textPrimary,
   },
   headerTitle: {
     fontFamily: fonts.serif.italic,

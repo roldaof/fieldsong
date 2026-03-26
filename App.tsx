@@ -128,7 +128,7 @@ function RootNavigator() {
   }
 
   const hasCompletedOnboarding =
-    !!user && !!profile?.onboarding_intents && profile.onboarding_intents.length > 0;
+    !!user && profile?.onboarding_intents != null;
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>

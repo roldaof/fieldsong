@@ -13,12 +13,12 @@ import { Button } from '../../components/Button';
 import { Intent } from '../../types';
 
 const INTENT_OPTIONS: { intent: Intent; label: string; icon: string }[] = [
-  { intent: 'clarity', label: 'Clarity in\ndecisions', icon: '\uD83D\uDC41' },
-  { intent: 'courage', label: 'Courage to act', icon: '\u26A1' },
-  { intent: 'patience', label: 'Patience with\nuncertainty', icon: '\u23F3' },
-  { intent: 'acceptance', label: "Acceptance of\nwhat I can't\ncontrol", icon: '\u270B' },
-  { intent: 'discipline', label: 'Discipline and\nfocus', icon: '\uD83C\uDFAF' },
-  { intent: 'perspective', label: 'Perspective on\nwhat matters', icon: '\u26F0\uFE0F' },
+  { intent: 'clarity', label: 'Clarity in\ndecisions', icon: '\u25C7' },
+  { intent: 'courage', label: 'Courage to act', icon: '\u2191' },
+  { intent: 'patience', label: 'Patience with\nuncertainty', icon: '\u25CB' },
+  { intent: 'acceptance', label: "Acceptance of\nwhat I can't\ncontrol", icon: '\u221E' },
+  { intent: 'discipline', label: 'Discipline and\nfocus', icon: '\u25C9' },
+  { intent: 'perspective', label: 'Perspective on\nwhat matters', icon: '\u25B3' },
 ];
 
 export function IntentQuizScreen({ navigation }: any) {
@@ -36,11 +36,7 @@ export function IntentQuizScreen({ navigation }: any) {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.backArrow}>{'\u2190'}</Text>
-        </TouchableOpacity>
         <Text style={styles.headerTitle}>fieldsong</Text>
-        <View style={{ width: 24 }} />
       </View>
       <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
         <Text style={styles.step}>STEP 1 OF 3</Text>
@@ -73,7 +69,7 @@ export function IntentQuizScreen({ navigation }: any) {
 
       <View style={styles.footer}>
         <Button
-          title={'CONTINUE  \u2192'}
+          title="Continue"
           onPress={() => navigation.navigate('RitualTime', { intents: selected })}
           disabled={selected.length === 0}
           style={styles.continueButton}
@@ -94,15 +90,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
   },
   header: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.md,
-  },
-  backArrow: {
-    fontSize: 24,
-    color: colors.textPrimary,
   },
   headerTitle: {
     fontFamily: fonts.serif.italic,
@@ -163,7 +153,8 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   cardIcon: {
-    fontSize: 20,
+    fontSize: 24,
+    color: colors.primary,
   },
   checkmark: {
     fontSize: 16,
