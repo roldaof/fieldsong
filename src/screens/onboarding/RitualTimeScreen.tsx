@@ -6,28 +6,44 @@ import {
   TouchableOpacity,
   Switch,
   ScrollView,
+  Platform,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
 
 export function RitualTimeScreen({ navigation, route }: any) {
   const insets = useSafeAreaInsets();
   const intents = route.params?.intents ?? [];
-  const [hour, setHour] = useState(7);
-  const [minute, setMinute] = useState(30);
-  const [period, setPeriod] = useState<'AM' | 'PM'>('AM');
+
+  const defaultTime = new Date();
+  defaultTime.setHours(7, 0, 0, 0);
+  const [time, setTime] = useState(defaultTime);
+  const [showPicker, setShowPicker] = useState(Platform.OS === 'ios');
   const [emailReminder, setEmailReminder] = useState(true);
 
-  const formatTime = () => {
-    const h = hour.toString().padStart(2, '0');
-    const m = minute.toString().padStart(2, '0');
-    return `${h}:${m} ${period}`;
+  const onTimeChange = (_event: DateTimePickerEvent, selectedTime?: Date) => {
+    if (Platform.OS === 'android') {
+      setShowPicker(false);
+    }
+    if (selectedTime) {
+      setTime(selectedTime);
+    }
   };
 
-  const cycleHour = () => setHour((prev) => (prev % 12) + 1);
-  const cycleMinute = () => setMinute((prev) => (prev + 5) % 60);
+  const formatTime = () => {
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const displayHour = hours % 12 || 12;
+    return `${displayHour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`;
+  };
+
+  const displayHour = (time.getHours() % 12 || 12).toString().padStart(2, '0');
+  const displayMinute = time.getMinutes().toString().padStart(2, '0');
+  const displayPeriod = time.getHours() >= 12 ? 'PM' : 'AM';
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
@@ -40,39 +56,30 @@ export function RitualTimeScreen({ navigation, route }: any) {
           When shall we{'\n'}meet?
         </Text>
         <Text style={styles.description}>
-          Choose a moment in your daily journey to pause and reflect with the fields.
+          Choose a moment in your day to pause and reflect.
         </Text>
 
-        <View style={styles.timePickerRow}>
-          <TouchableOpacity style={styles.timeBox} onPress={cycleHour} activeOpacity={0.7}>
-            <Text style={styles.timeValue}>{hour.toString().padStart(2, '0')}</Text>
-            <Text style={styles.timeLabel}>HOUR</Text>
-          </TouchableOpacity>
-          <Text style={styles.timeSeparator}>:</Text>
-          <TouchableOpacity style={styles.timeBox} onPress={cycleMinute} activeOpacity={0.7}>
-            <Text style={styles.timeValue}>{minute.toString().padStart(2, '0')}</Text>
-            <Text style={styles.timeLabel}>MINUTE</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={styles.timeDisplay}
+          onPress={() => setShowPicker(true)}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.timeText}>{displayHour}:{displayMinute}</Text>
+          <Text style={styles.periodText}>{displayPeriod}</Text>
+        </TouchableOpacity>
 
-        <View style={styles.periodRow}>
-          <TouchableOpacity
-            style={[styles.periodButton, period === 'AM' && styles.periodActive]}
-            onPress={() => setPeriod('AM')}
-          >
-            <Text style={[styles.periodText, period === 'AM' && styles.periodTextActive]}>
-              AM
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.periodButton, period === 'PM' && styles.periodActive]}
-            onPress={() => setPeriod('PM')}
-          >
-            <Text style={[styles.periodText, period === 'PM' && styles.periodTextActive]}>
-              PM
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.tapHint}>Tap to change</Text>
+
+        {showPicker && (
+          <DateTimePicker
+            value={time}
+            mode="time"
+            is24Hour={false}
+            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+            onChange={onTimeChange}
+            themeVariant="dark"
+          />
+        )}
 
         <View style={styles.emailRow}>
           <View style={styles.emailTextContainer}>
@@ -91,8 +98,9 @@ export function RitualTimeScreen({ navigation, route }: any) {
 
         <View style={styles.quoteCard}>
           <Text style={styles.quoteText}>
-            {'\u201CIt\u2019s not at all that we have too short a time to live, but that we squander a great deal of it.\u201D \u2014 Seneca, On the Brevity of Life'}
+            {'\u201CIt\u2019s not at all that we have too short a time to live, but that we squander a great deal of it.\u201D'}
           </Text>
+          <Text style={styles.quoteAttribution}>Seneca, On the Brevity of Life</Text>
         </View>
       </ScrollView>
 
@@ -146,58 +154,29 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     marginBottom: spacing['3xl'],
   },
-  timePickerRow: {
+  timeDisplay: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'baseline',
     justifyContent: 'center',
-    marginBottom: spacing.xl,
+    marginBottom: spacing.sm,
     gap: spacing.md,
   },
-  timeBox: {
-    backgroundColor: colors.surfaceContainerHigh,
-    borderRadius: borderRadius.lg,
-    paddingVertical: spacing.xl,
-    paddingHorizontal: spacing['3xl'],
-    alignItems: 'center',
-    minWidth: 100,
-  },
-  timeValue: {
+  timeText: {
     fontFamily: fonts.sans.bold,
-    fontSize: 40,
-    color: colors.textPrimary,
-  },
-  timeLabel: {
-    ...typography.labelSm,
-    color: colors.textMuted,
-    marginTop: spacing.xs,
-  },
-  timeSeparator: {
-    fontFamily: fonts.sans.bold,
-    fontSize: 40,
-    color: colors.textPrimary,
-  },
-  periodRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: spacing.xs,
-    marginBottom: spacing['3xl'],
-  },
-  periodButton: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.xl,
-    borderRadius: borderRadius.full,
-    backgroundColor: colors.surfaceContainerHigh,
-  },
-  periodActive: {
-    backgroundColor: colors.surfaceContainerHighest,
+    fontSize: 56,
+    color: colors.primary,
   },
   periodText: {
     fontFamily: fonts.sans.medium,
-    fontSize: 14,
+    fontSize: 24,
     color: colors.textSecondary,
   },
-  periodTextActive: {
-    color: colors.textPrimary,
+  tapHint: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
+    marginBottom: spacing['3xl'],
   },
   emailRow: {
     flexDirection: 'row',
@@ -231,6 +210,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: colors.textSecondary,
+    marginBottom: spacing.sm,
+  },
+  quoteAttribution: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
   },
   footer: {
     alignItems: 'center',
