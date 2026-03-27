@@ -62,14 +62,12 @@ function MainNavigator() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           backgroundColor: colors.surfaceContainerLow,
           borderTopWidth: 0,
           elevation: 0,
           paddingTop: 8,
-          height: 'auto' as any,
-          minHeight: 64,
-          paddingBottom: 12,
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textMuted,
