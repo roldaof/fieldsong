@@ -33,6 +33,11 @@ export function FeedbackWidget({ onFeedback }: FeedbackWidgetProps) {
           <Text style={styles.emoji}>{'\uD83D\uDC4E'}</Text>
         </TouchableOpacity>
       </View>
+      {selected && (
+        <Text style={styles.selectedText}>
+          {selected === 'up' ? 'Thanks! Glad it resonated.' : 'Noted. Tomorrow will be better.'}
+        </Text>
+      )}
     </View>
   );
 }
@@ -52,17 +57,26 @@ const styles = StyleSheet.create({
     gap: spacing.xl,
   },
   button: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: colors.surfaceContainerHigh,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'transparent',
   },
   buttonSelected: {
     backgroundColor: colors.surfaceContainerHighest,
+    borderColor: colors.primary,
   },
   emoji: {
     fontSize: 24,
+  },
+  selectedText: {
+    fontFamily: 'Manrope_400Regular',
+    fontSize: 13,
+    color: colors.textSecondary,
+    marginTop: spacing.md,
   },
 });
