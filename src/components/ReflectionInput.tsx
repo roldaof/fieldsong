@@ -29,9 +29,14 @@ export function ReflectionInput({ prompt, onSave, maxLength = 280 }: ReflectionI
         maxLength={maxLength}
         value={text}
         onChangeText={setText}
-        placeholder="Write here... or reply to your morning email"
+        placeholder="Write your thoughts here..."
         placeholderTextColor={colors.textMuted}
         textAlignVertical="top"
+        autoComplete="off"
+        autoCorrect={true}
+        importantForAutofill="no"
+        textContentType="none"
+        keyboardType="default"
       />
       <View style={styles.footer}>
         <Text style={styles.charCount}>

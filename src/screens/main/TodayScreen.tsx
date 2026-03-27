@@ -7,9 +7,12 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, typography } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
@@ -32,7 +35,7 @@ export function TodayScreen() {
     useVerse();
   const [selectedIntent, setSelectedIntent] = useState<Intent>('clarity');
   const [bookmarked, setBookmarked] = useState(false);
-  const dayCount = profile?.practice_day_count ?? 1;
+  const dayCount = Math.max(profile?.practice_day_count ?? 0, 1);
 
   useEffect(() => {
     if (profile?.onboarding_intents?.length) {
@@ -88,15 +91,25 @@ export function TodayScreen() {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <KeyboardAvoidingView
+      style={[styles.container, { paddingTop: insets.top }]}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+    >
       <StatusBar style="light" />
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
         <View style={styles.header}>
           <Text style={styles.headerTitle}>fieldsong</Text>
           <TouchableOpacity onPress={handleBookmark} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
-            <Text style={[styles.bookmarkIcon, bookmarked && styles.bookmarkActive]}>
-              {bookmarked ? '\u2605' : '\u2606'}
-            </Text>
+            <Ionicons
+              name={bookmarked ? 'bookmark' : 'bookmark-outline'}
+              size={24}
+              color={bookmarked ? colors.primary : colors.textSecondary}
+            />
           </TouchableOpacity>
         </View>
 
@@ -139,7 +152,7 @@ export function TodayScreen() {
           </>
         )}
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
