@@ -122,9 +122,7 @@ export function SignUpScreen({ navigation, route }: any) {
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.footerQuote}>
-          {'\u201CThe slow path is the surest way home.\u201D'}
-        </Text>
+
       </ScrollView>
     </View>
   );
