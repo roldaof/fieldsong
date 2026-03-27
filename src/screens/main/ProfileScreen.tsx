@@ -13,12 +13,36 @@ import { colors, fonts, spacing, typography, borderRadius } from '../../config/t
 import { useAuth } from '../../hooks/useAuth';
 import { useProfile } from '../../hooks/useProfile';
 import { Button } from '../../components/Button';
+import { supabase } from '../../config/supabase';
+
+function formatTimeDisplay(time: string | null | undefined): string {
+  if (!time) return '7:00 AM';
+  // Handle "HH:MM:SS" format from Postgres TIME column
+  const match = time.match(/^(\d{1,2}):(\d{2})/);
+  if (!match) return time;
+  const hour = parseInt(match[1], 10);
+  const minute = match[2];
+  const period = hour >= 12 ? 'PM' : 'AM';
+  const displayHour = hour % 12 || 12;
+  return `${displayHour}:${minute} ${period}`;
+}
 
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const { user, signOut } = useAuth();
   const { profile } = useProfile(user?.id);
   const [quietHours, setQuietHours] = useState(false);
+
+  const dayCount = Math.max(profile?.practice_day_count ?? 0, 1);
+
+  const handleQuietHoursToggle = async (value: boolean) => {
+    setQuietHours(value);
+    if (user?.id) {
+      // Store quiet hours preference in profile
+      // For MVP, this just controls the local UI state
+      // When email pipeline is added, this will suppress email delivery
+    }
+  };
 
   const handleSignOut = () => {
     Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
@@ -31,12 +55,12 @@ export function ProfileScreen() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.headerTitle}>Profile</Text>
+        <Text style={styles.headerTitle}>fieldsong</Text>
 
         <View style={styles.statsCard}>
           <View style={styles.statRow}>
             <Text style={styles.statLabel}>PRACTICE DAYS</Text>
-            <Text style={styles.statValue}>{profile?.practice_day_count ?? 0}</Text>
+            <Text style={styles.statValue}>{dayCount}</Text>
           </View>
           <View style={styles.statRow}>
             <Text style={styles.statLabel}>SUBSCRIPTION</Text>
@@ -51,9 +75,9 @@ export function ProfileScreen() {
 
           <View style={styles.settingRow}>
             <View>
-              <Text style={styles.settingLabel}>Notification time</Text>
+              <Text style={styles.settingLabel}>Daily verse time</Text>
               <Text style={styles.settingValue}>
-                {profile?.preferred_send_time ?? '7:30 AM'}
+                {formatTimeDisplay(profile?.preferred_send_time)}
               </Text>
             </View>
           </View>
@@ -62,12 +86,12 @@ export function ProfileScreen() {
             <View style={styles.settingTextWrap}>
               <Text style={styles.settingLabel}>Quiet hours</Text>
               <Text style={styles.settingSubtext}>
-                Pause notifications temporarily
+                Pause notifications between 10 PM and 7 AM
               </Text>
             </View>
             <Switch
               value={quietHours}
-              onValueChange={setQuietHours}
+              onValueChange={handleQuietHoursToggle}
               trackColor={{ false: colors.surfaceContainerHigh, true: colors.primary }}
               thumbColor={colors.textPrimary}
             />
@@ -101,9 +125,10 @@ const styles = StyleSheet.create({
     paddingBottom: spacing['4xl'],
   },
   headerTitle: {
-    fontFamily: fonts.serif.semiBold,
-    fontSize: 28,
-    color: colors.textPrimary,
+    fontFamily: fonts.serif.italic,
+    fontSize: 20,
+    color: colors.primary,
+    textAlign: 'center',
     marginVertical: spacing.lg,
   },
   statsCard: {
