@@ -24,7 +24,7 @@ export function RitualTimeScreen({ navigation, route }: any) {
   const [showPicker, setShowPicker] = useState(Platform.OS === 'ios');
   const [emailReminder, setEmailReminder] = useState(true);
 
-  const onTimeChange = (_event: DateTimePickerEvent, selectedTime?: Date) => {
+  const onTimeChange = (_event: any, selectedTime: Date) => {
     if (Platform.OS === 'android') {
       setShowPicker(false);
     }
@@ -77,7 +77,7 @@ export function RitualTimeScreen({ navigation, route }: any) {
             mode="time"
             is24Hour={false}
             display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-            onChange={onTimeChange}
+            onValueChange={onTimeChange}
             themeVariant="dark"
           />
         )}
