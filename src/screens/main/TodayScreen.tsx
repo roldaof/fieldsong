@@ -18,7 +18,7 @@ import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
 import { useVerse } from '../../hooks/useVerse';
 import { useProfile } from '../../hooks/useProfile';
-import { IntentPills } from '../../components/IntentPills';
+
 import { VerseCard } from '../../components/VerseCard';
 import { InterpretationCard } from '../../components/InterpretationCard';
 import { StoicCard } from '../../components/StoicCard';
@@ -33,15 +33,9 @@ export function TodayScreen() {
   const { profile } = useProfile(user?.id);
   const { verse, loading, fetchTodayVerse, bookmarkVerse, removeBookmark, isBookmarked } =
     useVerse();
-  const [selectedIntent, setSelectedIntent] = useState<Intent>('clarity');
+  const selectedIntent: Intent = profile?.onboarding_intents?.[0] ?? 'clarity';
   const [bookmarked, setBookmarked] = useState(false);
   const dayCount = Math.max(profile?.practice_day_count ?? 0, 1);
-
-  useEffect(() => {
-    if (profile?.onboarding_intents?.length) {
-      setSelectedIntent(profile.onboarding_intents[0]);
-    }
-  }, [profile]);
 
   useEffect(() => {
     if (user?.id && selectedIntent) {
@@ -130,11 +124,7 @@ export function TodayScreen() {
         <Text style={styles.dayLabel}>
           DAY {dayCount} OF YOUR CLARITY PRACTICE
         </Text>
-        <Text style={styles.headline}>
-          What do you need{'\n'}most today?
-        </Text>
 
-        <IntentPills selected={selectedIntent} onSelect={setSelectedIntent} />
 
         {loading && (
           <View style={styles.loadingContainer}>
