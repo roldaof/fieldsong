@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, findNodeHandle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors, fonts, spacing, typography, borderRadius, gradients } from '../config/theme';
 
@@ -37,6 +37,8 @@ export function ReflectionInput({ prompt, onSave, maxLength = 280 }: ReflectionI
         importantForAutofill="no"
         textContentType="none"
         keyboardType="default"
+        scrollEnabled={false}
+        blurOnSubmit={false}
       />
       <View style={styles.footer}>
         <Text style={styles.charCount}>

@@ -83,11 +83,23 @@ export function TodayScreen() {
 
   const handleFeedback = async (value: 'up' | 'down') => {
     if (!user?.id || !verse) return;
-    await supabase
-      .from('daily_entries')
-      .update({ match_quality: value })
-      .eq('user_id', user.id)
-      .eq('verse_id', verse.id);
+    const quality = value === 'up' ? 1 : -1;
+    // Upsert: create entry if it doesn't exist, update if it does
+    const { error } = await supabase.from('daily_entries').upsert({
+      user_id: user.id,
+      verse_id: verse.id,
+      intent_selected: selectedIntent,
+      match_quality: quality,
+    }, { onConflict: 'user_id,verse_id' }).select();
+    // If upsert fails (no unique constraint), try insert then update
+    if (error) {
+      await supabase.from('daily_entries').insert({
+        user_id: user.id,
+        verse_id: verse.id,
+        intent_selected: selectedIntent,
+        match_quality: quality,
+      });
+    }
   };
 
   return (
