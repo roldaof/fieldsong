@@ -36,9 +36,12 @@ import { TodayScreen } from './src/screens/main/TodayScreen';
 import { JournalScreen } from './src/screens/main/JournalScreen';
 import { SavedScreen } from './src/screens/main/SavedScreen';
 import { ProfileScreen } from './src/screens/main/ProfileScreen';
+import { JourneysScreen } from './src/screens/main/JourneysScreen';
+import { JourneyDayScreen } from './src/screens/main/JourneyDayScreen';
 
 const RootStack = createNativeStackNavigator();
 const OnboardingStack = createNativeStackNavigator();
+const MainStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function OnboardingNavigator() {
@@ -61,7 +64,7 @@ function OnboardingNavigator() {
   );
 }
 
-function MainNavigator() {
+function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -116,6 +119,21 @@ function MainNavigator() {
         }}
       />
     </Tab.Navigator>
+  );
+}
+
+function MainNavigator() {
+  return (
+    <MainStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: colors.surface },
+      }}
+    >
+      <MainStack.Screen name="Tabs" component={TabNavigator} />
+      <MainStack.Screen name="Journeys" component={JourneysScreen} />
+      <MainStack.Screen name="JourneyDay" component={JourneyDayScreen} />
+    </MainStack.Navigator>
   );
 }
 

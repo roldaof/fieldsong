@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "Overcoming Fear",
+    "subtitle": "Act despite uncertainty",
+    "description": "Seven verses on courage, facing difficulty, and choosing action when everything in you wants to retreat. Each day builds your capacity to move through fear rather than around it.",
+    "verse_ids": [3, 33, 39, 48, 78, 95, 61],
+    "duration_days": 7,
+    "is_premium": true
+  },
+  {
+    "id": 2,
+    "title": "Letting Go",
+    "subtitle": "Release what you cannot control",
+    "description": "Seven verses on acceptance, detachment from outcomes, and the quiet power of surrender. Learn to hold your plans loosely and find peace in what unfolds.",
+    "verse_ids": [10, 64, 68, 84, 98, 6, 74],
+    "duration_days": 7,
+    "is_premium": true
+  },
+  {
+    "id": 3,
+    "title": "Finding Purpose",
+    "subtitle": "Walk your own path",
+    "description": "Seven verses on duty, authenticity, and the courage to follow your dharma. Stop comparing your chapter to someone else's and discover what is uniquely yours to do.",
+    "verse_ids": [28, 94, 11, 97, 50, 25, 22],
+    "duration_days": 7,
+    "is_premium": true
+  },
+  {
+    "id": 4,
+    "title": "The Steady Mind",
+    "subtitle": "Master your inner world",
+    "description": "Seven verses on discipline, emotional mastery, and meditation. Build the mental steadiness that lets you respond rather than react, no matter what arises.",
+    "verse_ids": [17, 45, 47, 46, 91, 44, 52],
+    "duration_days": 7,
+    "is_premium": true
+  },
+  {
+    "id": 5,
+    "title": "Duty vs Desire",
+    "subtitle": "Choose the hard right",
+    "description": "Seven verses on right action, selfless service, and the discipline of choosing what matters over what feels good. The path of karma yoga in daily life.",
+    "verse_ids": [13, 14, 24, 88, 83, 21, 23],
+    "duration_days": 7,
+    "is_premium": true
+  }
+]

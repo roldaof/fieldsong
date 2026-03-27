@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import {
   View,
   Text,
@@ -6,31 +6,46 @@ import {
   FlatList,
   TouchableOpacity,
   RefreshControl,
+  TextInput,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
+import { useProfile } from '../../hooks/useProfile';
 import { DailyEntry } from '../../types';
 
 export function JournalScreen() {
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
+  const { profile } = useProfile(user?.id);
   const [entries, setEntries] = useState<DailyEntry[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [searchText, setSearchText] = useState('');
+
+  const isPaid = profile?.subscription_tier !== 'free';
 
   const fetchEntries = useCallback(async () => {
     if (!user?.id) return;
-    const { data } = await supabase
+    let query = supabase
       .from('daily_entries')
       .select('*, verse:verses(*)')
       .eq('user_id', user.id)
       .not('reflection_text', 'is', null)
       .order('created_at', { ascending: false });
+
+    if (!isPaid) {
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      query = query.gte('created_at', thirtyDaysAgo.toISOString());
+    }
+
+    const { data } = await query;
     if (data) setEntries(data);
-  }, [user?.id]);
+  }, [user?.id, isPaid]);
 
   useEffect(() => {
     fetchEntries();
@@ -41,6 +56,14 @@ export function JournalScreen() {
     await fetchEntries();
     setRefreshing(false);
   };
+
+  const filteredEntries = useMemo(() => {
+    if (!isPaid || !searchText.trim()) return entries;
+    const term = searchText.toLowerCase();
+    return entries.filter(
+      (e) => e.reflection_text && e.reflection_text.toLowerCase().includes(term),
+    );
+  }, [entries, searchText, isPaid]);
 
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -88,8 +111,27 @@ export function JournalScreen() {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Journal</Text>
       </View>
+      {isPaid && (
+        <View style={styles.searchContainer}>
+          <Ionicons name="search-outline" size={18} color={colors.textMuted} style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search reflections..."
+            placeholderTextColor={colors.textMuted}
+            value={searchText}
+            onChangeText={setSearchText}
+            returnKeyType="search"
+            autoCorrect={false}
+          />
+          {searchText.length > 0 && (
+            <TouchableOpacity onPress={() => setSearchText('')} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+              <Ionicons name="close-circle" size={18} color={colors.textMuted} />
+            </TouchableOpacity>
+          )}
+        </View>
+      )}
       <FlatList
-        data={entries}
+        data={filteredEntries}
         renderItem={renderEntry}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
@@ -106,6 +148,15 @@ export function JournalScreen() {
               Your reflections will appear here after your first ritual.
             </Text>
           </View>
+        }
+        ListFooterComponent={
+          !isPaid && entries.length > 0 ? (
+            <View style={styles.upgradeFooter}>
+              <Text style={styles.upgradeText}>
+                Upgrade to FieldSong+ for your complete journal history
+              </Text>
+            </View>
+          ) : null
         }
       />
     </View>
@@ -125,6 +176,27 @@ const styles = StyleSheet.create({
     fontFamily: fonts.serif.semiBold,
     fontSize: 28,
     color: colors.textPrimary,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surfaceContainerLow,
+    borderRadius: borderRadius.md,
+    marginHorizontal: spacing.xl,
+    marginBottom: spacing.lg,
+    paddingHorizontal: spacing.lg,
+    height: 44,
+  },
+  searchIcon: {
+    marginRight: spacing.sm,
+  },
+  searchInput: {
+    flex: 1,
+    fontFamily: fonts.sans.regular,
+    fontSize: 15,
+    color: colors.textPrimary,
+    height: 44,
+    padding: 0,
   },
   list: {
     paddingHorizontal: spacing.xl,
@@ -182,5 +254,16 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     textAlign: 'center',
     paddingHorizontal: spacing['3xl'],
+  },
+  upgradeFooter: {
+    paddingVertical: spacing.xl,
+    paddingHorizontal: spacing.lg,
+    alignItems: 'center',
+  },
+  upgradeText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
   },
 });

@@ -2,6 +2,8 @@ import { useState, useCallback, useRef } from 'react';
 import { supabase } from '../config/supabase';
 import { Verse, Intent } from '../types';
 
+const FREE_BOOKMARK_LIMIT = 5;
+
 export function useVerse() {
   const [verse, setVerse] = useState<Verse | null>(null);
   const [loading, setLoading] = useState(false);
@@ -70,7 +72,22 @@ export function useVerse() {
     }
   }, [verse]);
 
-  const bookmarkVerse = useCallback(async (userId: string, verseId: number) => {
+  const bookmarkVerse = useCallback(async (
+    userId: string,
+    verseId: number,
+    subscriptionTier: string = 'free',
+  ) => {
+    if (subscriptionTier === 'free') {
+      const { count } = await supabase
+        .from('verse_bookmarks')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', userId);
+
+      if (count != null && count >= FREE_BOOKMARK_LIMIT) {
+        return { error: { message: 'Upgrade to FieldSong+ for unlimited bookmarks' } };
+      }
+    }
+
     const { error } = await supabase
       .from('verse_bookmarks')
       .insert({ user_id: userId, verse_id: verseId });
@@ -96,5 +113,23 @@ export function useVerse() {
     return !!data;
   }, []);
 
-  return { verse, loading, error, fetchTodayVerse, bookmarkVerse, removeBookmark, isBookmarked };
+  const getBookmarkCount = useCallback(async (userId: string) => {
+    const { count } = await supabase
+      .from('verse_bookmarks')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', userId);
+    return count ?? 0;
+  }, []);
+
+  return {
+    verse,
+    loading,
+    error,
+    fetchTodayVerse,
+    bookmarkVerse,
+    removeBookmark,
+    isBookmarked,
+    getBookmarkCount,
+    FREE_BOOKMARK_LIMIT,
+  };
 }

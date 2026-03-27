@@ -12,14 +12,20 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
+import { useProfile } from '../../hooks/useProfile';
 import { VerseBookmark } from '../../types';
+
+const FREE_BOOKMARK_LIMIT = 5;
 
 export function SavedScreen() {
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
+  const { profile } = useProfile(user?.id);
   const [bookmarks, setBookmarks] = useState<VerseBookmark[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+
+  const isPaid = profile?.subscription_tier !== 'free';
 
   const fetchBookmarks = useCallback(async () => {
     if (!user?.id) return;
@@ -77,12 +83,21 @@ export function SavedScreen() {
     );
   };
 
+  const showLimitBanner = !isPaid && bookmarks.length >= FREE_BOOKMARK_LIMIT;
+
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Saved</Text>
       </View>
+      {showLimitBanner && (
+        <View style={styles.limitBanner}>
+          <Text style={styles.limitText}>
+            {FREE_BOOKMARK_LIMIT}/{FREE_BOOKMARK_LIMIT} bookmarks used. Upgrade for unlimited.
+          </Text>
+        </View>
+      )}
       <FlatList
         data={bookmarks}
         renderItem={renderBookmark}
@@ -120,6 +135,20 @@ const styles = StyleSheet.create({
     fontFamily: fonts.serif.semiBold,
     fontSize: 28,
     color: colors.textPrimary,
+  },
+  limitBanner: {
+    marginHorizontal: spacing.xl,
+    marginBottom: spacing.lg,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    backgroundColor: colors.surfaceContainerHigh,
+    borderRadius: borderRadius.md,
+  },
+  limitText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
   },
   list: {
     paddingHorizontal: spacing.xl,

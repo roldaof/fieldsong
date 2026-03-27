@@ -79,9 +79,35 @@ export type OnboardingStackParamList = {
   Paywall: { intents: Intent[] };
 };
 
+export interface Journey {
+  id: number;
+  title: string;
+  subtitle: string | null;
+  description: string | null;
+  verse_ids: number[];
+  duration_days: number;
+  is_premium: boolean;
+}
+
+export interface UserJourney {
+  id: string;
+  user_id: string;
+  journey_id: number;
+  current_day: number;
+  started_at: string;
+  completed_at: string | null;
+  journey?: Journey;
+}
+
 export type MainTabParamList = {
   Today: undefined;
   Journal: undefined;
   Saved: undefined;
   Profile: undefined;
+};
+
+export type MainStackParamList = {
+  Tabs: undefined;
+  JourneyDay: { journeyId: number; userJourneyId?: string };
+  Journeys: undefined;
 };
