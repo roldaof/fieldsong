@@ -24,7 +24,8 @@ export function SignUpScreen({ navigation, route }: any) {
   const [isSignIn, setIsSignIn] = useState(false);
 
   const intents = route.params?.intents ?? [];
-  const ritualTime = route.params?.ritualTime ?? '';
+  const verseId = route.params?.verseId ?? 0;
+  const reflectionText = route.params?.reflectionText ?? '';
 
   const handleSubmit = async () => {
     if (!email || !password) {
@@ -35,12 +36,29 @@ export function SignUpScreen({ navigation, route }: any) {
     const { error } = isSignIn
       ? await signIn(email, password)
       : await signUp(email, password);
-    setIsLoading(false);
     if (error) {
+      setIsLoading(false);
       Alert.alert('Error', error.message);
-    } else {
-      navigation.navigate('AllSet', { intents, ritualTime });
+      return;
     }
+    // Save the reflection from screen 5 as the user's first daily_entry
+    if (reflectionText && verseId) {
+      try {
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (authUser?.id) {
+          await supabase.from('daily_entries').insert({
+            user_id: authUser.id,
+            verse_id: verseId,
+            reflection_text: reflectionText,
+            intent_selected: intents.length > 0 ? intents[0] : 'clarity',
+          });
+        }
+      } catch {
+        // Non-blocking: don't fail signup if reflection save fails
+      }
+    }
+    setIsLoading(false);
+    navigation.navigate('Paywall', { intents });
   };
 
   const handleOAuth = async (provider: 'apple' | 'google') => {
@@ -61,7 +79,6 @@ export function SignUpScreen({ navigation, route }: any) {
         contentContainerStyle={styles.scrollInner}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={styles.step}>STEP 3 OF 3</Text>
         <Text style={styles.headline}>Create your{'\n'}account.</Text>
         <Text style={styles.description}>
           Your practice, your journal, your data. Private by default.
@@ -155,17 +172,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing['4xl'],
   },
-  step: {
-    ...typography.labelMd,
-    color: colors.textMuted,
-    marginTop: spacing.lg,
-    marginBottom: spacing.md,
-  },
   headline: {
     fontFamily: fonts.serif.italic,
     fontSize: 36,
     lineHeight: 44,
     color: colors.textPrimary,
+    marginTop: spacing.lg,
     marginBottom: spacing.md,
   },
   description: {

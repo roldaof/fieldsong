@@ -34,8 +34,7 @@ export function IntentQuizScreen({ navigation }: any) {
   };
 
   const handleSkip = () => {
-    const allIntents: Intent[] = ['clarity', 'courage', 'patience', 'acceptance', 'discipline', 'perspective'];
-    navigation.navigate('RitualTime', { intents: allIntents });
+    navigation.navigate('Mirror', { intents: [] });
   };
 
   return (
@@ -45,7 +44,9 @@ export function IntentQuizScreen({ navigation }: any) {
         <Text style={styles.headerTitle}>fieldsong</Text>
       </View>
       <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
-        <Text style={styles.step}>STEP 1 OF 3</Text>
+        <Text style={styles.problemFraming}>
+          For those mornings that start with scrolling instead of clarity.
+        </Text>
         <Text style={styles.headline}>
           What are you seeking{'\n'}most{' '}
           <Text style={styles.headlineGold}>right now?</Text>
@@ -77,7 +78,7 @@ export function IntentQuizScreen({ navigation }: any) {
       <View style={[styles.footer, { paddingBottom: insets.bottom + spacing.lg }]}>
         <Button
           title="Continue"
-          onPress={() => navigation.navigate('RitualTime', { intents: selected })}
+          onPress={() => navigation.navigate('Mirror', { intents: selected })}
           disabled={selected.length === 0}
           style={styles.continueButton}
         />
@@ -111,8 +112,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing['3xl'],
   },
-  step: {
-    ...typography.labelMd,
+  problemFraming: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
     color: colors.textMuted,
     marginTop: spacing.lg,
     marginBottom: spacing.md,

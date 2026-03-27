@@ -26,9 +26,11 @@ import { colors, fonts, typography } from './src/config/theme';
 
 import { WelcomeScreen } from './src/screens/onboarding/WelcomeScreen';
 import { IntentQuizScreen } from './src/screens/onboarding/IntentQuizScreen';
-import { RitualTimeScreen } from './src/screens/onboarding/RitualTimeScreen';
+import { MirrorScreen } from './src/screens/onboarding/MirrorScreen';
+import { FirstVerseScreen } from './src/screens/onboarding/FirstVerseScreen';
+import { MicroReflectionScreen } from './src/screens/onboarding/MicroReflectionScreen';
 import { SignUpScreen } from './src/screens/onboarding/SignUpScreen';
-import { AllSetScreen } from './src/screens/onboarding/AllSetScreen';
+import { PaywallScreen } from './src/screens/onboarding/PaywallScreen';
 
 import { TodayScreen } from './src/screens/main/TodayScreen';
 import { JournalScreen } from './src/screens/main/JournalScreen';
@@ -50,9 +52,11 @@ function OnboardingNavigator() {
     >
       <OnboardingStack.Screen name="Welcome" component={WelcomeScreen} />
       <OnboardingStack.Screen name="IntentQuiz" component={IntentQuizScreen} />
-      <OnboardingStack.Screen name="RitualTime" component={RitualTimeScreen} />
+      <OnboardingStack.Screen name="Mirror" component={MirrorScreen} />
+      <OnboardingStack.Screen name="FirstVerse" component={FirstVerseScreen} />
+      <OnboardingStack.Screen name="MicroReflection" component={MicroReflectionScreen} />
       <OnboardingStack.Screen name="SignUp" component={SignUpScreen} />
-      <OnboardingStack.Screen name="AllSet" component={AllSetScreen} />
+      <OnboardingStack.Screen name="Paywall" component={PaywallScreen} />
     </OnboardingStack.Navigator>
   );
 }

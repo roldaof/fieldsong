@@ -72,9 +72,11 @@ export type RootStackParamList = {
 export type OnboardingStackParamList = {
   Welcome: undefined;
   IntentQuiz: undefined;
-  RitualTime: { intents: Intent[] };
-  SignUp: { intents: Intent[]; ritualTime: string };
-  AllSet: undefined;
+  Mirror: { intents: Intent[] };
+  FirstVerse: { intents: Intent[] };
+  MicroReflection: { intents: Intent[]; verseId: number; reflectionPrompt: string };
+  SignUp: { intents: Intent[]; verseId: number; reflectionText: string };
+  Paywall: { intents: Intent[] };
 };
 
 export type MainTabParamList = {
