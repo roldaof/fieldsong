@@ -92,10 +92,10 @@ export function TodayScreen() {
       <StatusBar style="light" />
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>FieldSong</Text>
+          <Text style={styles.headerTitle}>fieldsong</Text>
           <TouchableOpacity onPress={handleBookmark} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
             <Text style={[styles.bookmarkIcon, bookmarked && styles.bookmarkActive]}>
-              {bookmarked ? '*' : '-'}
+              {bookmarked ? '\u2605' : '\u2606'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -162,10 +162,9 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
   },
   headerTitle: {
-    fontFamily: fonts.serif.bold,
-    fontSize: 24,
+    fontFamily: fonts.serif.italic,
+    fontSize: 20,
     color: colors.primary,
-    fontStyle: 'italic',
   },
   bookmarkIcon: {
     fontSize: 24,

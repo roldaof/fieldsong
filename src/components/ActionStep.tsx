@@ -9,7 +9,7 @@ interface ActionStepProps {
 export function ActionStep({ text }: ActionStepProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{'\uD83D\uDD25'} TRY THIS TODAY</Text>
+      <Text style={styles.label}>TRY THIS TODAY</Text>
       <Text style={styles.text}>{text}</Text>
     </View>
   );

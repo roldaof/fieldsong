@@ -1,5 +1,6 @@
 import React from 'react';
-import { ActivityIndicator, View, Text, StyleSheet } from 'react-native';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -65,9 +66,10 @@ function MainNavigator() {
           backgroundColor: colors.surfaceContainerLow,
           borderTopWidth: 0,
           elevation: 0,
-          paddingBottom: 8,
           paddingTop: 8,
-          height: 64,
+          height: 'auto' as any,
+          minHeight: 64,
+          paddingBottom: 12,
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textMuted,
@@ -84,7 +86,7 @@ function MainNavigator() {
         component={TodayScreen}
         options={{
           tabBarLabel: 'TODAY',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u2022'}</Text>,
+          tabBarIcon: ({ color, size }) => <Ionicons name="sunny-outline" size={size} color={color} />,
         }}
       />
       <Tab.Screen
@@ -92,7 +94,7 @@ function MainNavigator() {
         component={JournalScreen}
         options={{
           tabBarLabel: 'JOURNAL',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u2261'}</Text>,
+          tabBarIcon: ({ color, size }) => <Ionicons name="book-outline" size={size} color={color} />,
         }}
       />
       <Tab.Screen
@@ -100,7 +102,7 @@ function MainNavigator() {
         component={SavedScreen}
         options={{
           tabBarLabel: 'SAVED',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u2605'}</Text>,
+          tabBarIcon: ({ color, size }) => <Ionicons name="bookmark-outline" size={size} color={color} />,
         }}
       />
       <Tab.Screen
@@ -108,7 +110,7 @@ function MainNavigator() {
         component={ProfileScreen}
         options={{
           tabBarLabel: 'PROFILE',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u25CB'}</Text>,
+          tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
         }}
       />
     </Tab.Navigator>
