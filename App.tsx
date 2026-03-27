@@ -84,7 +84,7 @@ function MainNavigator() {
         component={TodayScreen}
         options={{
           tabBarLabel: 'TODAY',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u2600\uFE0F'}</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u2022'}</Text>,
         }}
       />
       <Tab.Screen
@@ -92,7 +92,7 @@ function MainNavigator() {
         component={JournalScreen}
         options={{
           tabBarLabel: 'JOURNAL',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\uD83D\uDCD6'}</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u2261'}</Text>,
         }}
       />
       <Tab.Screen
@@ -100,7 +100,7 @@ function MainNavigator() {
         component={SavedScreen}
         options={{
           tabBarLabel: 'SAVED',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\uD83D\uDD16'}</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u2605'}</Text>,
         }}
       />
       <Tab.Screen
@@ -108,7 +108,7 @@ function MainNavigator() {
         component={ProfileScreen}
         options={{
           tabBarLabel: 'PROFILE',
-          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\uD83D\uDC64'}</Text>,
+          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>{'\u25CB'}</Text>,
         }}
       />
     </Tab.Navigator>

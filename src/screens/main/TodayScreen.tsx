@@ -3,13 +3,13 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
   Alert,
   ActivityIndicator,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
@@ -25,13 +25,14 @@ import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { Intent } from '../../types';
 
 export function TodayScreen() {
+  const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const { profile } = useProfile(user?.id);
   const { verse, loading, fetchTodayVerse, bookmarkVerse, removeBookmark, isBookmarked } =
     useVerse();
   const [selectedIntent, setSelectedIntent] = useState<Intent>('clarity');
   const [bookmarked, setBookmarked] = useState(false);
-  const dayCount = profile?.day_count ?? 1;
+  const dayCount = profile?.practice_day_count ?? 1;
 
   useEffect(() => {
     if (profile?.onboarding_intents?.length) {
@@ -67,8 +68,8 @@ export function TodayScreen() {
     const { error } = await supabase.from('daily_entries').insert({
       user_id: user.id,
       verse_id: verse.id,
-      journal_text: text,
-      intent: selectedIntent,
+      reflection_text: text,
+      intent_selected: selectedIntent,
     });
     if (error) {
       Alert.alert('Error', 'Could not save your reflection.');
@@ -81,20 +82,20 @@ export function TodayScreen() {
     if (!user?.id || !verse) return;
     await supabase
       .from('daily_entries')
-      .update({ feedback: value })
+      .update({ match_quality: value })
       .eq('user_id', user.id)
       .eq('verse_id', verse.id);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>FieldSong</Text>
           <TouchableOpacity onPress={handleBookmark} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
             <Text style={[styles.bookmarkIcon, bookmarked && styles.bookmarkActive]}>
-              {bookmarked ? '\uD83D\uDD16' : '\uD83C\uDFF7\uFE0F'}
+              {bookmarked ? '*' : '-'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -121,9 +122,9 @@ export function TodayScreen() {
               sanskritLine={verse.sanskrit_line}
               translation={verse.translation}
               chapter={verse.chapter}
-              verse={verse.verse}
+              verseNumber={verse.verse_number}
             />
-            <InterpretationCard text={verse.in_plain_terms} />
+            <InterpretationCard text={verse.modern_interpretation} />
             <StoicCard
               quote={verse.stoic_parallel_quote}
               source={verse.stoic_parallel_source}
@@ -138,7 +139,7 @@ export function TodayScreen() {
           </>
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -168,9 +169,10 @@ const styles = StyleSheet.create({
   },
   bookmarkIcon: {
     fontSize: 24,
+    color: colors.textPrimary,
   },
   bookmarkActive: {
-    opacity: 1,
+    color: colors.primary,
   },
   dayLabel: {
     ...typography.labelMd,

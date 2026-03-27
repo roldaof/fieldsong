@@ -29,12 +29,27 @@ export function useProfile(userId: string | undefined) {
   const updateIntents = useCallback(
     async (intents: Intent[]) => {
       if (!userId) return { error: new Error('No user') };
-      const { error } = await supabase
+      console.log('updateIntents: userId=', userId, 'intents=', intents);
+      const { data, error, count } = await supabase
         .from('profiles')
         .update({ onboarding_intents: intents })
-        .eq('id', userId);
+        .eq('id', userId)
+        .select();
+      console.log('updateIntents result:', { data, error, count });
       if (error) {
-        console.warn('updateIntents error:', error.message);
+        console.warn('updateIntents error:', error.message, error.details, error.hint);
+      } else if (!data || data.length === 0) {
+        // RLS might be silently blocking - no rows matched
+        console.warn('updateIntents: no rows updated, RLS might be blocking');
+        // Try upsert as fallback
+        const { error: upsertError } = await supabase
+          .from('profiles')
+          .upsert({ id: userId, onboarding_intents: intents }, { onConflict: 'id' });
+        if (upsertError) {
+          console.warn('updateIntents upsert fallback error:', upsertError.message);
+          return { error: upsertError };
+        }
+        setProfile((prev) => (prev ? { ...prev, onboarding_intents: intents } : null));
       } else {
         setProfile((prev) => (prev ? { ...prev, onboarding_intents: intents } : null));
       }

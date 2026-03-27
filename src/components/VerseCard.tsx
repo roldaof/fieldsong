@@ -6,16 +6,16 @@ interface VerseCardProps {
   sanskritLine: string;
   translation: string;
   chapter: number;
-  verse: number;
+  verseNumber: number;
 }
 
-export function VerseCard({ sanskritLine, translation, chapter, verse }: VerseCardProps) {
+export function VerseCard({ sanskritLine, translation, chapter, verseNumber }: VerseCardProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.sanskrit}>{sanskritLine}</Text>
       <Text style={styles.translation}>{`\u201C${translation}\u201D`}</Text>
       <Text style={styles.reference}>
-        BHAGAVAD GITA {chapter}.{verse}
+        BHAGAVAD GITA {chapter}.{verseNumber}
       </Text>
     </View>
   );

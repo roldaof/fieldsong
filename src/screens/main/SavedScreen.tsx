@@ -3,18 +3,19 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   FlatList,
   TouchableOpacity,
   RefreshControl,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
 import { VerseBookmark } from '../../types';
 
 export function SavedScreen() {
+  const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const [bookmarks, setBookmarks] = useState<VerseBookmark[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -51,11 +52,11 @@ export function SavedScreen() {
         {item.verse && (
           <>
             <Text style={styles.ref}>
-              Bhagavad Gita {item.verse.chapter}.{item.verse.verse}
+              Bhagavad Gita {item.verse.chapter}.{item.verse.verse_number}
             </Text>
             <Text style={styles.sanskrit}>{item.verse.sanskrit_line}</Text>
             <Text style={styles.preview} numberOfLines={isExpanded ? undefined : 2}>
-              {item.verse.in_plain_terms}
+              {item.verse.modern_interpretation}
             </Text>
             {isExpanded && (
               <View style={styles.expanded}>
@@ -77,7 +78,7 @@ export function SavedScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Saved</Text>
@@ -102,7 +103,7 @@ export function SavedScreen() {
           </View>
         }
       />
-    </SafeAreaView>
+    </View>
   );
 }
 

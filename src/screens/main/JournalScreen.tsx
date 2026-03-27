@@ -3,18 +3,19 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   FlatList,
   TouchableOpacity,
   RefreshControl,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
 import { DailyEntry } from '../../types';
 
 export function JournalScreen() {
+  const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const [entries, setEntries] = useState<DailyEntry[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -60,11 +61,11 @@ export function JournalScreen() {
         <Text style={styles.entryDate}>{formatDate(item.created_at)}</Text>
         {item.verse && (
           <Text style={styles.entryRef}>
-            Bhagavad Gita {item.verse.chapter}.{item.verse.verse}
+            Bhagavad Gita {item.verse.chapter}.{item.verse.verse_number}
           </Text>
         )}
         <Text style={styles.entryPreview} numberOfLines={isExpanded ? undefined : 2}>
-          {item.journal_text || 'No reflection saved'}
+          {item.reflection_text || 'No reflection saved'}
         </Text>
         {isExpanded && item.verse && (
           <View style={styles.expandedContent}>
@@ -72,7 +73,7 @@ export function JournalScreen() {
               {`\u201C${item.verse.translation}\u201D`}
             </Text>
             <Text style={styles.expandedInterpretation}>
-              {item.verse.in_plain_terms}
+              {item.verse.modern_interpretation}
             </Text>
           </View>
         )}
@@ -81,7 +82,7 @@ export function JournalScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Journal</Text>
@@ -106,7 +107,7 @@ export function JournalScreen() {
           </View>
         }
       />
-    </SafeAreaView>
+    </View>
   );
 }
 

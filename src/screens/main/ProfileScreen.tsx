@@ -3,18 +3,19 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Switch,
   Alert,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { useAuth } from '../../hooks/useAuth';
 import { useProfile } from '../../hooks/useProfile';
 import { Button } from '../../components/Button';
 
 export function ProfileScreen() {
+  const insets = useSafeAreaInsets();
   const { user, signOut } = useAuth();
   const { profile } = useProfile(user?.id);
   const [quietHours, setQuietHours] = useState(false);
@@ -27,7 +28,7 @@ export function ProfileScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.headerTitle}>Profile</Text>
@@ -35,7 +36,7 @@ export function ProfileScreen() {
         <View style={styles.statsCard}>
           <View style={styles.statRow}>
             <Text style={styles.statLabel}>PRACTICE DAYS</Text>
-            <Text style={styles.statValue}>{profile?.day_count ?? 0}</Text>
+            <Text style={styles.statValue}>{profile?.practice_day_count ?? 0}</Text>
           </View>
           <View style={styles.statRow}>
             <Text style={styles.statLabel}>SUBSCRIPTION</Text>
@@ -52,23 +53,9 @@ export function ProfileScreen() {
             <View>
               <Text style={styles.settingLabel}>Notification time</Text>
               <Text style={styles.settingValue}>
-                {profile?.ritual_time ?? '7:30 AM'}
+                {profile?.preferred_send_time ?? '7:30 AM'}
               </Text>
             </View>
-          </View>
-
-          <View style={styles.settingRow}>
-            <View style={styles.settingTextWrap}>
-              <Text style={styles.settingLabel}>Email reminders</Text>
-              <Text style={styles.settingSubtext}>
-                Daily verse delivered to your inbox
-              </Text>
-            </View>
-            <Switch
-              value={profile?.email_reminders ?? false}
-              trackColor={{ false: colors.surfaceContainerHigh, true: colors.primary }}
-              thumbColor={colors.textPrimary}
-            />
           </View>
 
           <View style={styles.settingRow}>
@@ -100,7 +87,7 @@ export function ProfileScreen() {
 
         <Text style={styles.version}>FieldSong v1.0.0</Text>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

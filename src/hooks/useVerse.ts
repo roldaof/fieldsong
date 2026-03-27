@@ -16,7 +16,7 @@ export function useVerse() {
         p_intent: intent,
       });
       if (rpcError) throw rpcError;
-      if (data) setVerse(data);
+      if (data && data.length > 0) setVerse(data[0]);
     } catch (e: any) {
       setError(e.message);
       // Fallback: fetch a random verse

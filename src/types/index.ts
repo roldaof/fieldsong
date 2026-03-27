@@ -2,38 +2,56 @@ export type Intent = 'clarity' | 'courage' | 'patience' | 'acceptance' | 'discip
 
 export interface Verse {
   id: number;
-  verse_id: number;
   chapter: number;
-  verse: number;
+  verse_number: number;
   sanskrit_line: string;
   translation: string;
-  in_plain_terms: string;
+  modern_interpretation: string;
+  action_step: string;
+  reflection_prompt: string;
   stoic_parallel_quote: string;
   stoic_parallel_source: string;
   stoic_bridge: string;
-  action_step: string;
-  reflection_prompt: string;
+  intent_tags: string[] | null;
+  themes: string[] | null;
+  season_context: string | null;
+  priority: number | null;
+  why_selected: string | null;
+  is_curated: boolean | null;
+  stoic_quote_verified: boolean | null;
+  stoic_quote_note: string | null;
+  created_at: string;
 }
 
 export interface Profile {
   id: string;
-  user_id: string;
-  display_name: string | null;
-  onboarding_intents: Intent[];
-  ritual_time: string | null;
-  email_reminders: boolean;
-  day_count: number;
+  email: string | null;
+  name: string | null;
+  timezone: string | null;
+  preferred_send_time: string | null;
+  practice_day_count: number;
+  longest_practice: number | null;
   subscription_tier: 'free' | 'seeker';
+  onboarding_intents: Intent[];
+  push_token: string | null;
+  stripe_customer_id: string | null;
+  revenuecat_id: string | null;
+  subscription_active: boolean | null;
+  trial_ends_at: string | null;
+  subscription_ends_at: string | null;
   created_at: string;
+  updated_at: string | null;
 }
 
 export interface DailyEntry {
   id: string;
   user_id: string;
   verse_id: number;
-  journal_text: string | null;
-  intent: Intent;
-  feedback: 'up' | 'down' | null;
+  intent_selected: Intent | null;
+  reflection_text: string | null;
+  match_quality: 'up' | 'down' | null;
+  followup_question: string | null;
+  source_channel: string | null;
   created_at: string;
   verse?: Verse;
 }
