@@ -53,21 +53,16 @@ export function AllSetScreen({ navigation, route }: any) {
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>fieldsong</Text>
-        <Text style={styles.complete}>100% COMPLETE</Text>
       </View>
       <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
         <Text style={styles.headline}>
           Your first ritual{'\n'}awaits.
         </Text>
         <Text style={styles.description}>
-          Everything is ready for your first daily clarity session. We've curated a space
-          just for your thoughts.
+          Everything's ready. I'll be quiet for the first few days while I learn what resonates with you.
         </Text>
 
         <View style={styles.previewCard}>
-          <Text style={styles.previewLabel}>TODAY'S WISDOM</Text>
-          <Text style={styles.previewTitle}>Daily Ritual Preview</Text>
-
           <Text style={styles.sanskrit}>{PREVIEW_VERSE.sanskrit_line}</Text>
           <Text style={styles.translation}>
             {`\u201C${PREVIEW_VERSE.translation}\u201D`}
@@ -141,7 +136,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: colors.textSecondary,
     marginBottom: spacing['2xl'],
-    textAlign: 'center',
   },
   previewCard: {
     backgroundColor: colors.surfaceContainerLow,
