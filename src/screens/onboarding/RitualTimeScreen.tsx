@@ -3,16 +3,17 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
   Switch,
   ScrollView,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
 
 export function RitualTimeScreen({ navigation, route }: any) {
+  const insets = useSafeAreaInsets();
   const intents = route.params?.intents ?? [];
   const [hour, setHour] = useState(7);
   const [minute, setMinute] = useState(30);
@@ -29,7 +30,7 @@ export function RitualTimeScreen({ navigation, route }: any) {
   const cycleMinute = () => setMinute((prev) => (prev + 5) % 60);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>fieldsong</Text>
@@ -104,7 +105,7 @@ export function RitualTimeScreen({ navigation, route }: any) {
           style={styles.nextButton}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

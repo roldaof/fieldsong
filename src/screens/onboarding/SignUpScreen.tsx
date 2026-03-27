@@ -3,19 +3,20 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
   TextInput,
   ScrollView,
   Alert,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../config/supabase';
 
 export function SignUpScreen({ navigation, route }: any) {
+  const insets = useSafeAreaInsets();
   const { signUp, signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,7 +51,7 @@ export function SignUpScreen({ navigation, route }: any) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>fieldsong</Text>
@@ -125,7 +126,7 @@ export function SignUpScreen({ navigation, route }: any) {
           {'\u201CThe slow path is the surest way home.\u201D'}
         </Text>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

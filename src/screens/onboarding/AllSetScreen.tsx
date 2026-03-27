@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
@@ -22,6 +23,7 @@ const PREVIEW_VERSE = {
 };
 
 export function AllSetScreen({ navigation, route }: any) {
+  const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const { updateIntents, updateRitualTime } = useProfile(user?.id);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +49,7 @@ export function AllSetScreen({ navigation, route }: any) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>fieldsong</Text>
@@ -93,7 +95,7 @@ export function AllSetScreen({ navigation, route }: any) {
         />
         <Text style={styles.dayLabel}>DAY 1 OF YOUR CLARITY PRACTICE</Text>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -3,25 +3,26 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
 import { Intent } from '../../types';
 
-const INTENT_OPTIONS: { intent: Intent; label: string; icon: string }[] = [
-  { intent: 'clarity', label: 'Clarity in\ndecisions', icon: '\u25C7' },
-  { intent: 'courage', label: 'Courage to act', icon: '\u2191' },
-  { intent: 'patience', label: 'Patience with\nuncertainty', icon: '\u25CB' },
-  { intent: 'acceptance', label: "Acceptance of\nwhat I can't\ncontrol", icon: '\u221E' },
-  { intent: 'discipline', label: 'Discipline and\nfocus', icon: '\u25C9' },
-  { intent: 'perspective', label: 'Perspective on\nwhat matters', icon: '\u25B3' },
+const INTENT_OPTIONS: { intent: Intent; label: string }[] = [
+  { intent: 'clarity', label: 'Clarity in\ndecisions' },
+  { intent: 'courage', label: 'Courage\nto act' },
+  { intent: 'patience', label: 'Patience with\nuncertainty' },
+  { intent: 'acceptance', label: "Acceptance of\nwhat I can't control" },
+  { intent: 'discipline', label: 'Discipline\nand focus' },
+  { intent: 'perspective', label: 'Perspective on\nwhat matters' },
 ];
 
 export function IntentQuizScreen({ navigation }: any) {
+  const insets = useSafeAreaInsets();
   const [selected, setSelected] = useState<Intent[]>([]);
 
   const toggleIntent = (intent: Intent) => {
@@ -32,8 +33,13 @@ export function IntentQuizScreen({ navigation }: any) {
     });
   };
 
+  const handleSkip = () => {
+    const allIntents: Intent[] = ['clarity', 'courage', 'patience', 'acceptance', 'discipline', 'perspective'];
+    navigation.navigate('RitualTime', { intents: allIntents });
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>fieldsong</Text>
@@ -47,7 +53,7 @@ export function IntentQuizScreen({ navigation }: any) {
         <Text style={styles.subtext}>Pick up to 3. This shapes your first week.</Text>
 
         <View style={styles.grid}>
-          {INTENT_OPTIONS.map(({ intent, label, icon }) => {
+          {INTENT_OPTIONS.map(({ intent, label }) => {
             const isSelected = selected.includes(intent);
             return (
               <TouchableOpacity
@@ -56,31 +62,30 @@ export function IntentQuizScreen({ navigation }: any) {
                 onPress={() => toggleIntent(intent)}
                 activeOpacity={0.7}
               >
-                <View style={styles.cardHeader}>
-                  <Text style={styles.cardIcon}>{icon}</Text>
-                  {isSelected && <Text style={styles.checkmark}>{'\u2713'}</Text>}
-                </View>
-                <Text style={styles.cardLabel}>{label}</Text>
+                {isSelected && (
+                  <View style={styles.checkmarkContainer}>
+                    <Text style={styles.checkmark}>{'\u2713'}</Text>
+                  </View>
+                )}
+                <Text style={[styles.cardLabel, isSelected && styles.cardLabelSelected]}>{label}</Text>
               </TouchableOpacity>
             );
           })}
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
+      <View style={[styles.footer, { paddingBottom: insets.bottom + spacing.lg }]}>
         <Button
           title="Continue"
           onPress={() => navigation.navigate('RitualTime', { intents: selected })}
           disabled={selected.length === 0}
           style={styles.continueButton}
         />
-        <TouchableOpacity
-          onPress={() => navigation.navigate('RitualTime', { intents: [] })}
-        >
-          <Text style={styles.skipText}>SKIP FOR NOW</Text>
+        <TouchableOpacity onPress={handleSkip}>
+          <Text style={styles.skipText}>Skip for now</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -139,44 +144,50 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceContainerHigh,
     borderRadius: borderRadius.lg,
     padding: spacing.lg,
-    minHeight: 120,
+    minHeight: 100,
+    justifyContent: 'center',
     borderWidth: 2,
     borderColor: 'transparent',
   },
   cardSelected: {
     borderColor: colors.primary,
+    backgroundColor: colors.surfaceContainerHighest,
   },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  checkmarkContainer: {
+    position: 'absolute',
+    top: spacing.md,
+    right: spacing.md,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: colors.primary,
     alignItems: 'center',
-    marginBottom: spacing.md,
-  },
-  cardIcon: {
-    fontSize: 24,
-    color: colors.primary,
+    justifyContent: 'center',
   },
   checkmark: {
-    fontSize: 16,
-    color: colors.primary,
+    fontSize: 14,
+    color: colors.surface,
     fontWeight: '700',
   },
   cardLabel: {
-    fontFamily: fonts.sans.regular,
+    fontFamily: fonts.sans.medium,
     fontSize: 15,
     color: colors.textPrimary,
     lineHeight: 22,
   },
+  cardLabelSelected: {
+    color: colors.primary,
+  },
   footer: {
     paddingHorizontal: spacing.xl,
-    paddingBottom: spacing['2xl'],
     backgroundColor: colors.surface,
   },
   continueButton: {
     marginBottom: spacing.md,
   },
   skipText: {
-    ...typography.labelMd,
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
     color: colors.textSecondary,
     textAlign: 'center',
     paddingVertical: spacing.sm,
