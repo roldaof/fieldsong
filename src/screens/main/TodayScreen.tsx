@@ -47,7 +47,9 @@ export function TodayScreen() {
     if (user?.id && selectedIntent) {
       fetchTodayVerse(user.id, selectedIntent);
     }
-  }, [user?.id, selectedIntent]);
+    // Only fetch on mount, not on intent change. Today's verse is fixed.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]);
 
   useEffect(() => {
     if (user?.id && verse?.id) {
