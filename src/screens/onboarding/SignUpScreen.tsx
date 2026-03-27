@@ -104,7 +104,7 @@ export function SignUpScreen({ navigation, route }: any) {
 
         <Button
           title={
-            isLoading ? 'Creating...' : isSignIn ? 'Sign In' : 'Create Account'
+            isLoading ? (isSignIn ? 'Signing in...' : 'Creating...') : isSignIn ? 'Sign In' : 'Create Account'
           }
           onPress={handleSubmit}
           disabled={isLoading}
