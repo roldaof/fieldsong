@@ -62,33 +62,58 @@ export function TodayScreen() {
     }
   };
 
+  const getTodayEntryId = async (): Promise<string | null> => {
+    if (!user?.id || !verse) return null;
+    const today = new Date().toISOString().split('T')[0];
+    const { data } = await supabase
+      .from('daily_entries')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('verse_id', verse.id)
+      .gte('created_at', today)
+      .limit(1)
+      .maybeSingle();
+    return data?.id ?? null;
+  };
+
   const handleSaveReflection = async (text: string) => {
     if (!user?.id || !verse) return;
-    const { error } = await supabase.from('daily_entries').insert({
-      user_id: user.id,
-      verse_id: verse.id,
-      reflection_text: text,
-      intent_selected: selectedIntent,
-    });
-    if (error) {
-      Alert.alert('Error', 'Could not save your reflection.');
+    const existingId = await getTodayEntryId();
+    if (existingId) {
+      const { error } = await supabase
+        .from('daily_entries')
+        .update({ reflection_text: text })
+        .eq('id', existingId);
+      if (error) {
+        Alert.alert('Error', 'Could not save your reflection.');
+      } else {
+        Alert.alert('Saved', 'Your reflection has been saved.');
+      }
     } else {
-      Alert.alert('Saved', 'Your reflection has been saved.');
+      const { error } = await supabase.from('daily_entries').insert({
+        user_id: user.id,
+        verse_id: verse.id,
+        reflection_text: text,
+        intent_selected: selectedIntent,
+      });
+      if (error) {
+        Alert.alert('Error', 'Could not save your reflection.');
+      } else {
+        Alert.alert('Saved', 'Your reflection has been saved.');
+      }
     }
   };
 
   const handleFeedback = async (value: 'up' | 'down') => {
     if (!user?.id || !verse) return;
     const quality = value === 'up' ? 1 : -1;
-    // Upsert: create entry if it doesn't exist, update if it does
-    const { error } = await supabase.from('daily_entries').upsert({
-      user_id: user.id,
-      verse_id: verse.id,
-      intent_selected: selectedIntent,
-      match_quality: quality,
-    }, { onConflict: 'user_id,verse_id' }).select();
-    // If upsert fails (no unique constraint), try insert then update
-    if (error) {
+    const existingId = await getTodayEntryId();
+    if (existingId) {
+      await supabase
+        .from('daily_entries')
+        .update({ match_quality: quality })
+        .eq('id', existingId);
+    } else {
       await supabase.from('daily_entries').insert({
         user_id: user.id,
         verse_id: verse.id,

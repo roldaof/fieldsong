@@ -27,6 +27,7 @@ export function JournalScreen() {
       .from('daily_entries')
       .select('*, verse:verses(*)')
       .eq('user_id', user.id)
+      .not('reflection_text', 'is', null)
       .order('created_at', { ascending: false });
     if (data) setEntries(data);
   }, [user?.id]);
