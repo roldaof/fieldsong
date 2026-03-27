@@ -61,7 +61,7 @@ export function SignUpScreen({ navigation, route }: any) {
         contentContainerStyle={styles.scrollInner}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={styles.step}>STEP 02 OF 03</Text>
+        <Text style={styles.step}>STEP 3 OF 3</Text>
         <Text style={styles.headline}>Create your{'\n'}account.</Text>
         <Text style={styles.description}>
           Your practice, your journal, your data. Private by default.

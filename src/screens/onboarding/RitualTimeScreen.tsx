@@ -52,6 +52,7 @@ export function RitualTimeScreen({ navigation, route }: any) {
         <Text style={styles.headerTitle}>fieldsong</Text>
       </View>
       <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
+        <Text style={styles.step}>STEP 2 OF 3</Text>
         <Text style={styles.headline}>
           When shall we{'\n'}meet?
         </Text>
@@ -138,6 +139,12 @@ const styles = StyleSheet.create({
   scrollInner: {
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing['3xl'],
+  },
+  step: {
+    ...typography.labelMd,
+    color: colors.textMuted,
+    marginTop: spacing.lg,
+    marginBottom: spacing.md,
   },
   headline: {
     fontFamily: fonts.serif.italic,
