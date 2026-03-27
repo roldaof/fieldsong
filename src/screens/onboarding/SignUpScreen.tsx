@@ -88,6 +88,8 @@ export function SignUpScreen({ navigation, route }: any) {
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
+            textContentType="emailAddress"
+            autoComplete="email"
           />
         </View>
 
@@ -98,7 +100,10 @@ export function SignUpScreen({ navigation, route }: any) {
             value={password}
             onChangeText={setPassword}
             secureTextEntry
+            placeholder="Your password"
             placeholderTextColor={colors.textMuted}
+            textContentType="password"
+            autoComplete="password"
           />
         </View>
 
