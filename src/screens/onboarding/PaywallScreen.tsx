@@ -41,13 +41,13 @@ export function PaywallScreen({ route }: any) {
         <Text style={styles.headerTitle}>fieldsong</Text>
       </View>
       <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
-        <Text style={styles.headline}>Your practice begins.</Text>
+        <Text style={styles.headline}>Your practice{'\n'}begins.</Text>
         <Text style={styles.subtext}>FieldSong is free. FieldSong+ adds depth.</Text>
 
         <View style={styles.freeCard}>
           <Text style={styles.cardLabel}>FREE</Text>
           <Text style={styles.cardFeatures}>
-            Daily verse + interpretation + Stoic parallel + action step + reflection. 30-day journal. 5 bookmarks.
+            The complete daily clarity ritual. 30-day journal history. 5 bookmarks.
           </Text>
           <TouchableOpacity
             onPress={handleStartFree}
@@ -62,14 +62,22 @@ export function PaywallScreen({ route }: any) {
         </View>
 
         <View style={styles.plusCard}>
-          <Text style={styles.cardLabel}>FIELDSONG+</Text>
+          <Text style={styles.plusLabel}>FIELDSONG+</Text>
           <View style={styles.priceRow}>
-            <Text style={styles.price}>4.99/year</Text>
-            <Text style={styles.priceNote}>(.92/mo)</Text>
+            <Text style={styles.price}>$34.99</Text>
+            <Text style={styles.priceUnit}>/year</Text>
+            <Text style={styles.priceNote}>($2.92/mo)</Text>
           </View>
-          <Text style={styles.cardFeatures}>
-            Everything free, plus: unlimited journal + search, unlimited bookmarks, theme journeys, cross-tradition deep-dives, weekly digest.
+          <Text style={styles.plusFeatures}>
+            Everything in free, plus:
           </Text>
+          <View style={styles.featureList}>
+            <Text style={styles.featureItem}>Unlimited journal history + search</Text>
+            <Text style={styles.featureItem}>Unlimited bookmarks</Text>
+            <Text style={styles.featureItem}>Theme journeys (7-day sequences)</Text>
+            <Text style={styles.featureItem}>Cross-tradition deep-dives</Text>
+            <Text style={styles.featureItem}>Weekly wisdom digest</Text>
+          </View>
           <TouchableOpacity onPress={handlePaidOption} activeOpacity={0.8} style={styles.primaryButtonWrap}>
             <LinearGradient
               colors={[...gradients.primary]}
@@ -77,13 +85,13 @@ export function PaywallScreen({ route }: any) {
               end={{ x: 1, y: 1 }}
               style={styles.primaryButton}
             >
-              <Text style={styles.primaryButtonText}>Start free trial</Text>
+              <Text style={styles.primaryButtonText}>Get FieldSong+</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={handlePaidOption} activeOpacity={0.7} style={styles.lifetimeRow}>
-          <Text style={styles.lifetimeText}>9 one-time. Access forever.</Text>
+          <Text style={styles.lifetimeText}>$99 one-time. Access forever.</Text>
         </TouchableOpacity>
       </ScrollView>
 
@@ -134,39 +142,15 @@ const styles = StyleSheet.create({
     marginBottom: spacing['3xl'],
   },
   freeCard: {
-    backgroundColor: colors.surfaceContainerHigh,
-    borderRadius: borderRadius.xl,
-    padding: spacing.xl,
-    marginBottom: spacing.lg,
-    borderWidth: 1,
-    borderColor: colors.primary,
-  },
-  plusCard: {
     backgroundColor: colors.surfaceContainerLow,
     borderRadius: borderRadius.xl,
     padding: spacing.xl,
-    marginBottom: spacing.xl,
+    marginBottom: spacing.lg,
   },
   cardLabel: {
     ...typography.labelMd,
-    color: colors.primary,
-    marginBottom: spacing.md,
-  },
-  priceRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    marginBottom: spacing.md,
-  },
-  price: {
-    fontFamily: fonts.serif.semiBold,
-    fontSize: 24,
-    color: colors.textPrimary,
-  },
-  priceNote: {
-    fontFamily: fonts.sans.regular,
-    fontSize: 13,
     color: colors.textSecondary,
-    marginLeft: spacing.sm,
+    marginBottom: spacing.md,
   },
   cardFeatures: {
     fontFamily: fonts.sans.regular,
@@ -179,16 +163,67 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.primary,
     borderRadius: borderRadius.full,
-    paddingVertical: spacing.lg,
+    paddingVertical: spacing.md,
     alignItems: 'center',
   },
   outlineButtonText: {
     fontFamily: fonts.sans.semiBold,
-    fontSize: 16,
+    fontSize: 15,
     color: colors.primary,
   },
   disabled: {
     opacity: 0.5,
+  },
+  plusCard: {
+    backgroundColor: colors.surfaceContainerHigh,
+    borderRadius: borderRadius.xl,
+    padding: spacing.xl,
+    marginBottom: spacing.xl,
+    borderWidth: 2,
+    borderColor: colors.primary,
+  },
+  plusLabel: {
+    ...typography.labelMd,
+    color: colors.primary,
+    marginBottom: spacing.md,
+  },
+  priceRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    marginBottom: spacing.lg,
+  },
+  price: {
+    fontFamily: fonts.serif.semiBold,
+    fontSize: 28,
+    color: colors.primary,
+  },
+  priceUnit: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 16,
+    color: colors.textSecondary,
+    marginLeft: 2,
+  },
+  priceNote: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
+    marginLeft: spacing.md,
+  },
+  plusFeatures: {
+    fontFamily: fonts.sans.medium,
+    fontSize: 14,
+    color: colors.textPrimary,
+    marginBottom: spacing.sm,
+  },
+  featureList: {
+    marginBottom: spacing.xl,
+  },
+  featureItem: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    lineHeight: 24,
+    color: colors.textSecondary,
+    paddingLeft: spacing.md,
   },
   primaryButtonWrap: {
     borderRadius: borderRadius.full,
