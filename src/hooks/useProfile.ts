@@ -8,11 +8,12 @@ export function useProfile(userId: string | undefined) {
 
   const fetchProfile = useCallback(async () => {
     if (!userId) return;
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('*')
-      .eq('user_id', userId)
+      .eq('id', userId)
       .maybeSingle();
+    if (error) console.warn('fetchProfile error:', error.message);
     setProfile(data);
     setLoading(false);
   }, [userId]);
@@ -27,29 +28,35 @@ export function useProfile(userId: string | undefined) {
 
   const updateIntents = useCallback(
     async (intents: Intent[]) => {
-      if (!userId) return;
+      if (!userId) return { error: new Error('No user') };
       const { error } = await supabase
         .from('profiles')
         .update({ onboarding_intents: intents })
-        .eq('user_id', userId);
-      if (!error)
+        .eq('id', userId);
+      if (error) {
+        console.warn('updateIntents error:', error.message);
+      } else {
         setProfile((prev) => (prev ? { ...prev, onboarding_intents: intents } : null));
+      }
       return { error };
     },
     [userId],
   );
 
   const updateRitualTime = useCallback(
-    async (time: string, emailReminders: boolean) => {
-      if (!userId) return;
+    async (time: string, _emailReminders: boolean) => {
+      if (!userId) return { error: new Error('No user') };
       const { error } = await supabase
         .from('profiles')
-        .update({ ritual_time: time, email_reminders: emailReminders })
-        .eq('user_id', userId);
-      if (!error)
+        .update({ preferred_send_time: time })
+        .eq('id', userId);
+      if (error) {
+        console.warn('updateRitualTime error:', error.message);
+      } else {
         setProfile((prev) =>
-          prev ? { ...prev, ritual_time: time, email_reminders: emailReminders } : null,
+          prev ? { ...prev, preferred_send_time: time } : null,
         );
+      }
       return { error };
     },
     [userId],
