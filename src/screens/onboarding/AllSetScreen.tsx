@@ -31,17 +31,31 @@ export function AllSetScreen({ navigation, route }: any) {
   const intents = route.params?.intents ?? ['clarity'];
   const ritualTime = route.params?.ritualTime ?? '07:30 AM';
 
+  const convertTo24h = (timeStr: string): string => {
+    // Convert "07:00 AM" or "02:30 PM" to "07:00:00" or "14:30:00"
+    const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+    if (!match) return '07:00:00';
+    let hour = parseInt(match[1], 10);
+    const min = match[2];
+    const period = match[3].toUpperCase();
+    if (period === 'PM' && hour !== 12) hour += 12;
+    if (period === 'AM' && hour === 12) hour = 0;
+    return `${hour.toString().padStart(2, '0')}:${min}:00`;
+  };
+
   const handleOpenApp = async () => {
     setIsLoading(true);
     try {
-      await updateRitualTime(ritualTime, true);
-      // Save intents last — this triggers RootNavigator to switch to MainNavigator
-      const result = await updateIntents(intents.length > 0 ? intents : ['clarity']);
+      // Save ritual time (non-blocking, don't fail onboarding if this fails)
+      await updateRitualTime(convertTo24h(ritualTime), true).catch(() => {});
+
+      // Save intents — this triggers RootNavigator to switch to MainNavigator
+      const finalIntents = intents.length > 0 ? intents : ['clarity'];
+      const result = await updateIntents(finalIntents);
       if (result?.error) {
         Alert.alert('Error', 'Could not save your preferences. Please try again.');
         setIsLoading(false);
       }
-      // RootNavigator will auto-switch to Main when profile.onboarding_intents is set
     } catch {
       Alert.alert('Error', 'Something went wrong. Please try again.');
       setIsLoading(false);
