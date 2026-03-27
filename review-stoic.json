@@ -1,0 +1,883 @@
+[
+  {
+    "verse_id": 1,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "On Consolation to Helvia (essay) not in available source files. Quote is well-known Seneca.",
+    "notes": "Strong pairing. Bridge is two punchy sentences but works: the kicker lands."
+  },
+  {
+    "verse_id": 2,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "On Providence (essay) not in available source files. Quote is well-known Seneca.",
+    "notes": "Excellent pairing. Breakdown as furnace is exactly right for both traditions."
+  },
+  {
+    "verse_id": 3,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Oedipus (tragedy) not in available source files.",
+    "notes": "The tough-love parallel lands perfectly. Bridge is tight and specific."
+  },
+  {
+    "verse_id": 4,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 7. Casaubon wording used in content file.",
+    "notes": "Soldier-on-the-wall metaphor matches Arjuna asking for help. Bridge is two sentences but the second extends the metaphor naturally."
+  },
+  {
+    "verse_id": 5,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 2, Chapter 17.",
+    "notes": "One of the strongest pairings in the set. Both expose intellectual dishonesty with surgical precision."
+  },
+  {
+    "verse_id": 6,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Hercules Oetaeus (tragedy) not in available source files.",
+    "notes": "Good pairing. Bridge is punchy despite being two clauses after the colon."
+  },
+  {
+    "verse_id": 7,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Oedipus (tragedy) not in available source files.",
+    "notes": "Excellent bridge. 'The flinching before it arrives' is exactly right for both passages."
+  },
+  {
+    "verse_id": 8,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 8 (section XLVII in Casaubon numbering).",
+    "notes": "Perfect pairing. Both are about separating raw data from interpretation. Bridge is clean."
+  },
+  {
+    "verse_id": 9,
+    "status": "minor_edit",
+    "issues": [
+      "Bridge is three sentences; should be one",
+      "Quote not found in Long translation of Discourses; appears to be from a modern translation (Hard or Dobbin)"
+    ],
+    "revised_stoic_bridge": "Both the Gita and Epictetus relocate identity from the perishable exterior to the permanent interior, from attributes to agency.",
+    "quote_verified": false,
+    "verification_note": "Not found in available Long translation of Discourses. Passage is genuine Epictetus 3.1 but this wording is from a modern translation.",
+    "notes": "Pairing is strong. Quote is genuine but translation differs from our source file."
+  },
+  {
+    "verse_id": 10,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 5 (section XIX in Casaubon). Modern editions number this 5.23.",
+    "notes": "Garment and river metaphors illuminate each other beautifully."
+  },
+  {
+    "verse_id": 11,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "On the Brevity of Life (essay) not in available source files. Well-known Seneca passage.",
+    "notes": "Two-sentence bridge works because the second sentence is a gut-punch."
+  },
+  {
+    "verse_id": 12,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Enchiridion not in available source files. Standard Epictetus passage.",
+    "notes": "Equanimity as internal generation, not external imposition. Bridge is one clean sentence."
+  },
+  {
+    "verse_id": 13,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Passage is from Discourses 2.5 but exact wording not found in Long translation. Content file uses a different modern translation.",
+    "notes": "The most important pairing in the set (BG 2.47). Bridge is perfect: 'your jurisdiction ends at the action itself.' Do not change this one."
+  },
+  {
+    "verse_id": 14,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 5, section VI.",
+    "notes": "Vine metaphor is gorgeous. Bridge extends it naturally in two tight sentences."
+  },
+  {
+    "verse_id": 15,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 8 (section XXV in Casaubon).",
+    "notes": "Skill in action matched with proper human work. Clean single-sentence bridge."
+  },
+  {
+    "verse_id": 16,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter CXXIII. Exact match.",
+    "notes": "Excellent verified pairing. 'Cheerfully employing what's already in front of you' is the perfect bridge."
+  },
+  {
+    "verse_id": 17,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 1, Chapter 18.",
+    "notes": "Strong. Both define strength by what can't knock you off center."
+  },
+  {
+    "verse_id": 18,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 2, Chapter 18.",
+    "notes": "The downward spiral mapped by both traditions. Bridge captures the bidirectionality perfectly."
+  },
+  {
+    "verse_id": 19,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Enchiridion not in available source files. Standard Epictetus passage.",
+    "notes": "Inserting a pause between impulse and action is exactly what both teach. Tight bridge."
+  },
+  {
+    "verse_id": 20,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 7 (section XXV in Casaubon).",
+    "notes": "Ocean metaphor meets Marcus on indifference. Bridge is punchy in two sentences."
+  },
+  {
+    "verse_id": 21,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 3 (section IV in Casaubon).",
+    "notes": "Both rebuke the eternal student. Single-sentence bridge with real bite."
+  },
+  {
+    "verse_id": 22,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter LXVI. Exact match.",
+    "notes": "Dissolving the illusion of passivity. Verified quote, strong bridge."
+  },
+  {
+    "verse_id": 23,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "On the Brevity of Life (essay) not in available source files. Well-known Seneca passage.",
+    "notes": "The bafflement of surrendering time while guarding property. One tight sentence."
+  },
+  {
+    "verse_id": 24,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 6, section II.",
+    "notes": "'The conditions don't get a vote' is a perfect kicker. Two sentences that land like one."
+  },
+  {
+    "verse_id": 25,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 7 (section XII in Casaubon).",
+    "notes": "'Be the emerald' is memorable and specific. Strong pairing on leadership by example."
+  },
+  {
+    "verse_id": 26,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 5 (section XIX in Casaubon).",
+    "notes": "Cosmic perspective to deflate ego. Two sentences but the second completes the thought."
+  },
+  {
+    "verse_id": 27,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 8.",
+    "notes": "Withdraw your opinion and the thing loses power. One sentence, exactly right."
+  },
+  {
+    "verse_id": 28,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Enchiridion not in available source files. Standard Epictetus passage.",
+    "notes": "Playing your own role vs. envying another's. One tight sentence."
+  },
+  {
+    "verse_id": 29,
+    "status": "minor_edit",
+    "issues": [
+      "Bridge is three sentences; should be condensed to one"
+    ],
+    "revised_stoic_bridge": "Both Krishna and Seneca name anger as an internal fire that consumes the one who harbors it, not an external attack that can be fought off.",
+    "quote_verified": false,
+    "verification_note": "On Anger (essay) not in available source files. Well-known Seneca passage.",
+    "notes": "Pairing is strong. Just need to compress the bridge."
+  },
+  {
+    "verse_id": 30,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "On Tranquility of Mind (essay) not in available source files.",
+    "notes": "Both challenge the cult of busyness. One clean sentence."
+  },
+  {
+    "verse_id": 31,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "On the Happy Life (essay) not in available source files.",
+    "notes": "Kindness as the natural expression of purified action. One sentence."
+  },
+  {
+    "verse_id": 32,
+    "status": "replace_quote",
+    "issues": [
+      "Meditations 8.52 is duplicated with verse 87 (BG 18.20), where it is a stronger fit",
+      "Bridge is two sentences"
+    ],
+    "revised_stoic_quote": "You have proof in the extent of your wanderings that you never found the art of living anywhere, not in logic, nor in wealth, fame, or in any indulgence. Nowhere. Where is it then? In doing what human nature demands.",
+    "revised_stoic_source": "Marcus Aurelius, Meditations, 8.1",
+    "revised_stoic_bridge": "Both the Gita and Marcus affirm that real knowledge is earned through lived practice, not acquired from books, and it arrives only in its own time.",
+    "quote_verified": false,
+    "verification_note": "Meditations 8.1 verified in Casaubon; this wording is from a modern translation (Hays). Original 8.52 is found in meditations-casaubon.txt but is better reserved for verse 87.",
+    "notes": "The 8.1 passage about finding the art of living through practice perfectly matches 'no purifier like knowledge, found in the self in time.' Much stronger than the generic 8.52 pairing."
+  },
+  {
+    "verse_id": 33,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter XIII. Exact match.",
+    "notes": "One of the best bridges in the set: 'continued deliberation is just fear with a better vocabulary.'"
+  },
+  {
+    "verse_id": 34,
+    "status": "replace_quote",
+    "issues": [
+      "Meditations 7.27 is duplicated across verses 34, 44, and 84",
+      "7.27 (appreciating present things) is a loose fit for BG 5.3 (active detachment from opposites)",
+      "Bridge is two sentences"
+    ],
+    "revised_stoic_quote": "Receive temporal blessings without ostentation, when they are sent and thou shalt be able to part with them with all readiness and facility when they are taken from thee again.",
+    "revised_stoic_source": "Marcus Aurelius, Meditations, 8.33",
+    "revised_stoic_bridge": "Both Krishna and Marcus define true renunciation as the ability to receive without clinging and release without grieving, while staying fully engaged with life.",
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 8 (section XXXI in Casaubon). Casaubon wording used here.",
+    "notes": "8.33 directly addresses receiving and letting go, which is exactly what BG 5.3 teaches: neither hating nor desiring. Much tighter fit than the generic 7.27."
+  },
+  {
+    "verse_id": 35,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 8.",
+    "notes": "Lotus leaf meets guarding your thoughts. Bridge ends with the punchy 'You do.' fragment that works."
+  },
+  {
+    "verse_id": 36,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 4 (section XXXIII in Casaubon).",
+    "notes": "One living substance, one soul. Clean single-sentence bridge."
+  },
+  {
+    "verse_id": 37,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 4, Chapter 1.",
+    "notes": "Both diagnose the structure of desire as the disease, not insufficient pleasure. Bridge is technically two sentences but reads as one argument."
+  },
+  {
+    "verse_id": 38,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter LXVII.",
+    "notes": "Happiness as capacity, not absence. One clean sentence."
+  },
+  {
+    "verse_id": 39,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Discourses 3.3.1 not found in available Long translation. Wording is from a modern translation.",
+    "notes": "Raw material and craftsman metaphor is strong. Two punchy sentences that work as one thought."
+  },
+  {
+    "verse_id": 40,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 12 (section III in Casaubon).",
+    "notes": "The paradox of self-relationship: loving yourself most yet trusting everyone else's opinion more. Bridge nails it in one sentence."
+  },
+  {
+    "verse_id": 41,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 6.",
+    "notes": "Environmental immunity as inner choice. Note: 6.52 was also used for verse 77 (now flagged for replacement), so this instance can stay."
+  },
+  {
+    "verse_id": 42,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter XVIII. Exact match.",
+    "notes": "Moderation as operating system. Three sentences but extremely punchy. The rhythm works."
+  },
+  {
+    "verse_id": 43,
+    "status": "minor_edit",
+    "issues": [
+      "Bridge is two sentences that overlap thematically with verse 42 (consecutive verses, similar Stoic theme)",
+      "The bridge repeats the 'moderation/fundamentals' idea rather than finding the specific point of convergence between BG 6.17 and Seneca 2.6"
+    ],
+    "revised_stoic_bridge": "Both Krishna and Seneca insist that craving more is the real poverty, and that regulated living in sleep, food, and desire is the foundation everything else is built on.",
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter II. Exact match.",
+    "notes": "The Seneca quote ('the man who craves more is poor') deserves a bridge that highlights the craving angle specifically, not just the moderation angle (which verse 42 already covers)."
+  },
+  {
+    "verse_id": 44,
+    "status": "replace_quote",
+    "issues": [
+      "Meditations 7.27 is duplicated across verses 34, 44, and 84",
+      "7.27 (appreciating present things) does not match BG 6.25 (gradual, patient progress)",
+      "Bridge is three sentences",
+      "The original pick in verses-100.json was 8.32 ('build up your life action by action'), which is a far stronger fit"
+    ],
+    "revised_stoic_quote": "You must build up your life action by action, and be content if each one achieves its goal as far as possible, and no one can keep you from this.",
+    "revised_stoic_source": "Marcus Aurelius, Meditations, 8.32",
+    "revised_stoic_bridge": "Both the Gita and Marcus insist that meaningful progress is built action by action, and that contentment with each small step is not mediocrity but the method itself.",
+    "quote_verified": false,
+    "verification_note": "Meditations 8.32 in modern numbering; Casaubon equivalent in Book 8. This wording is from a modern translation.",
+    "notes": "The original 8.32 choice was clearly better. 'Build up your life action by action' is exactly what 'little by little' means. Restoring this eliminates a duplicate and creates a much tighter pairing."
+  },
+  {
+    "verse_id": 45,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 2, Chapter 18.",
+    "notes": "Mental discipline as athletics. Three sentences but the rhythm ('The struggle isn't a sign of failure. It's the exercise.') is deliberate and effective."
+  },
+  {
+    "verse_id": 46,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 2, section II.",
+    "notes": "Restless mind as universal condition. Arjuna and Marcus both name it, both refuse to let it be an excuse."
+  },
+  {
+    "verse_id": 47,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Discourses 3.10.6-7 not found in available Long translation. Wording is from a modern translation.",
+    "notes": "Three sentences in the bridge but they form a punchy rhetorical sequence: 'of course it's hard. What's the alternative? The difficulty is the point.' Leave it."
+  },
+  {
+    "verse_id": 48,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter LXXVI.",
+    "notes": "Right action as its own reward. Two tight sentences that read as one."
+  },
+  {
+    "verse_id": 49,
+    "status": "minor_edit",
+    "issues": [
+      "Bridge is three sentences that explain the parallel rather than articulating it",
+      "The bridge names each tradition's metaphor separately instead of stating the shared insight"
+    ],
+    "revised_stoic_bridge": "Both Krishna and Marcus see behind the apparent chaos to a single underlying principle, whether named as the thread connecting all jewels or reduced to two words: change and opinion.",
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 4, section III.",
+    "notes": "Good pairing conceptually but the bridge was doing show-and-tell instead of synthesis."
+  },
+  {
+    "verse_id": 50,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter LXXIV. Partial match: wording differs slightly ('sacrifice many things' vs. 'give up many things').",
+    "notes": "Strength and desire filtered through ethical purpose. Two sentences that function as one argument."
+  },
+  {
+    "verse_id": 51,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter XLV. Exact match.",
+    "notes": "Both acknowledge how deeply conditioning is woven into experience. Two tight sentences."
+  },
+  {
+    "verse_id": 52,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 5 (section XV in Casaubon).",
+    "notes": "Mind taking the shape of habitual thought. Strong image in both traditions."
+  },
+  {
+    "verse_id": 53,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter CI. Wording: 'order our minds' in source vs. 'prepare our minds' in some versions.",
+    "notes": "Total integration of awareness into daily life. Punchy two-sentence bridge."
+  },
+  {
+    "verse_id": 54,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 4, Chapter 1.",
+    "notes": "Will aligned with purpose, resistance dissolves. Clean single sentence."
+  },
+  {
+    "verse_id": 55,
+    "status": "minor_edit",
+    "issues": [
+      "Bridge is four sentences. Needs compression to one.",
+      "The bridge describes each tradition's mechanism separately instead of stating the convergence"
+    ],
+    "revised_stoic_bridge": "Both the Gita and Marcus elevate every ordinary act into something deliberate by connecting it to something larger: the Gita through offering, Marcus through the awareness of mortality.",
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 2.",
+    "notes": "Pairing is excellent. Bridge just needed to synthesize rather than list."
+  },
+  {
+    "verse_id": 56,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 4, Chapter 1.",
+    "notes": "Note: Discourses 4.1.62-64 also used for verse 88 (flagged for replacement there). This verse keeps the quote as the stronger fit."
+  },
+  {
+    "verse_id": 57,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Meditations 7.56 passage is in Casaubon but exact modern wording not confirmed line-by-line.",
+    "notes": "Full hand dealt: accept all of it. Two sentences that complete one thought."
+  },
+  {
+    "verse_id": 58,
+    "status": "minor_edit",
+    "issues": [
+      "Bridge is three sentences after the colon; should be one flowing statement"
+    ],
+    "revised_stoic_bridge": "Both Krishna and Epictetus describe understanding as something that ripens like fruit through consistent practice, the only sunlight that matters, and cannot be rushed.",
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 1, Chapter 15.",
+    "notes": "The fig metaphor is perfect for this pairing. Just needs a tighter bridge."
+  },
+  {
+    "verse_id": 59,
+    "status": "replace_quote",
+    "issues": [
+      "Meditations 6.18 is duplicated with verse 86 (BG 18.16)",
+      "FORCED PAIRING: 6.18 is about craving posthumous fame, but BG 10.41 is about recognizing the divine in every instance of excellence. These are not the same point.",
+      "Bridge is three sentences",
+      "The original pick in verses-100.json was Meditations 7.48, which is a far stronger fit"
+    ],
+    "revised_stoic_quote": "How beautifully Plato put it. Whenever you want to talk about people, it's best to take a bird's-eye view and see everything all at once: gatherings, armies, farms, weddings and divorces, births and deaths, noisy courtrooms or silent spaces, every foreign people, holidays, memorials, markets, all blended together and arranged in a pairing of opposites.",
+    "revised_stoic_source": "Marcus Aurelius, Meditations, 7.48",
+    "revised_stoic_bridge": "Both the Gita and Marcus invite a way of seeing that finds splendor and coherence in the whole, not by ignoring particulars but by recognizing them as expressions of something unified.",
+    "quote_verified": false,
+    "verification_note": "Meditations 7.48 is in Casaubon (likely section XXXV or nearby in Book 7). This wording from Hays translation.",
+    "notes": "The original 7.48 choice was much stronger. 'Bird's-eye view of all human activity' matches 'whatever is glorious, prosperous, or powerful is a manifestation of my splendor.' The 6.18 pairing about posthumous fame was forced."
+  },
+  {
+    "verse_id": 60,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 6 (section XXII in Casaubon).",
+    "notes": "Alexander and his mule-keeper. Time as the great equalizer. Punchy bridge."
+  },
+  {
+    "verse_id": 61,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 1, Chapter 24.",
+    "notes": "Difficulty as training, not punishment. Three sentences but the sequence ('you're not being punished... you're being trained... rise to it') has real momentum."
+  },
+  {
+    "verse_id": 62,
+    "status": "replace_quote",
+    "issues": [
+      "Meditations 10.16 is duplicated across verses 62, 65, and 72",
+      "Bridge text ('The Gita gives the detailed blueprint. Marcus gives the summary...') is nearly identical to verse 65's bridge",
+      "Bridge is two sentences"
+    ],
+    "revised_stoic_quote": "What is thy profession? To be good.",
+    "revised_stoic_source": "Marcus Aurelius, Meditations, 11.5",
+    "revised_stoic_bridge": "Both Krishna and Marcus compress the entire blueprint for living into its essence: your vocation is simply to be good, and every other instruction follows from that.",
+    "quote_verified": false,
+    "verification_note": "Meditations 11.5 is in Casaubon Book 11 (section V). Casaubon wording: 'What is thy profession? To be good.' This is verifiable.",
+    "notes": "BG 11.55 gives four instructions (purposeful action, devotion, non-attachment, goodwill). Marcus 11.5 collapses all four into two words: be good. This creates a much more elegant pairing than the generic 10.16 quote, and eliminates both the duplication and the near-identical bridge text problem with verse 65."
+  },
+  {
+    "verse_id": 63,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 7 (section XXXI in Casaubon).",
+    "notes": "Fountain of goodness within. One clean sentence directing attention inward."
+  },
+  {
+    "verse_id": 64,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Enchiridion not in available source files. Standard Epictetus passage.",
+    "notes": "Both arrive at the same destination: align your wishes with reality and peace follows. One sentence."
+  },
+  {
+    "verse_id": 65,
+    "status": "minor_edit",
+    "issues": [
+      "Bridge text was nearly identical to verse 62's bridge ('The Gita gives the detailed checklist/blueprint. Marcus gives the summary...'). With verse 62 getting a new quote, this bridge should be rewritten to stand on its own.",
+      "Bridge is two sentences"
+    ],
+    "revised_stoic_bridge": "The Gita provides the detailed character checklist while Marcus delivers the one-line instruction: stop debating what a good person looks like and become one.",
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 10 (section XVIII in Casaubon).",
+    "notes": "With verse 62 now using a different quote, this becomes the sole use of 10.16 (after verse 72 also gets replaced). The pairing is strong: BG 12.13's virtue list meets Marcus's demand to stop theorizing and start embodying."
+  },
+  {
+    "verse_id": 66,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 11 (section XII in Casaubon).",
+    "notes": "Manage your own behavior, let the world manage its opinion. One sentence."
+  },
+  {
+    "verse_id": 67,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 6 (section XLVI in Casaubon).",
+    "notes": "Full capability without neediness. One sentence about the highest operating mode."
+  },
+  {
+    "verse_id": 68,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 2, Chapter 14.",
+    "notes": "Aligned with reality so fully that no circumstance can dislodge composure. One sentence."
+  },
+  {
+    "verse_id": 69,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 6 (section XXVII in Casaubon).",
+    "notes": "Nearly identical virtue lists across traditions. Two punchy sentences that make a single point: the qualities ARE the knowledge."
+  },
+  {
+    "verse_id": 70,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 2.",
+    "notes": "Shared present moment beneath all surface differences. Two sentences that complete one thought."
+  },
+  {
+    "verse_id": 71,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 9 (section XI in Casaubon).",
+    "notes": "Trouble lives in your opinions, not the world. Two tight sentences."
+  },
+  {
+    "verse_id": 72,
+    "status": "replace_quote",
+    "issues": [
+      "Meditations 10.16 is duplicated across verses 62, 65, and 72",
+      "FORCED PAIRING: 10.16 ('stop debating what a good person is, be one') does not match BG 14.5 (the three gunas as diagnostic framework for mental states)",
+      "The original pick in verses-100.json was Meditations 5.26, which matches the diagnostic theme"
+    ],
+    "revised_stoic_quote": "The first rule is to keep an untroubled spirit. The second is to look things in the face and know them for what they are.",
+    "revised_stoic_source": "Marcus Aurelius, Meditations, 5.26",
+    "revised_stoic_bridge": "Both the Gita's guna framework and Marcus's instruction to 'know things for what they are' provide diagnostic tools for your inner states: name the pattern and you gain power over it.",
+    "quote_verified": false,
+    "verification_note": "Meditations 5.26 is in Casaubon Book 5. This wording may be from a modern translation. Casaubon equivalent to be confirmed.",
+    "notes": "BG 14.5 is about recognizing which guna is operating in you at any moment. Marcus 5.26 is about looking at things clearly and knowing them for what they are. This is a natural diagnostic pairing. The 10.16 quote ('be a good person') had nothing to do with the three gunas."
+  },
+  {
+    "verse_id": 73,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 5, section I.",
+    "notes": "Inertia vs. purpose. Both diagnose the gravitational pull of comfort and prescribe the same antidote."
+  },
+  {
+    "verse_id": 74,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Enchiridion not in available source files. Standard Epictetus passage.",
+    "notes": "Observing mental states without judging them. Two sentences that together describe one advanced insight."
+  },
+  {
+    "verse_id": 75,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 4, Chapter 4. Wording differs slightly from Long translation.",
+    "notes": "Axe of detachment meets Epictetus on clinging. One sentence."
+  },
+  {
+    "verse_id": 76,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 3, Chapter 24.",
+    "notes": "Happiness through absence of craving, not accumulation. One sentence."
+  },
+  {
+    "verse_id": 77,
+    "status": "replace_quote",
+    "issues": [
+      "Meditations 6.52 is duplicated with verse 41 (BG 6.7), where it is a stronger fit for environmental immunity",
+      "BG 15.10 is about the eye of knowledge vs. sleepwalking through experience, which needs a quote about seeing clearly, not about choosing not to be harmed"
+    ],
+    "revised_stoic_quote": "Make for thyself a definition or description of the thing which is presented to thee, so as to see distinctly what kind of a thing it is in its substance, in its nudity, in its complete entirety, and tell thyself its proper name.",
+    "revised_stoic_source": "Marcus Aurelius, Meditations, 3.11",
+    "revised_stoic_bridge": "Both Krishna and Marcus identify the same capacity: truly seeing what is in front of you, which requires stripping away assumptions and choosing awareness over the default state of sleepwalking.",
+    "quote_verified": false,
+    "verification_note": "Meditations 3.11 is in Casaubon Book 3 (likely section IX or X). Casaubon wording differs. Passage is genuine Marcus on seeing things clearly.",
+    "notes": "BG 15.10 distinguishes those with the 'eye of knowledge' from the deluded who don't see. Marcus 3.11 is specifically about training yourself to see things as they actually are, stripped of opinion. This is a much more precise match than 6.52 (about choosing not to be harmed), which belongs with verse 41's environmental immunity theme."
+  },
+  {
+    "verse_id": 78,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 3, Chapter 26.",
+    "notes": "Fearlessness as foundation. Two sentences but the kicker ('everything else is just decoration') is too good to lose."
+  },
+  {
+    "verse_id": 79,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 11, section XVIII.",
+    "notes": "Anger as gate to self-destruction. Real power is calm when rage is calling. One sentence."
+  },
+  {
+    "verse_id": 80,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Enchiridion not in available source files. Standard Epictetus passage (the famous opening of the Enchiridion).",
+    "notes": "Having a framework before crisis. Two punchy sentences."
+  },
+  {
+    "verse_id": 81,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Thyestes (tragedy) not in available source files.",
+    "notes": "Known by all, unknown to self. Two sentences that probe the same gap."
+  },
+  {
+    "verse_id": 82,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 8 (section VIII in Casaubon).",
+    "notes": "Speech discipline as character lever. Two tight sentences."
+  },
+  {
+    "verse_id": 83,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter LXXXI.",
+    "notes": "The pairing between 'drop attachment to results' and 'gratitude returns to itself' is not the tightest in the set, but the bridge makes it work: gratitude as the alternative to grasping."
+  },
+  {
+    "verse_id": 84,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 7 (section XXVII in Casaubon).",
+    "notes": "With verses 34 and 44 getting new quotes, this becomes the sole use of Meditations 7.27. The fit for BG 18.9 (sattvic renunciation, doing duty with what you have) is reasonable. One clean sentence."
+  },
+  {
+    "verse_id": 85,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter CXIX. Exact match.",
+    "notes": "Well-being through right relationship, not withdrawal. Two punchy sentences."
+  },
+  {
+    "verse_id": 86,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 6 (section XVIII in Casaubon).",
+    "notes": "With verse 59 getting a new quote, this becomes the sole use of 6.18. The ego/authorship connection is a defensible reading of the Marcus passage. Two sentences."
+  },
+  {
+    "verse_id": 87,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 8.",
+    "notes": "With verse 32 getting a new quote, this becomes the sole use of 8.52. Seeing the whole rather than the fragment. Two sentences."
+  },
+  {
+    "verse_id": 88,
+    "status": "replace_quote",
+    "issues": [
+      "Epictetus Discourses 4.1.62-64 is duplicated with verse 56 (BG 9.34), where the 'freedom through mastery' theme is a stronger fit",
+      "BG 18.23 is specifically about the qualities of sattvic action (ordained, unattached, without bias, not reward-seeking), which needs a quote about pure action"
+    ],
+    "revised_stoic_quote": "A good man will do what he thinks it will be honourable for him to do, even if it involves toil; he will do it even if it involves harm to him; he will do it even if it involves peril; again, he will not do that which will be base, even if it brings him money, or pleasure, or power.",
+    "revised_stoic_source": "Seneca, Moral Letters, 76.18",
+    "revised_stoic_bridge": "Both Krishna and Seneca describe the same standard for excellent action: do what is right regardless of cost or reward, and refuse what is base regardless of what it offers.",
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter LXXVI.",
+    "notes": "Wait: 76.18 is already used for verse 48 (BG 6.40). However, BG 6.40 is about effort never being wasted, while BG 18.23 is about the criteria for pure action. If the same Seneca passage can serve both themes, this duplication is less harmful than reusing Epictetus 4.1.62-64 verbatim. Alternative: use Seneca, Moral Letters 71.16 ('The wise man does nothing which he could regret, nothing against his will, but does everything nobly, consistently, seriously, and rightly') for verse 88 instead. This needs verification but is a better unique match."
+  },
+  {
+    "verse_id": 89,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 8 (section XLVI in Casaubon).",
+    "notes": "Inner fortress, free from ego and passions. One clean sentence."
+  },
+  {
+    "verse_id": 90,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter V. Exact match. Correctly attributed to Hecato via Seneca.",
+    "notes": "Core of discernment: knowing what to fear, engage, and release. One sentence."
+  },
+  {
+    "verse_id": 91,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Thyestes (tragedy) not in available source files.",
+    "notes": "Fortune as a wheel, resolve as the thing that stops trusting the wheel. Two sentences that work together."
+  },
+  {
+    "verse_id": 92,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "On Providence (essay) not in available source files.",
+    "notes": "Poison to nectar. Difficulty at the beginning is the forge, not a wrong turn. Two tight sentences."
+  },
+  {
+    "verse_id": 93,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Enchiridion not in available source files. Standard Epictetus passage.",
+    "notes": "Trajectory of sense pleasure: temporary mistaken for permanent. One clean sentence."
+  },
+  {
+    "verse_id": 94,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": false,
+    "verification_note": "Meditations 6.16 passage is in Casaubon Book 6 but exact modern wording not confirmed.",
+    "notes": "Prize your own nature. Harmony from honoring your own path. Two sentences that form one argument."
+  },
+  {
+    "verse_id": 95,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 4 (section XIV in Casaubon).",
+    "notes": "Anti-perfectionism with urgency. 'Start now.' is the entire point."
+  },
+  {
+    "verse_id": 96,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 5 (section XVII in Casaubon).",
+    "notes": "The obstacle becomes the way. Two sentences: the second is the famous inversion."
+  },
+  {
+    "verse_id": 97,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in seneca-letters-public-domain.txt, Letter XLIX.",
+    "notes": "Wisdom offered, decision yours. One clean sentence about sovereign agency."
+  },
+  {
+    "verse_id": 98,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt Book 4 (section XXXV in Casaubon).",
+    "notes": "Release all fixed positions. No harm in change, no safety in clinging."
+  },
+  {
+    "verse_id": 99,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in epictetus-discourses.txt Book 3, Chapter 24.",
+    "notes": "Clarity comes when you stop layering wishes and fears onto reality. One sentence."
+  },
+  {
+    "verse_id": 100,
+    "status": "pass",
+    "issues": [],
+    "quote_verified": true,
+    "verification_note": "Found in meditations-casaubon.txt. Note: modern editions place this at 10.31 but Casaubon has it at Book 4, section I. The fire metaphor is genuine Marcus.",
+    "notes": "Where wisdom meets action, everything becomes fuel. The perfect closing. One sentence."
+  }
+]
