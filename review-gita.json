@@ -1,0 +1,620 @@
+[
+  {
+    "verse_id": 1,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches Sivananda. Interpretation captures the moment of honest reckoning without rushing to fix it. Action step ('say out loud: this is hard') is concrete and doable. Reflection prompt is sharp."
+  },
+  {
+    "verse_id": 2,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The greatest warrior of his generation just... stops' lands well. 'Collapse isn't the opposite of courage. Sometimes it's the prerequisite' is the kind of line Hawley would approve. Permission-to-rest action step is exactly right for this verse."
+  },
+  {
+    "verse_id": 3,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Tough-love energy is pitch-perfect for klaibyam ma sma gamah. 'Self-pity feels like processing, but past a certain point it's just hiding' is precisely what Krishna is saying. Reflection prompt ('What are you calling patience that might actually be avoidance?') is one of the best in the set."
+  },
+  {
+    "verse_id": 4,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Arjuna does the hardest thing a capable person can do: he admits he's lost' captures the verse's dramatic weight. Action step (text someone who might help) is specific and emotionally challenging in the right way."
+  },
+  {
+    "verse_id": 5,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. One of the best in the entire set. 'You've been making a very convincing case for the wrong side' nails what Krishna is actually doing here. The interpretation catches the specific trap of intellectual self-deception, not just generic dishonesty. Reflection prompt is excellent."
+  },
+  {
+    "verse_id": 6,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Weather metaphor works. '90-minute timer' action step is creative and testable. 'Stop pretending the weather is permanent' is the right landing."
+  },
+  {
+    "verse_id": 7,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Stopped handing the remote control to their circumstances' is a keeper. Good distinction between steadiness and numbness. Action step about noticing anxiety after good news is psychologically acute."
+  },
+  {
+    "verse_id": 8,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. The email example ('Someone didn't reply. That's the fact. They hate my work is the fiction') makes sat/asat concrete in a way anyone can test immediately. This is Hawley-level clarity."
+  },
+  {
+    "verse_id": 9,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Smart to defuse the metaphysics ('call it awareness, call it consciousness, call it whatever you want'). 'The thing reading these words right now can't be fired' anchors the atman teaching in job-loss anxiety, which is exactly where Western readers live."
+  },
+  {
+    "verse_id": 10,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'You didn't fail those things. You just changed clothes' captures the lightness the verse intends. Clothes metaphor is easy for the reader to hold. Action step and reflection both land."
+  },
+  {
+    "verse_id": 11,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The problem isn't information. It's nerve.' Direct and true to sva-dharma. 'Do that step before lunch' makes the action step urgent. Reflection prompt about gut decisions pretending to be open is excellent."
+  },
+  {
+    "verse_id": 12,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Do the thing because the thing needs doing' is clean. Interpretation covers both equanimity and right motivation. Action step is a bit generic (three breaths before stress) but connects adequately to the verse."
+  },
+  {
+    "verse_id": 13,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. For the most famous verse in the Gita, the interpretation earns its place. 'It solves about half your problems in one line' is confident without overselling. 'The second you start working for the outcome instead of the work itself, you've lost the thread' is what karma yoga actually means."
+  },
+  {
+    "verse_id": 14,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Athlete-checking-the-score analogy is perfect for this verse. 'For the next two hours, work without checking any metrics' is a challenging and specific action step that actually tests the teaching."
+  },
+  {
+    "verse_id": 15,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The barista who's fully present while making your coffee is closer to this than the CEO checking email during a board meeting' is the best line in this verse and possibly the best example of making the Gita practical in the whole set. This is what Hawley would write."
+  },
+  {
+    "verse_id": 16,
+    "status": "minor_edit",
+    "issues": ["Reflection prompt is wordy and slightly preachy. The question structure ('What if the problem isn't X but that you've never Y') sounds like a TED talk rather than a friend at dinner."],
+    "revised_reflection_prompt": "What do you already have that you keep forgetting to notice?",
+    "notes": "Interpretation and action step are both strong. Only the reflection prompt needs tightening."
+  },
+  {
+    "verse_id": 17,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Checklist framing works for this diagnostic verse. 'Not happy. Steady. That's the metric that matters' is sharp. The three-option reflection prompt (craving, fear, anger) gives the reader something concrete to work with."
+  },
+  {
+    "verse_id": 18,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The most precise map of a downward spiral ever drawn' is earned. 'The blueprint for every doom-scroll and every 2 AM argument with someone who isn't in the room' makes a 2,500-year-old verse feel immediate. Excellent."
+  },
+  {
+    "verse_id": 19,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'You can walk through a bakery without buying everything. That's what self-control actually looks like.' Perfectly captures raga-dvesa-vimuktais. Not fighting feelings, just not obeying them. Action step about inserting a pause mirrors the verse's teaching precisely."
+  },
+  {
+    "verse_id": 20,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Ocean metaphor translated well to 'inbox, notifications, cravings.' 'Be the ocean, not the puddle' is memorable and actionable."
+  },
+  {
+    "verse_id": 21,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'A very sophisticated way of avoiding the work' calls out the perpetual-student trap. Reflection about permanent research projects is perfectly targeted at the Western knowledge-worker who reads instead of doing."
+  },
+  {
+    "verse_id": 22,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Even sitting on the couch scrolling your phone is an action' makes the inescapability of action visceral. 'That's a decision to let things happen to you instead of choosing what happens next' captures the verse's point about the impossibility of true non-action."
+  },
+  {
+    "verse_id": 23,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good contrast between engaged presence and withdrawal. 'Are you confusing checking out with inner peace?' is a tight reflection prompt."
+  },
+  {
+    "verse_id": 24,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Motivation is nice when it shows up. It's not required' is the right addendum to 'show up, do the work, let go.' This verse gets repeated often in the Gita and the interpretation captures why: it's the operating instruction."
+  },
+  {
+    "verse_id": 25,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. One of the strongest in the set. 'Your kids don't do what you tell them. They do what you do' and 'the values you demonstrate on a Tuesday afternoon when things go sideways' are the kind of specific, recognizable examples that make the Gita hit differently. This is exactly what Hawley does."
+  },
+  {
+    "verse_id": 26,
+    "status": "minor_edit",
+    "issues": ["Interpretation is near-verbatim identical to verse 86 (18.16). Both use 'Taking full personal credit or blame for anything is just ego pretending it's running the show.' Action steps are also nearly identical. These are different verses with different emphases and need distinct treatments.", "3.27 emphasizes prakriti's gunas as the real actor. The interpretation should lean into the 'nature does the work' angle rather than just the ego angle, to differentiate from 18.16."],
+    "revised_in_plain_terms": "Your personality, your drive, your talent? Those aren't really 'yours.' They're qualities of nature running through you. The calm clarity you feel some mornings, the restless ambition that hits at midnight, the heavy inertia of a Sunday afternoon. Those are nature's three modes doing their thing. You're more like a musical instrument than a musician. The music comes through you, not from you. Knowing this doesn't make you passive. It makes you less insufferable when things go well and less crushed when they don't.",
+    "revised_action_step": "Next time you feel proud of an accomplishment, try saying: 'That came through me, not just from me.' Notice whether it changes anything about the pride. It should make it lighter, not smaller.",
+    "notes": "The original captures a valid teaching but duplicates verse 86. This revision focuses on prakriti and the gunas as the real actors, which is what 3.27 specifically teaches, leaving 18.16's emphasis on the five factors of action for its own treatment."
+  },
+  {
+    "verse_id": 27,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Your cravings aren't you' followed by the ice cream aisle and difficult email examples is exactly right. 'That's a signal, not a command' is a phrase worth memorizing."
+  },
+  {
+    "verse_id": 28,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good differentiation from verse 94 (same verse, chapter 18). This one focuses on comparison and highlight reels; verse 94 focuses on authenticity and digital life. 'What would you be doing if you'd never seen anyone else's version of success?' is an excellent reflection prompt."
+  },
+  {
+    "verse_id": 29,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Krishna names the enemy, and it's not who you think' is a great opening. The key insight, that anger is always frustrated desire, is the practical teaching this verse delivers. 'What did I want that I didn't get?' as an action-step mantra is perfect."
+  },
+  {
+    "verse_id": 30,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The busiest person in the room might be accomplishing nothing' captures the paradox of karma/akarma. Good challenge to the cult of busyness. Action step of scheduling 'nothing' is appropriately counterintuitive."
+  },
+  {
+    "verse_id": 31,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'When you strip away the self-interest, the quality goes up, not down' is a good counter-intuitive observation. 'Do one genuinely kind thing that no one will ever know about' is the purest test of this verse's teaching."
+  },
+  {
+    "verse_id": 32,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Two words change everything: in time' shows real editorial attention. Focuses on the experiential, slow-ripening nature of real knowledge vs. consumed information. 'What are you trying to learn through reading that you can only learn through doing?' is excellent."
+  },
+  {
+    "verse_id": 33,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Deliberation is just procrastination wearing a suit' is sharp. 'Make it in the next five minutes. Not perfectly. Just make it.' has the right urgency for a verse about cutting through doubt with a sword."
+  },
+  {
+    "verse_id": 34,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good de-monasticizing of sannyasa. 'You can have a career, a family, a full social calendar, and still be free' is exactly what this verse teaches: detachment is internal, not situational."
+  },
+  {
+    "verse_id": 35,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Lotus-in-the-mud metaphor is well deployed. 'Work in the chaos, help where it's needed, get your hands dirty. Just don't absorb it' is clean and practical."
+  },
+  {
+    "verse_id": 36,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good modernization of the Brahmin/cow/elephant/dog/outcaste list into professor/stray dog. 'Training yourself to see what's shared is harder than cataloging what's different' is the right emphasis."
+  },
+  {
+    "verse_id": 37,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'That thing you just bought? You'll be bored with it in six weeks' is direct and testable. 'The thrill lasts about three days before the new anxiety kicks in' nails the hedonic treadmill without using the academic term."
+  },
+  {
+    "verse_id": 38,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Happiness isn't the absence of difficult feelings. It's the ability to withstand them without being wrecked' is a clear, important reframe. 'What internal storm are you trying to eliminate when you should be learning to weather it?' is an excellent reflection prompt."
+  },
+  {
+    "verse_id": 39,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'No one is coming to save you. That's not pessimism. That's the beginning of actual power.' Perfect for uddhared atmanatmanam. Captures both the terror and the liberation of self-reliance."
+  },
+  {
+    "verse_id": 40,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Your relationship with yourself sets the terms for every other relationship' is psychologically sound and true to the verse. 'If your self-talk were a person, would you want them as a friend?' is a powerful reflection prompt."
+  },
+  {
+    "verse_id": 41,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Adequate treatment of equanimity, though it covers ground similar to verses 7 and 17. Differentiates itself with the 'not numbness but the result of very specific inner work' angle. Action step about naming a regular mood-ruiner is specific enough."
+  },
+  {
+    "verse_id": 42,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The boring stuff isn't the foundation for the real work. The boring stuff IS the real work' is a great line. Sleep/food/movement audit as action step is concrete. Good treatment of 6.16."
+  },
+  {
+    "verse_id": 43,
+    "status": "minor_edit",
+    "issues": ["Too similar to verse 42 in both interpretation and action step. Both say the basics are the real work, both give sleep/food/movement audits. 6.17 specifically says yoga becomes 'the destroyer of pain' for the moderate person. That claim should be the focus, not a repeat of the basics-are-important message."],
+    "revised_in_plain_terms": "Here's a claim that sounds too simple to be true: if you get your eating, sleeping, working, and resting into balance, your suffering decreases. Not your problems. Your suffering. The Gita is saying moderation doesn't just support your practice. It dissolves pain directly. Not because balanced living is virtuous. Because most of what you call 'emotional pain' is actually your body running on bad inputs. Fix the inputs and the system stabilizes on its own.",
+    "revised_action_step": "Tonight, go to bed 30 minutes earlier than usual. That's it. That's the spiritual practice.",
+    "revised_reflection_prompt": "How much of your mental suffering right now might actually be physical: too little sleep, too much screen time, not enough movement?",
+    "notes": "Kept the original action step, which is good. Revised interpretation to focus on the 'destroyer of pain' claim in 6.17, which distinguishes it from 6.16's 'precondition' framing. New reflection prompt connects mental suffering to physical imbalance, which is the verse's actual insight."
+  },
+  {
+    "verse_id": 44,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Three words that should be tattooed on the forehead of anyone who wants to change their life overnight' has good energy. 'Two minutes. Not twenty. Two.' is a perfect action step for a verse about gradual progress."
+  },
+  {
+    "verse_id": 45,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'That's not the failure of meditation. That IS meditation' is the single most important reframe for any Western reader trying to meditate. 'You just did a rep' makes it athletic and approachable. One of the best in the set."
+  },
+  {
+    "verse_id": 46,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good use of Arjuna's credibility ('the greatest warrior of his generation said exactly what you're thinking'). Normalizes the difficulty of focus without using it as an excuse."
+  },
+  {
+    "verse_id": 47,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Captures both abhyasa and vairagya correctly. 'Both are learnable. Neither comes naturally.' is honest and encouraging without being soft."
+  },
+  {
+    "verse_id": 48,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Nothing good you've done is wasted' is the right message for 6.40. The list of specific 'failures' (business, practice, relationship) makes it concrete. 'The effort went somewhere, even if you can't see where yet' is encouraging without being saccharine."
+  },
+  {
+    "verse_id": 49,
+    "status": "minor_edit",
+    "issues": ["Interpretation drifts toward vague interconnectedness without landing on something the reader can use. 'Everything is connected by a single thread you can't see' sounds like a yoga studio poster. The verse is Krishna saying 'I am the thread holding everything together.' The practical teaching is about coherence: your life has a through-line even when it looks fragmented. That needs to be made sharper.", "Action step ('Find the thread') is too vague to execute in 60 seconds."],
+    "revised_in_plain_terms": "Your life looks random from the inside. Career pivots, failed relationships, that hobby you dropped, the city you moved to on impulse. But there's a thread running through all of it that you can only see looking backward. Krishna's claim here is bold: that thread isn't coincidence. It's the same organizing principle that holds galaxies together. You don't have to believe that literally. But try this: look at the last five major turns in your life and find what they have in common. There's usually a pattern. And the pattern is usually you, being pulled toward something you haven't fully named yet.",
+    "revised_action_step": "Write down the last three major changes in your life. Look for the common thread. If you can name it in one sentence, you've found something worth paying attention to.",
+    "notes": "The gems-on-a-string image from the verse is beautiful but the original interpretation didn't give the reader anything to do with it. This revision makes the teaching about narrative coherence, which is testable and relevant."
+  },
+  {
+    "verse_id": 50,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Ambition doesn't need to be killed. It needs to be aimed' is the right landing for a verse about strength devoid of desire. Good distinction between ego-driven and purpose-driven ambition."
+  },
+  {
+    "verse_id": 51,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good practical treatment of maya. 'The things you've never questioned because they feel like just the way things are' is how illusion actually operates. Action step about questioning a self-belief is specific."
+  },
+  {
+    "verse_id": 52,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Smart to translate the 'what you think of at death' teaching into a practical principle about habitual thought without getting into reincarnation. 'Your mind is being dyed by whatever you keep exposing it to' captures the verse's mechanism precisely."
+  },
+  {
+    "verse_id": 53,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Don't compartmentalize' is the right entry point for 'at all times remember Me and fight.' The instruction to bring awareness to the grocery store, not just the meditation cushion, is the practical application."
+  },
+  {
+    "verse_id": 54,
+    "status": "minor_edit",
+    "issues": ["Interpretation reduces yoga-kshema (divine provision and preservation) to 'focus works and scattered attention produces scattered results.' That's a productivity principle, not what this verse teaches. 9.22 is about trust: when you commit fully, support shows up from places you didn't plan for. The verse is about surrender and grace, not about the power of focus.", "The word 'focus' appears three times. The verse uses 'ananya' (without otherness), which is about devotion, not concentration."],
+    "revised_in_plain_terms": "When you stop hedging and fully commit to what matters, something unexpected happens: support shows up. Not because the universe reads your vision board. But because commitment changes what you notice, who you attract, and what you're willing to receive. The person with one foot out the door misses the opportunities that were standing right in front of them. This verse isn't about focus. It's about trust. Commit fully, and let the rest find you.",
+    "notes": "The original wasn't wrong, just shallow. It treated a verse about divine provision as a productivity hack. The revision keeps the practical angle (commitment changes what you notice) while honoring the trust/surrender element that's actually in the text."
+  },
+  {
+    "verse_id": 55,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Meaning doesn't live in the task. It lives in how you hold it' is an excellent closer. Progression from abstract (offering) to concrete (making dinner) is good pedagogy."
+  },
+  {
+    "verse_id": 56,
+    "status": "minor_edit",
+    "issues": ["Too productivity-flavored. The verse is man-mana bhava mad-bhakto: 'Fix your mind on Me, be devoted to Me.' The interpretation reads like 'pick your one priority and stop multitasking.' That's good advice but it misses the devotional quality entirely. The verse is about total surrender of the self, not about narrowing your task list.", "The line 'The person who meditates for five minutes while checking email isn't meditating' is fine but reduces devotion to attention management."],
+    "revised_in_plain_terms": "This verse asks for something most modern people find terrifying: total devotion. Not to a to-do list. Not to a career. To something you consider sacred. Whether that's God, truth, service, or a principle you'd die for. Half-commitment is its own kind of suffering because you never fully arrive anywhere. The person who's given themselves completely to something, really given themselves, has a steadiness that scattered effort can never produce. You don't have to call it devotion. But whatever you call it, the instruction is the same: stop splitting yourself.",
+    "notes": "The original wasn't inaccurate but it drained the devotional content out of one of the Gita's most explicitly bhakti-oriented verses. The revision keeps it accessible to secular readers while honoring the verse's actual register."
+  },
+  {
+    "verse_id": 57,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good handling of a catalogue verse. 'You're not broken when you're afraid, confused, or hurting' is the right takeaway. 'What part of your experience are you trying to amputate instead of accepting?' is a strong reflection prompt."
+  },
+  {
+    "verse_id": 58,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Consistency unlocks understanding' captures buddhi-yoga well. Fruit-ripening metaphor is patient and true. 'Commit to thirty more days before you evaluate' is specific and countercultural in a good way."
+  },
+  {
+    "verse_id": 59,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good treatment of vibhuti. 'Those aren't random. They're fragments of a coherence that runs through everything' captures the teaching without getting mystical. Action step about pausing at three excellent things is doable."
+  },
+  {
+    "verse_id": 60,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Oppenheimer reference is culturally smart. 'If none of it lasts, you might as well stop clutching it so tightly' turns the cosmic terror into practical advice. 'Fast-forward 100 years' as an action step is appropriately dramatic for a verse about the destroyer of worlds."
+  },
+  {
+    "verse_id": 61,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'You're not the author of what happens next. You're the instrument' captures nimitta-matram precisely. 'Stand up (literally, if you can)' as an action step is wonderfully physical and immediate."
+  },
+  {
+    "verse_id": 62,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good distillation of 11.55 into four clear instructions. 'If you could genuinely do these four things for even one day, you'd recognize the person you'd become' is motivating without being preachy."
+  },
+  {
+    "verse_id": 63,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Where you put your attention is where you actually live' is a clean, practical restatement. Phone-during-dinner example is concrete. Different enough from verse 53 (which focused on non-compartmentalization)."
+  },
+  {
+    "verse_id": 64,
+    "status": "minor_edit",
+    "issues": ["The verse presents an ascending hierarchy: practice < knowledge < meditation < renunciation of fruits. The interpretation jumps straight to the conclusion ('If you can only do one thing, let go of results') and skips the hierarchy entirely. A reader who looked at the translation would wonder why the interpretation ignores three-quarters of the verse.", "The 'peace follows immediately' emphasis is good but needs the context of what it follows from."],
+    "revised_in_plain_terms": "The Gita lays out a hierarchy here, and the ranking is surprising. Rote practice is good, but knowledge is better. Knowledge is good, but meditation is better. And better than all of those? Letting go of results. That's the move that produces immediate peace. Not eventual peace. Immediate. You can meditate for years and still be anxious if you're clenching around outcomes. But the moment you genuinely release your grip on how things turn out, something shifts. It's not that the other practices don't matter. They do. They build the capacity. But the release is what actually opens the door.",
+    "notes": "Preserves the original's best insight (immediate peace from letting go) while respecting the verse's actual structure. A reader comparing the translation to the interpretation will now see the connection."
+  },
+  {
+    "verse_id": 65,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Character-checklist framing works. 'Not as a theory. Actually forgiving. Right now.' has the directness this needs. Good pairing with Marcus's 'stop debating what a good person looks like and be one.'"
+  },
+  {
+    "verse_id": 66,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Do people tense up when you enter the room, or relax?' is one of the most practical tests in the entire set. Makes an abstract quality (non-agitation) into something observable and measurable. One of the best verses in the collection."
+  },
+  {
+    "verse_id": 67,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Operating at peak capacity without the dead weight of neediness' captures the verse well. 'Do one thing purely for the quality of it, with zero expectation of feedback' is a clean test."
+  },
+  {
+    "verse_id": 68,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Honest about the difficulty ('this sounds superhuman, and honestly, it kind of is'). 'The person who's steady in all conditions is the one you trust with everything' gives a practical reason to aspire to equanimity. 'Where does your behavior change most dramatically depending on who's watching?' is sharp."
+  },
+  {
+    "verse_id": 69,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good distinction between fake and real humility. 'It's not a personality. It's a practice' is the right landing for a virtue-list verse. Reflection prompt about having others rank your qualities is bracing."
+  },
+  {
+    "verse_id": 70,
+    "status": "minor_edit",
+    "issues": ["Too similar to verse 36 (5.18). Both are about seeing equally in all beings. Both use the barista/CEO contrast. Both end with reflections about who you treat as 'less worthy' or 'other.' 13.28 specifically mentions seeing the 'imperishable within the perishable,' which is a distinct teaching from 5.18's 'equal eye.' The interpretation should focus on perceiving what's permanent beneath what's changing, not on social equality."],
+    "revised_in_plain_terms": "Everything around you is aging, breaking down, changing form. Your body, your relationships, even your thoughts. But something in you has never aged a day. You can feel it if you're quiet enough: the part of you that watched your childhood was the same part watching yesterday. This verse says the person who truly sees has learned to look through the surface of things and find that permanent element. Not just in themselves, but in everything. The tree losing its leaves. The friend who's changed beyond recognition. The stranger on the bus. Something in all of them isn't going anywhere.",
+    "revised_action_step": "Think about someone you've known for years. Notice what's changed about them and what hasn't. The thing that hasn't changed is what this verse is pointing at.",
+    "revised_reflection_prompt": "What in you has stayed the same through every change you've been through?",
+    "notes": "Verse 36 (5.18) handles the social-equality angle well. This revision gives 13.28 its own territory: perceiving the imperishable within the perishable, which is the verse's specific teaching."
+  },
+  {
+    "verse_id": 71,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'You're the awareness watching all of it' is the right landing for the kshetra/kshetrajna distinction. 'Watching your own mind panic while some deeper part stays perfectly calm' makes it experiential rather than theoretical. Cars-on-a-highway meditation instruction is concrete."
+  },
+  {
+    "verse_id": 72,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Translating the three gunas into 'clarity, agitation, inertia' is exactly the Hawley approach. 'Don't judge it. Just name it' as an action step is psychologically sound. This verse works as a practical diagnostic tool."
+  },
+  {
+    "verse_id": 73,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'If you've ever spent an entire day on the couch feeling like you couldn't move' is relatable. 'The Gita doesn't shame you for it' is important to say. 'Wash one dish' as an action step against inertia is perfect: small enough to actually do."
+  },
+  {
+    "verse_id": 74,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Advanced move' framing properly positions this beyond the beginner gunas teaching. 'This isn't indifference. It's the kind of observation that lets everything pass without sticking' makes the key distinction."
+  },
+  {
+    "verse_id": 75,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Some things can't be reasoned away. They have to be cut.' Strong opening for the axe-of-non-attachment verse. Good permission not to act today ('You don't have to drop it. Just name it') while still making progress."
+  },
+  {
+    "verse_id": 76,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'You notice one day that things that used to grip you just... don't' captures the gradual nature of liberation. Good balance between aspiration and realism."
+  },
+  {
+    "verse_id": 77,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good demystification of 'the eye of knowledge' as just paying attention. Phone-free meal as action step is practical and testable."
+  },
+  {
+    "verse_id": 78,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Fearlessness leads the list' is a keen editorial observation. Good distinction between courage (feeling fear, pushing through) and fearlessness (the fear itself has lost its grip). Action step about doing one feared thing today is appropriately challenging."
+  },
+  {
+    "verse_id": 79,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Not a complicated taxonomy. Just three things.' Keeps it simple, which is what the verse does. Three-gate test as a decision filter is immediately usable."
+  },
+  {
+    "verse_id": 80,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Don't improvise your ethics under pressure' is an excellent reframing of 'let scripture be the authority.' Makes it applicable regardless of the reader's religious framework. 'Whether your framework comes from philosophy, religion, or hard experience' is inclusive without being wishy-washy."
+  },
+  {
+    "verse_id": 81,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. One of the best in the set. 'If you say you value health but eat garbage, your real belief is that convenience matters more' is devastating and true. The gap between stated and revealed beliefs is the verse's teaching, and this nails it."
+  },
+  {
+    "verse_id": 82,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good structural presentation of the three levels of tapas (body, speech, mind). 'Most people only work on one' is a useful provocation. The true/kind/necessary speech filter is well-known but effective."
+  },
+  {
+    "verse_id": 83,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'This is Krishna's final word on action' properly frames the verse's position in chapter 18. 'Act. Let go. Repeat.' is clean. Appropriate gravitas for a summative verse."
+  },
+  {
+    "verse_id": 84,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The difference between a tight fist and an open hand. The open hand can hold more.' Good image for sattvic renunciation. Action step about catching yourself checking for results is behaviorally specific."
+  },
+  {
+    "verse_id": 85,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'If you're fantasizing about quitting everything and moving to a cabin, this verse is talking to you' is perfectly targeted. Addresses the retreat fantasy that many Western spiritual seekers carry."
+  },
+  {
+    "verse_id": 86,
+    "status": "rewrite",
+    "issues": ["Near-verbatim duplicate of verse 26 (3.27). Both say 'taking full personal credit or blame is ego pretending it runs the show.' Both action steps ask you to list factors beyond yourself that contributed to a recent accomplishment. This is a different verse with a different teaching and needs completely fresh treatment.", "18.16 is specifically about the five factors of action (body, agent, senses, various efforts, divine will). The teaching is that anyone who sees only the self as the doer has 'perverted intelligence' because they're ignoring the four other factors. This is a systems-thinking verse, not just an ego verse."],
+    "revised_in_plain_terms": "Every outcome in your life has five ingredients, and you're only one of them. There's the situation (where and when it happened), the person acting (you), the tools you used (your skills, resources, connections), the effort you put in, and something you can't control at all: luck, timing, grace, whatever you want to call it. When you look at any result and think 'I did that,' you're claiming credit for all five factors when you only controlled two of them, at most. This isn't false modesty. It's accurate accounting. And it works both ways. That failure you're beating yourself up over? You were only one-fifth of the equation.",
+    "revised_action_step": "Think about something that went wrong recently. Instead of asking 'what did I do wrong,' ask: which of the five factors (situation, me, tools, effort, forces beyond my control) actually drove the outcome?",
+    "revised_reflection_prompt": "How often do you claim full authorship of results that had five co-authors?",
+    "notes": "Complete rewrite to give this verse its own identity. The five-factor framework from 18.13-14 (which sets up 18.16) is a genuinely practical analytical tool. This treatment makes it useful in a way the ego-mirror of verse 26 already covers."
+  },
+  {
+    "verse_id": 87,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The highest knowledge isn't knowing more facts. It's seeing one thing in everything.' Good. 'This isn't mystical hand-waving. It's a specific way of perceiving' earns the reader's trust before making the claim."
+  },
+  {
+    "verse_id": 88,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Five-point test framework makes an abstract description of sattvic action into something actionable. 'If you hit three out of five, you're doing better than most' is encouraging and realistic."
+  },
+  {
+    "verse_id": 89,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'They can't be bought, flattered, or intimidated' is a vivid portrait. Captures the sattvic worker as someone dangerous in the best way. Good balance of aspiration and reality."
+  },
+  {
+    "verse_id": 90,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good treatment of sattvic intellect as practical wisdom rather than IQ. 'It's worth more than any credential because it actually works when things get hard' is the right sell."
+  },
+  {
+    "verse_id": 91,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good distinction between willpower (depleting) and commitment (deeper). 'Make it smaller and more specific' as advice for keeping commitments is practically useful."
+  },
+  {
+    "verse_id": 92,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good pairing with verse 93 (rajasic pleasure). The workout/meditation/difficult conversation examples make 'poison at first, nectar in the end' immediately recognizable. 'Choose your poison. Literally.' is a tight closer."
+  },
+  {
+    "verse_id": 93,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Perfect inversion of verse 92. 'The second donut, the third drink, the argument you won' are specific and recognizable. 'Fast-forward 24 hours' as a decision tool is practical."
+  },
+  {
+    "verse_id": 94,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good acknowledgment that this verse appears twice ('That's how much it matters'). Sufficiently differentiated from verse 28 (3.35): this one focuses on digital comparison and authenticity. 'Unfollow or mute one account' is the best action step for this verse in 2024."
+  },
+  {
+    "verse_id": 95,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Every fire produces smoke' is a perfect modernization of the metaphor. 'Imperfection isn't a bug. It's a feature of being alive' is clear. 'Ship that thing' is the right action step for a verse about not waiting for perfection."
+  },
+  {
+    "verse_id": 96,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. Good distinction between purposeful persistence and stubborn pride. Water-flowing-around-rocks vs. slamming-into-them image works well."
+  },
+  {
+    "verse_id": 97,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Krishna's last word is: now decide for yourself' captures the profound respect in this verse. 'No ultimatum. No threat' is important to say. One of the great editorial observations in the set."
+  },
+  {
+    "verse_id": 98,
+    "status": "minor_edit",
+    "issues": ["This is sarva-dharman parityajya, one of the most dramatic verses in the Gita. After 17 chapters of teaching various dharmas, disciplines, and practices, Krishna says: abandon ALL of them. Just come to me. The interpretation treats it as 'let go after you've done your best,' which is far too tame for what's actually being said.", "The radical quality of the verse is that even the practices Krishna just taught become things to release. This isn't just 'let go of the steering wheel.' It's 'let go of the car, the road, and the destination.'", "The interpretation also says 'Not give up. Let go' which is correct but undersells the verse's intensity."],
+    "revised_in_plain_terms": "This is the most radical verse in the Gita, and it comes right at the end. After 17 chapters of detailed instruction on duty, discipline, yoga, knowledge, devotion, and right action, Krishna says: drop all of it. Every framework I just gave you, every practice, every rule. Let it all go. Just come to me. Don't grieve. This isn't giving up. It's what happens after you've done everything you can and realized that the doing was never the point. At some point, even the best tools become crutches. The final step isn't another technique. It's trust.",
+    "notes": "The original interpretation was too gentle for what is arguably the Gita's climactic teaching. This revision captures the radical nature of abandoning ALL dharmas (including the ones Krishna just spent 700 verses teaching) while keeping it accessible. The progression from 'frameworks become crutches' to 'the final step is trust' mirrors the verse's actual movement."
+  },
+  {
+    "verse_id": 99,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'Notice he doesn't say he understands everything. He says his doubts are gone and he's ready to move.' This editorial observation is brilliant and captures exactly what's profound about Arjuna's response. Perfect penultimate verse."
+  },
+  {
+    "verse_id": 100,
+    "status": "pass",
+    "issues": [],
+    "notes": "Translation matches. 'The philosopher who never acts and the hustler who never reflects are both incomplete. The magic is in the combination.' Perfect closer for the entire Gita. 'Where wisdom meets action, everything follows' captures the verse's promise. Good bilateral action step (one area of knowledge without action, one area of action without thinking)."
+  }
+]
