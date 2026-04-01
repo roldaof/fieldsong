@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
   },
   problemFraming: {
     fontFamily: fonts.sans.regular,
-    fontSize: 14,
-    color: colors.textMuted,
+    fontSize: 15,
+    color: colors.textSecondary,
     marginTop: spacing.lg,
     marginBottom: spacing.md,
   },
