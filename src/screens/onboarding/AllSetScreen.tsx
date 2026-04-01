@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontFamily: fonts.serif.italic,
-    fontSize: 16,
-    color: colors.textSecondary,
+    fontSize: 20,
+    color: colors.primary,
   },
   complete: {
     ...typography.labelSm,
@@ -137,10 +137,10 @@ const styles = StyleSheet.create({
     paddingBottom: spacing['4xl'],
   },
   headline: {
-    fontFamily: fonts.serif.bold,
-    fontSize: 32,
-    lineHeight: 40,
-    color: colors.textPrimary,
+    fontFamily: fonts.serif.italic,
+    fontSize: 36,
+    lineHeight: 44,
+    color: colors.primary,
     marginTop: spacing.xl,
     marginBottom: spacing.lg,
   },
@@ -177,14 +177,14 @@ const styles = StyleSheet.create({
   },
   translation: {
     fontFamily: fonts.serif.semiBold,
-    fontSize: 18,
-    lineHeight: 28,
+    fontSize: 22,
+    lineHeight: 32,
     color: colors.textPrimary,
     marginBottom: spacing.sm,
   },
   reference: {
     ...typography.labelSm,
-    color: colors.textMuted,
+    color: colors.textSecondary,
     marginBottom: spacing.xl,
   },
   sectionLabel: {
@@ -201,14 +201,14 @@ const styles = StyleSheet.create({
   },
   stoicQuote: {
     fontFamily: fonts.serif.italic,
-    fontSize: 15,
-    lineHeight: 24,
+    fontSize: 18,
+    lineHeight: 28,
     color: colors.textPrimary,
     marginBottom: spacing.sm,
   },
   stoicSource: {
     ...typography.labelSm,
-    color: colors.textMuted,
+    color: colors.textSecondary,
   },
   openButton: {
     marginBottom: spacing.md,

@@ -209,14 +209,14 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   entryDate: {
-    fontFamily: fonts.sans.semiBold,
-    fontSize: 14,
-    color: colors.textPrimary,
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
     marginBottom: spacing.xs,
   },
   entryRef: {
     ...typography.labelSm,
-    color: colors.primary,
+    color: colors.textSecondary,
     marginBottom: spacing.md,
   },
   entryPreview: {
@@ -232,9 +232,9 @@ const styles = StyleSheet.create({
     borderTopColor: colors.outlineVariant,
   },
   expandedTranslation: {
-    fontFamily: fonts.serif.italic,
-    fontSize: 16,
-    lineHeight: 26,
+    fontFamily: fonts.serif.semiBold,
+    fontSize: 22,
+    lineHeight: 32,
     color: colors.textPrimary,
     marginBottom: spacing.md,
   },

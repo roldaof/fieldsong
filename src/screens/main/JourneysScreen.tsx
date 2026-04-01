@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontFamily: fonts.serif.semiBold,
-    fontSize: 20,
+    fontSize: 18,
     color: colors.textPrimary,
   },
   loadingContainer: {
@@ -204,8 +204,8 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: fonts.serif.semiBold,
-    fontSize: 22,
-    lineHeight: 30,
+    fontSize: 18,
+    lineHeight: 24,
     color: colors.textPrimary,
     marginBottom: spacing.xs,
   },

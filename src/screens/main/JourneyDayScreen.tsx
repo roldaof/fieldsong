@@ -239,8 +239,8 @@ const styles = StyleSheet.create({
   },
   journeyTitle: {
     fontFamily: fonts.serif.semiBold,
-    fontSize: 22,
-    lineHeight: 30,
+    fontSize: 18,
+    lineHeight: 24,
     color: colors.textPrimary,
     marginBottom: spacing.md,
   },

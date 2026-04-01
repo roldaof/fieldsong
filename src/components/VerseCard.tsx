@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   reference: {
-    ...typography.labelMd,
+    ...typography.labelSm,
     color: colors.textSecondary,
   },
 });

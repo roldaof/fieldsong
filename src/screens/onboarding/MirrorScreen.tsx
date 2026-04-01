@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   affirmation: {
     fontFamily: fonts.sans.regular,
-    fontSize: 16,
+    fontSize: 15,
     lineHeight: 24,
     color: colors.textSecondary,
     textAlign: 'center',

@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontFamily: fonts.sans.regular,
-    fontSize: 16,
+    fontSize: 15,
     lineHeight: 24,
     color: colors.textSecondary,
     marginBottom: spacing['4xl'],
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   },
   footerBrand: {
     fontFamily: fonts.serif.italic,
-    fontSize: 16,
-    color: colors.textMuted,
+    fontSize: 20,
+    color: colors.primary,
     textAlign: 'center',
   },
 });

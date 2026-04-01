@@ -120,10 +120,10 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   headline: {
-    fontFamily: fonts.serif.regular,
-    fontSize: 32,
-    lineHeight: 40,
-    color: colors.textPrimary,
+    fontFamily: fonts.serif.italic,
+    fontSize: 36,
+    lineHeight: 44,
+    color: colors.primary,
     marginBottom: spacing.md,
   },
   headlineGold: {

@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   ref: {
     ...typography.labelSm,
-    color: colors.primary,
+    color: colors.textSecondary,
     marginBottom: spacing.sm,
   },
   sanskrit: {
@@ -185,21 +185,21 @@ const styles = StyleSheet.create({
   },
   translation: {
     fontFamily: fonts.serif.semiBold,
-    fontSize: 16,
-    lineHeight: 26,
+    fontSize: 22,
+    lineHeight: 32,
     color: colors.textPrimary,
     marginBottom: spacing.lg,
   },
   stoicQuote: {
     fontFamily: fonts.serif.italic,
-    fontSize: 15,
-    lineHeight: 24,
+    fontSize: 18,
+    lineHeight: 28,
     color: colors.textPrimary,
     marginBottom: spacing.sm,
   },
   stoicSource: {
     ...typography.labelSm,
-    color: colors.textMuted,
+    color: colors.textSecondary,
   },
   empty: {
     paddingVertical: spacing['5xl'],

@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   },
   timeLabel: {
     fontFamily: fonts.sans.semiBold,
-    fontSize: 20,
+    fontSize: 18,
     color: colors.textPrimary,
   },
   timeLabelSelected: {
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   emailSubtext: {
     fontFamily: fonts.sans.regular,
     fontSize: 13,
-    color: colors.textSecondary,
+    color: colors.textMuted,
     lineHeight: 20,
   },
   quoteCard: {
@@ -295,9 +295,9 @@ const styles = StyleSheet.create({
   },
   quoteText: {
     fontFamily: fonts.serif.italic,
-    fontSize: 16,
-    lineHeight: 24,
-    color: colors.textSecondary,
+    fontSize: 18,
+    lineHeight: 28,
+    color: colors.textPrimary,
     marginBottom: spacing.sm,
   },
   quoteAttribution: {

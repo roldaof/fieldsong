@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
   },
   settingSubtext: {
     fontFamily: fonts.sans.regular,
-    fontSize: 12,
-    color: colors.textSecondary,
+    fontSize: 13,
+    color: colors.textMuted,
     marginTop: spacing.xs,
   },
   accountSection: {

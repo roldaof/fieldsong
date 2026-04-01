@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { colors, spacing, typography } from '../config/theme';
+import { colors, fonts, spacing, typography } from '../config/theme';
 
 interface FeedbackWidgetProps {
   onFeedback: (value: 'up' | 'down') => void;
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   selectedText: {
-    fontFamily: 'Manrope_400Regular',
+    fontFamily: fonts.sans.regular,
     fontSize: 13,
     color: colors.textSecondary,
     marginTop: spacing.md,
