@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  TouchableOpacity,
+  LayoutAnimation,
+  UIManager,
+  Platform,
+} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, fonts, spacing } from '../../config/theme';
+import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
 import { VerseCard } from '../../components/VerseCard';
-import { InterpretationCard } from '../../components/InterpretationCard';
-import { StoicCard } from '../../components/StoicCard';
 import { ActionStep } from '../../components/ActionStep';
 import { supabase } from '../../config/supabase';
 import { Intent, Verse } from '../../types';
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
+const MAX_LENGTH = 280;
 
 const FALLBACK_VERSE = {
   id: 0,
@@ -29,11 +44,40 @@ const FALLBACK_VERSE = {
   reflection_prompt: 'Where in your life are you frozen between two choices right now?',
 };
 
+function AccordionSection({
+  label,
+  expanded,
+  onToggle,
+  children,
+}: {
+  label: string;
+  expanded: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <View style={styles.accordionContainer}>
+      <TouchableOpacity
+        style={styles.accordionHeader}
+        onPress={onToggle}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.accordionLabel}>{label}</Text>
+        <Text style={styles.accordionChevron}>{expanded ? '▴' : '▾'}</Text>
+      </TouchableOpacity>
+      {expanded && <View style={styles.accordionContent}>{children}</View>}
+    </View>
+  );
+}
+
 export function FirstVerseScreen({ navigation, route }: any) {
   const insets = useSafeAreaInsets();
   const intents: Intent[] = route.params?.intents ?? [];
   const [verse, setVerse] = useState<Verse | typeof FALLBACK_VERSE | null>(null);
   const [loading, setLoading] = useState(true);
+  const [interpretationOpen, setInterpretationOpen] = useState(false);
+  const [stoicOpen, setStoicOpen] = useState(false);
+  const [reflectionText, setReflectionText] = useState('');
 
   useEffect(() => {
     let mounted = true;
@@ -60,6 +104,16 @@ export function FirstVerseScreen({ navigation, route }: any) {
     return () => { mounted = false; };
   }, []);
 
+  const toggleInterpretation = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setInterpretationOpen((prev) => !prev);
+  };
+
+  const toggleStoic = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setStoicOpen((prev) => !prev);
+  };
+
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <StatusBar style="light" />
@@ -71,27 +125,72 @@ export function FirstVerseScreen({ navigation, route }: any) {
           <ActivityIndicator color={colors.primary} size="large" />
         </View>
       ) : verse ? (
-        <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
+        <ScrollView
+          style={styles.scrollContent}
+          contentContainerStyle={styles.scrollInner}
+          keyboardShouldPersistTaps="handled"
+        >
           <VerseCard
             sanskritLine={verse.sanskrit_line}
             translation={verse.translation}
             chapter={verse.chapter}
             verseNumber={verse.verse_number}
           />
-          <InterpretationCard text={verse.modern_interpretation} />
-          <StoicCard
-            quote={verse.stoic_parallel_quote}
-            source={verse.stoic_parallel_source}
-            bridge={verse.stoic_bridge}
-          />
+
+          <AccordionSection
+            label="IN PLAIN TERMS"
+            expanded={interpretationOpen}
+            onToggle={toggleInterpretation}
+          >
+            <Text style={styles.interpretationBody}>
+              {verse.modern_interpretation}
+            </Text>
+          </AccordionSection>
+
+          <AccordionSection
+            label="STOIC PARALLEL"
+            expanded={stoicOpen}
+            onToggle={toggleStoic}
+          >
+            <Text style={styles.stoicQuote}>
+              {`\u201C${verse.stoic_parallel_quote}\u201D`}
+            </Text>
+            <Text style={styles.stoicSource}>{verse.stoic_parallel_source}</Text>
+            <Text style={styles.stoicBridge}>{verse.stoic_bridge}</Text>
+          </AccordionSection>
+
           <ActionStep text={verse.action_step} />
+
+          <View style={styles.reflectionCard}>
+            <Text style={styles.reflectionLabel}>REFLECT</Text>
+            <Text style={styles.reflectionPrompt}>
+              {verse.reflection_prompt || 'Where in your life are you frozen between two choices right now?'}
+            </Text>
+            <TextInput
+              style={styles.reflectionInput}
+              multiline
+              maxLength={MAX_LENGTH}
+              value={reflectionText}
+              onChangeText={setReflectionText}
+              placeholder="Write your thoughts here..."
+              placeholderTextColor={colors.textMuted}
+              textAlignVertical="top"
+              autoCorrect={true}
+              scrollEnabled={false}
+              blurOnSubmit={false}
+            />
+            <Text style={styles.charCount}>
+              {reflectionText.length}/{MAX_LENGTH}
+            </Text>
+          </View>
+          <Text style={styles.privacyNote}>Your reflections are private. Always.</Text>
+
           <Button
             title="Continue"
             onPress={() =>
-              navigation.navigate('MicroReflection', {
+              navigation.navigate('SignUp', {
                 intents,
-                verseId: verse.id,
-                reflectionPrompt: verse.reflection_prompt || '',
+                reflectionText: reflectionText.trim(),
               })
             }
             style={styles.continueButton}
@@ -129,6 +228,103 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing['4xl'],
   },
+
+  // Accordion
+  accordionContainer: {
+    marginVertical: spacing.md,
+  },
+  accordionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: colors.surfaceContainerLow,
+    borderRadius: borderRadius.lg,
+    padding: spacing.lg,
+  },
+  accordionLabel: {
+    ...typography.labelMd,
+    color: colors.primary,
+  },
+  accordionChevron: {
+    fontSize: 14,
+    color: colors.textSecondary,
+  },
+  accordionContent: {
+    padding: spacing.lg,
+  },
+
+  // Interpretation content
+  interpretationBody: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 16,
+    lineHeight: 26,
+    color: colors.textPrimary,
+  },
+
+  // Stoic content
+  stoicQuote: {
+    fontFamily: fonts.serif.italic,
+    fontSize: 18,
+    lineHeight: 28,
+    color: colors.textPrimary,
+    marginBottom: spacing.sm,
+  },
+  stoicSource: {
+    ...typography.labelSm,
+    color: colors.textSecondary,
+    marginBottom: spacing.lg,
+  },
+  stoicBridge: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    lineHeight: 22,
+    color: colors.textSecondary,
+  },
+
+  // Reflection
+  reflectionCard: {
+    backgroundColor: colors.surfaceContainerLow,
+    borderRadius: borderRadius.xl,
+    padding: spacing.xl,
+    marginTop: spacing.md,
+  },
+  reflectionLabel: {
+    ...typography.labelMd,
+    color: colors.primary,
+    marginBottom: spacing.md,
+  },
+  reflectionPrompt: {
+    fontFamily: fonts.sans.semiBold,
+    fontSize: 16,
+    lineHeight: 24,
+    color: colors.textPrimary,
+    marginBottom: spacing.lg,
+  },
+  reflectionInput: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    lineHeight: 22,
+    color: colors.textPrimary,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.outlineVariant,
+    paddingBottom: spacing.md,
+    marginBottom: spacing.md,
+    minHeight: 80,
+  },
+  charCount: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 12,
+    color: colors.textMuted,
+    textAlign: 'right',
+  },
+  privacyNote: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
+    marginTop: spacing.xl,
+  },
+
   continueButton: {
     marginTop: spacing.xl,
   },

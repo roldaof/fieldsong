@@ -28,7 +28,6 @@ import { WelcomeScreen } from './src/screens/onboarding/WelcomeScreen';
 import { IntentQuizScreen } from './src/screens/onboarding/IntentQuizScreen';
 import { MirrorScreen } from './src/screens/onboarding/MirrorScreen';
 import { FirstVerseScreen } from './src/screens/onboarding/FirstVerseScreen';
-import { MicroReflectionScreen } from './src/screens/onboarding/MicroReflectionScreen';
 import { SignUpScreen } from './src/screens/onboarding/SignUpScreen';
 import { PaywallScreen } from './src/screens/onboarding/PaywallScreen';
 
@@ -57,7 +56,6 @@ function OnboardingNavigator() {
       <OnboardingStack.Screen name="IntentQuiz" component={IntentQuizScreen} />
       <OnboardingStack.Screen name="Mirror" component={MirrorScreen} />
       <OnboardingStack.Screen name="FirstVerse" component={FirstVerseScreen} />
-      <OnboardingStack.Screen name="MicroReflection" component={MicroReflectionScreen} />
       <OnboardingStack.Screen name="SignUp" component={SignUpScreen} />
       <OnboardingStack.Screen name="Paywall" component={PaywallScreen} />
     </OnboardingStack.Navigator>
