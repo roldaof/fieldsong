@@ -15,7 +15,7 @@ export function WelcomeScreen({ navigation }: any) {
         <Text style={styles.wordmark}>Field{'\n'}Song</Text>
         <Text style={styles.subtitle}>Ancient clarity for modern decisions.</Text>
         <Text style={styles.description}>
-          A 2-minute daily ritual pairing the Bhagavad Gita with Stoic philosophy. No religion. Just wisdom that works.
+          A 2-minute daily ritual pairing the Bhagavad Gita with Stoic philosophy.{'\n'}No religion.{'\n'}Just wisdom that works.
         </Text>
         <Button
           title="Begin"
