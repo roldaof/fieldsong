@@ -7,9 +7,6 @@ import {
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,
-  LayoutAnimation,
-  UIManager,
-  Platform,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -19,10 +16,6 @@ import { VerseCard } from '../../components/VerseCard';
 import { ActionStep } from '../../components/ActionStep';
 import { supabase } from '../../config/supabase';
 import { Intent, Verse } from '../../types';
-
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 const MAX_LENGTH = 280;
 
@@ -105,12 +98,12 @@ export function FirstVerseScreen({ navigation, route }: any) {
   }, []);
 
   const toggleInterpretation = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    
     setInterpretationOpen((prev) => !prev);
   };
 
   const toggleStoic = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    
     setStoicOpen((prev) => !prev);
   };
 
