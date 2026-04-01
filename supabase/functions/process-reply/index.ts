@@ -92,8 +92,8 @@ Deno.serve(async (req: Request) => {
       return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
     }
 
-    // Fetch the actual email body from Resend API
-    const emailRes = await fetch(`https://api.resend.com/emails/${emailId}`, {
+    // Fetch the actual email body from Resend Receiving API
+    const emailRes = await fetch(`https://api.resend.com/emails/receiving/${emailId}`, {
       headers: {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
