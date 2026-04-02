@@ -29,31 +29,17 @@ export function useProfile(userId: string | undefined) {
   const updateIntents = useCallback(
     async (intents: Intent[]) => {
       if (!userId) return { error: new Error('No user') };
-      console.log('updateIntents: userId=', userId, 'intents=', intents);
-      const { data, error, count } = await supabase
-        .from('profiles')
-        .update({ onboarding_intents: intents })
-        .eq('id', userId)
-        .select();
-      console.log('updateIntents result:', { data, error, count });
+      // Use RPC function to bypass RLS issues
+      const { error } = await supabase.rpc('save_onboarding_intents', {
+        p_user_id: userId,
+        p_intents: intents,
+      });
       if (error) {
-        console.warn('updateIntents error:', error.message, error.details, error.hint);
-      } else if (!data || data.length === 0) {
-        // RLS might be silently blocking - no rows matched
-        console.warn('updateIntents: no rows updated, RLS might be blocking');
-        // Try upsert as fallback
-        const { error: upsertError } = await supabase
-          .from('profiles')
-          .upsert({ id: userId, onboarding_intents: intents }, { onConflict: 'id' });
-        if (upsertError) {
-          console.warn('updateIntents upsert fallback error:', upsertError.message);
-          return { error: upsertError };
-        }
-        setProfile((prev) => (prev ? { ...prev, onboarding_intents: intents } : null));
-      } else {
-        setProfile((prev) => (prev ? { ...prev, onboarding_intents: intents } : null));
+        console.warn('updateIntents RPC error:', error.message);
+        return { error };
       }
-      return { error };
+      setProfile((prev) => (prev ? { ...prev, onboarding_intents: intents } : null));
+      return { error: null };
     },
     [userId],
   );
