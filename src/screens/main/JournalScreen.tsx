@@ -91,6 +91,9 @@ export function JournalScreen() {
             Bhagavad Gita {item.verse.chapter}.{item.verse.verse_number}
           </Text>
         )}
+        {item.followup_question ? (
+          <Text style={styles.entryPrompt}>{item.followup_question}</Text>
+        ) : null}
         <Text style={styles.entryPreview} numberOfLines={isExpanded ? undefined : 2}>
           {item.reflection_text || 'No reflection saved'}
         </Text>
@@ -222,6 +225,12 @@ const styles = StyleSheet.create({
     ...typography.labelSm,
     color: colors.textSecondary,
     marginBottom: spacing.md,
+  },
+  entryPrompt: {
+    fontFamily: fonts.serif.italic,
+    fontSize: 14,
+    color: colors.textSecondary,
+    marginBottom: spacing.sm,
   },
   entryPreview: {
     fontFamily: fonts.sans.regular,

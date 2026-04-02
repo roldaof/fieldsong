@@ -11,11 +11,18 @@ interface ReflectionInputProps {
 
 export function ReflectionInput({ prompt, onSave, maxLength = 280 }: ReflectionInputProps) {
   const [text, setText] = useState('');
+  const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
     if (text.trim()) {
       onSave(text.trim());
-      setText('');
+      setSaved(true);
+    }
+  };
+
+  const handleTapInput = () => {
+    if (saved) {
+      setSaved(false);
     }
   };
 
@@ -23,37 +30,45 @@ export function ReflectionInput({ prompt, onSave, maxLength = 280 }: ReflectionI
     <View style={styles.container}>
       <Text style={styles.label}>REFLECT</Text>
       <Text style={styles.prompt}>{prompt}</Text>
-      <TextInput
-        style={styles.input}
-        multiline
-        maxLength={maxLength}
-        value={text}
-        onChangeText={setText}
-        placeholder="Write your thoughts here..."
-        placeholderTextColor={colors.textMuted}
-        textAlignVertical="top"
-        autoComplete="off"
-        autoCorrect={true}
-        importantForAutofill="no"
-        textContentType="none"
-        keyboardType="default"
-        scrollEnabled={false}
-        blurOnSubmit={false}
-      />
+      <TouchableOpacity activeOpacity={1} onPress={handleTapInput}>
+        <TextInput
+          style={[styles.input, saved && { opacity: 0.7 }]}
+          multiline
+          maxLength={maxLength}
+          value={text}
+          onChangeText={setText}
+          placeholder="Write your thoughts here..."
+          placeholderTextColor={colors.textMuted}
+          textAlignVertical="top"
+          autoComplete="off"
+          autoCorrect={true}
+          importantForAutofill="no"
+          textContentType="none"
+          keyboardType="default"
+          scrollEnabled={false}
+          blurOnSubmit={false}
+          editable={!saved}
+          pointerEvents={saved ? 'none' : 'auto'}
+        />
+      </TouchableOpacity>
       <View style={styles.footer}>
         <Text style={styles.charCount}>
           {text.length}/{maxLength}
         </Text>
-        <TouchableOpacity onPress={handleSave} activeOpacity={0.8}>
-          <LinearGradient
-            colors={[...gradients.primary]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.saveButton}
-          >
-            <Text style={styles.saveText}>SAVE</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+        {saved ? (
+          <Text style={styles.savedText}>Saved ✓</Text>
+        ) : (
+          <TouchableOpacity onPress={handleSave} activeOpacity={0.8}>
+            <LinearGradient
+              colors={[...gradients.primary]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.saveButton}
+            >
+              <Text style={styles.saveText}>SAVE</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -108,6 +123,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.sans.semiBold,
     fontSize: 12,
     color: colors.onPrimary,
+    letterSpacing: 0.8,
+  },
+  savedText: {
+    fontFamily: fonts.sans.semiBold,
+    fontSize: 12,
+    color: colors.textSecondary,
     letterSpacing: 0.8,
   },
 });

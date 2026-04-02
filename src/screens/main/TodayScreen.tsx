@@ -118,7 +118,7 @@ export function TodayScreen() {
     if (existingId) {
       const { error } = await supabase
         .from('daily_entries')
-        .update({ reflection_text: text })
+        .update({ reflection_text: text, followup_question: verse.reflection_prompt })
         .eq('id', existingId);
       if (error) {
         Alert.alert('Error', 'Could not save your reflection.');
@@ -130,6 +130,7 @@ export function TodayScreen() {
         user_id: user.id,
         verse_id: verse.id,
         reflection_text: text,
+        followup_question: verse.reflection_prompt,
         intent_selected: selectedIntent,
       });
       if (error) {

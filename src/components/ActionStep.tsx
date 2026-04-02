@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { colors, fonts, spacing, typography } from '../config/theme';
+import { colors, fonts, spacing, typography, borderRadius } from '../config/theme';
 
 interface ActionStepProps {
   text: string;
@@ -17,7 +17,10 @@ export function ActionStep({ text }: ActionStepProps) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: spacing.xl,
+    backgroundColor: colors.surfaceContainerLow,
+    borderRadius: borderRadius.xl,
+    padding: spacing.xl,
+    marginVertical: spacing.md,
   },
   label: {
     ...typography.labelMd,
