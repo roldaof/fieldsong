@@ -239,6 +239,7 @@ export function TodayScreen() {
                 quote={verse.stoic_parallel_quote}
                 source={verse.stoic_parallel_source}
                 bridge={verse.stoic_bridge}
+                showExplainer={dayCount <= 3}
               />
             </View>
             <View style={{ marginBottom: spacing['2xl'] }}>

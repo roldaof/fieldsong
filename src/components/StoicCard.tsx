@@ -6,12 +6,18 @@ interface StoicCardProps {
   quote: string;
   source: string;
   bridge: string;
+  showExplainer?: boolean;
 }
 
-export function StoicCard({ quote, source, bridge }: StoicCardProps) {
+export function StoicCard({ quote, source, bridge, showExplainer }: StoicCardProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>STOIC PARALLEL</Text>
+      {showExplainer && (
+        <Text style={styles.explainer}>
+          Stoicism is a Greek philosophy about what you can and can't control.
+        </Text>
+      )}
       <Text style={styles.quote}>{`\u201C${quote}\u201D`}</Text>
       <Text style={styles.source}>{source}</Text>
       <Text style={styles.bridge}>{bridge}</Text>
@@ -30,6 +36,13 @@ const styles = StyleSheet.create({
     ...typography.labelMd,
     color: colors.primary,
     marginBottom: spacing.md,
+  },
+  explainer: {
+    fontSize: 13,
+    fontFamily: fonts.sans.regular,
+    color: colors.textMuted,
+    fontStyle: 'italic',
+    marginBottom: spacing.sm,
   },
   quote: {
     fontFamily: fonts.serif.italic,

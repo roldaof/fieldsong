@@ -70,6 +70,7 @@ export function FirstVerseScreen({ navigation, route }: any) {
   const [loading, setLoading] = useState(true);
   const [interpretationOpen, setInterpretationOpen] = useState(false);
   const [stoicOpen, setStoicOpen] = useState(false);
+  const [hasExplored, setHasExplored] = useState(false);
   const [reflectionText, setReflectionText] = useState('');
 
   useEffect(() => {
@@ -98,12 +99,12 @@ export function FirstVerseScreen({ navigation, route }: any) {
   }, []);
 
   const toggleInterpretation = () => {
-    
+    setHasExplored(true);
     setInterpretationOpen((prev) => !prev);
   };
 
   const toggleStoic = () => {
-    
+    setHasExplored(true);
     setStoicOpen((prev) => !prev);
   };
 
@@ -139,12 +140,18 @@ export function FirstVerseScreen({ navigation, route }: any) {
               {verse.modern_interpretation}
             </Text>
           </AccordionSection>
+          {!hasExplored && (
+            <Text style={styles.accordionHint}>Tap to explore</Text>
+          )}
 
           <AccordionSection
             label="STOIC PARALLEL"
             expanded={stoicOpen}
             onToggle={toggleStoic}
           >
+            <Text style={styles.stoicExplainer}>
+              Stoicism is a Greek philosophy about what you can and can't control.
+            </Text>
             <Text style={styles.stoicQuote}>
               {`\u201C${verse.stoic_parallel_quote}\u201D`}
             </Text>
@@ -239,11 +246,18 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   accordionChevron: {
-    fontSize: 14,
-    color: colors.textSecondary,
+    fontSize: 18,
+    color: colors.primary,
   },
   accordionContent: {
     padding: spacing.lg,
+  },
+  accordionHint: {
+    fontSize: 12,
+    color: colors.textMuted,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginTop: spacing.xs,
   },
 
   // Interpretation content
@@ -255,6 +269,13 @@ const styles = StyleSheet.create({
   },
 
   // Stoic content
+  stoicExplainer: {
+    fontSize: 13,
+    fontFamily: fonts.sans.regular,
+    color: colors.textMuted,
+    fontStyle: 'italic',
+    marginBottom: spacing.sm,
+  },
   stoicQuote: {
     fontFamily: fonts.serif.italic,
     fontSize: 16,

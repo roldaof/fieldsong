@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, findNodeHandle } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors, fonts, spacing, typography, borderRadius, gradients } from '../config/theme';
 
@@ -28,7 +29,10 @@ export function ReflectionInput({ prompt, onSave, maxLength = 280 }: ReflectionI
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>REFLECT</Text>
+      <View style={styles.labelRow}>
+        <Ionicons name="pencil-outline" size={14} color={colors.primary} />
+        <Text style={styles.label}>REFLECT</Text>
+      </View>
       <Text style={styles.prompt}>{prompt}</Text>
       <TouchableOpacity activeOpacity={1} onPress={handleTapInput}>
         <TextInput
@@ -81,10 +85,15 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     marginVertical: spacing.md,
   },
+  labelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginBottom: spacing.md,
+  },
   label: {
     ...typography.labelMd,
     color: colors.primary,
-    marginBottom: spacing.md,
   },
   prompt: {
     fontFamily: fonts.sans.semiBold,
@@ -98,9 +107,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 22,
     color: colors.textPrimary,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.outlineVariant,
-    paddingBottom: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.outlineVariant,
+    borderRadius: borderRadius.lg,
+    backgroundColor: colors.surfaceContainerHigh,
+    padding: spacing.md,
     marginBottom: spacing.md,
     minHeight: 60,
   },
