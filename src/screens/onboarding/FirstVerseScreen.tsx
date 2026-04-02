@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { Button } from '../../components/Button';
@@ -162,7 +163,10 @@ export function FirstVerseScreen({ navigation, route }: any) {
           <ActionStep text={verse.action_step} />
 
           <View style={styles.reflectionCard}>
-            <Text style={styles.reflectionLabel}>REFLECT</Text>
+            <View style={styles.reflectionLabelRow}>
+              <Ionicons name="pencil-outline" size={14} color={colors.primary} />
+              <Text style={styles.reflectionLabel}>REFLECT</Text>
+            </View>
             <Text style={styles.reflectionPrompt}>
               {verse.reflection_prompt || 'Where in your life are you frozen between two choices right now?'}
             </Text>
@@ -176,6 +180,8 @@ export function FirstVerseScreen({ navigation, route }: any) {
               placeholderTextColor={colors.textMuted}
               textAlignVertical="top"
               autoCorrect={true}
+              autoComplete="off"
+              textContentType="none"
               scrollEnabled={false}
               blurOnSubmit={false}
             />
@@ -302,10 +308,15 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     marginTop: spacing.md,
   },
+  reflectionLabelRow: {
+    flexDirection: 'row' as const,
+    alignItems: 'center' as const,
+    gap: spacing.sm,
+    marginBottom: spacing.md,
+  },
   reflectionLabel: {
     ...typography.labelMd,
     color: colors.primary,
-    marginBottom: spacing.md,
   },
   reflectionPrompt: {
     fontFamily: fonts.sans.semiBold,
@@ -319,8 +330,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 22,
     color: colors.textPrimary,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.outlineVariant,
+    backgroundColor: colors.surfaceContainerHigh,
+    borderWidth: 1,
+    borderColor: colors.outlineVariant,
+    borderRadius: borderRadius.lg,
+    padding: spacing.md,
     paddingBottom: spacing.md,
     marginBottom: spacing.md,
     minHeight: 80,
