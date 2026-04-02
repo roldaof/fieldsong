@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
   },
   translation: {
     fontFamily: fonts.serif.semiBold,
-    fontSize: 22,
-    lineHeight: 32,
+    fontSize: 18,
+    lineHeight: 28,
     color: colors.textPrimary,
     marginBottom: spacing.md,
   },

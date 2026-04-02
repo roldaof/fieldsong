@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
@@ -37,9 +38,11 @@ export function SavedScreen() {
     if (data) setBookmarks(data);
   }, [user?.id]);
 
-  useEffect(() => {
-    fetchBookmarks();
-  }, [fetchBookmarks]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchBookmarks();
+    }, [fetchBookmarks])
+  );
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -89,7 +92,7 @@ export function SavedScreen() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Saved</Text>
+        <Text style={styles.headerTitle}>fieldsong</Text>
       </View>
       {showLimitBanner && (
         <View style={styles.limitBanner}>
@@ -132,9 +135,10 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.lg,
   },
   headerTitle: {
-    fontFamily: fonts.serif.semiBold,
-    fontSize: 28,
-    color: colors.textPrimary,
+    fontFamily: fonts.serif.italic,
+    fontSize: 20,
+    color: colors.primary,
+    textAlign: 'center',
   },
   limitBanner: {
     marginHorizontal: spacing.xl,

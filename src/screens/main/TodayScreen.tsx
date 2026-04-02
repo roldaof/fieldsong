@@ -222,19 +222,27 @@ export function TodayScreen() {
 
         {verse && !loading && (
           <>
-            <VerseCard
-              sanskritLine={verse.sanskrit_line}
-              translation={verse.translation}
-              chapter={verse.chapter}
-              verseNumber={verse.verse_number}
-            />
-            <InterpretationCard text={verse.modern_interpretation} />
-            <StoicCard
-              quote={verse.stoic_parallel_quote}
-              source={verse.stoic_parallel_source}
-              bridge={verse.stoic_bridge}
-            />
-            <ActionStep text={verse.action_step} />
+            <View style={{ marginBottom: spacing['2xl'] }}>
+              <VerseCard
+                sanskritLine={verse.sanskrit_line}
+                translation={verse.translation}
+                chapter={verse.chapter}
+                verseNumber={verse.verse_number}
+              />
+            </View>
+            <View style={{ marginBottom: spacing['2xl'] }}>
+              <InterpretationCard text={verse.modern_interpretation} />
+            </View>
+            <View style={{ marginBottom: spacing['2xl'] }}>
+              <StoicCard
+                quote={verse.stoic_parallel_quote}
+                source={verse.stoic_parallel_source}
+                bridge={verse.stoic_bridge}
+              />
+            </View>
+            <View style={{ marginBottom: spacing['2xl'] }}>
+              <ActionStep text={verse.action_step} />
+            </View>
             <ReflectionInput
               prompt={verse.reflection_prompt}
               onSave={handleSaveReflection}

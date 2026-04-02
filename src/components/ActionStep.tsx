@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   text: {
-    fontFamily: fonts.sans.semiBold,
-    fontSize: 18,
-    lineHeight: 28,
+    fontFamily: fonts.sans.regular,
+    fontSize: 16,
+    lineHeight: 26,
     color: colors.textPrimary,
   },
 });

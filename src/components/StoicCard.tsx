@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   },
   quote: {
     fontFamily: fonts.serif.italic,
-    fontSize: 18,
-    lineHeight: 28,
+    fontSize: 16,
+    lineHeight: 24,
     color: colors.textPrimary,
     marginBottom: spacing.sm,
   },

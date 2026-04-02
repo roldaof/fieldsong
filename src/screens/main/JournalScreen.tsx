@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
 import { supabase } from '../../config/supabase';
@@ -47,9 +48,11 @@ export function JournalScreen() {
     if (data) setEntries(data);
   }, [user?.id, isPaid]);
 
-  useEffect(() => {
-    fetchEntries();
-  }, [fetchEntries]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchEntries();
+    }, [fetchEntries])
+  );
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -109,7 +112,7 @@ export function JournalScreen() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Journal</Text>
+        <Text style={styles.headerTitle}>fieldsong</Text>
       </View>
       {isPaid && (
         <View style={styles.searchContainer}>
@@ -173,9 +176,10 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.lg,
   },
   headerTitle: {
-    fontFamily: fonts.serif.semiBold,
-    fontSize: 28,
-    color: colors.textPrimary,
+    fontFamily: fonts.serif.italic,
+    fontSize: 20,
+    color: colors.primary,
+    textAlign: 'center',
   },
   searchContainer: {
     flexDirection: 'row',

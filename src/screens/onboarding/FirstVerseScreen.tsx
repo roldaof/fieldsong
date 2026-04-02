@@ -257,13 +257,13 @@ const styles = StyleSheet.create({
   // Stoic content
   stoicQuote: {
     fontFamily: fonts.serif.italic,
-    fontSize: 18,
-    lineHeight: 28,
+    fontSize: 16,
+    lineHeight: 24,
     color: colors.textPrimary,
     marginBottom: spacing.sm,
   },
   stoicSource: {
-    ...typography.labelSm,
+    fontSize: 13,
     color: colors.textSecondary,
     marginBottom: spacing.lg,
   },
