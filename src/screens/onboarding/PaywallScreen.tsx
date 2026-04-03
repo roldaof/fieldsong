@@ -3,16 +3,26 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'rea
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, typography, borderRadius, gradients } from '../../config/theme';
 import { useAuth } from '../../hooks/useAuth';
 import { useProfile } from '../../hooks/useProfile';
 import { Intent } from '../../types';
+
+const FEATURES = [
+  'Unlimited journal history + search',
+  'Unlimited bookmarks',
+  'Theme journeys (7-day sequences)',
+  'Cross-tradition deep-dives',
+  'Weekly wisdom digest',
+];
 
 export function PaywallScreen({ route }: any) {
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const { updateIntents } = useProfile(user?.id);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<'annual' | 'monthly'>('annual');
   const intents: Intent[] = route.params?.intents ?? [];
 
   const handleStartFree = async () => {
@@ -31,73 +41,109 @@ export function PaywallScreen({ route }: any) {
   };
 
   const handlePaidOption = () => {
-    Alert.alert('Coming soon', 'Subscriptions will be available at launch.');
+    Alert.alert(
+      'Coming soon',
+      'Subscriptions will be available at launch. Starting free instead.',
+      [{ text: 'OK', onPress: handleStartFree }],
+    );
   };
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <StatusBar style="light" />
+
       <View style={styles.header}>
         <Text style={styles.headerTitle}>fieldsong</Text>
       </View>
+
       <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
-        <Text style={styles.headline}>Your practice{'\n'}begins.</Text>
+        <Text style={styles.headline}>Your practice begins.</Text>
         <Text style={styles.subtext}>FieldSong is free. FieldSong+ adds depth.</Text>
 
-        <View style={styles.freeCard}>
-          <Text style={styles.cardLabel}>FREE</Text>
-          <Text style={styles.cardFeatures}>
-            The complete daily clarity ritual. 30-day journal history. 5 bookmarks.
-          </Text>
-          <TouchableOpacity
-            onPress={handleStartFree}
-            disabled={isLoading}
-            activeOpacity={0.8}
-            style={[styles.outlineButton, isLoading && styles.disabled]}
-          >
-            <Text style={styles.outlineButtonText}>
-              {isLoading ? 'Loading...' : 'Start free'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-
+        {/* FieldSong+ Hero Card */}
         <View style={styles.plusCard}>
           <Text style={styles.plusLabel}>FIELDSONG+</Text>
-          <View style={styles.priceRow}>
-            <Text style={styles.price}>$34.99</Text>
-            <Text style={styles.priceUnit}>/year</Text>
-            <Text style={styles.priceNote}>($2.92/mo)</Text>
+
+          {/* Price Toggle */}
+          <View style={styles.priceToggle}>
+            <TouchableOpacity
+              style={[styles.pill, selectedPlan === 'annual' && styles.pillSelected]}
+              onPress={() => setSelectedPlan('annual')}
+              activeOpacity={0.8}
+            >
+              <Text style={[styles.pillText, selectedPlan === 'annual' && styles.pillTextSelected]}>
+                Annual $34.99/yr
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.pill, selectedPlan === 'monthly' && styles.pillSelected]}
+              onPress={() => setSelectedPlan('monthly')}
+              activeOpacity={0.8}
+            >
+              <Text style={[styles.pillText, selectedPlan === 'monthly' && styles.pillTextSelected]}>
+                Monthly $4.99/mo
+              </Text>
+            </TouchableOpacity>
           </View>
-          <Text style={styles.plusFeatures}>
-            Everything in free, plus:
-          </Text>
+
+          {selectedPlan === 'annual' && (
+            <Text style={styles.savingsText}>Save 42% vs monthly</Text>
+          )}
+
+          {/* Feature List */}
           <View style={styles.featureList}>
-            <Text style={styles.featureItem}>Unlimited journal history + search</Text>
-            <Text style={styles.featureItem}>Unlimited bookmarks</Text>
-            <Text style={styles.featureItem}>Theme journeys (7-day sequences)</Text>
-            <Text style={styles.featureItem}>Cross-tradition deep-dives</Text>
-            <Text style={styles.featureItem}>Weekly wisdom digest</Text>
+            {FEATURES.map((feature) => (
+              <View key={feature} style={styles.featureRow}>
+                <Ionicons name="checkmark-circle" size={16} color={colors.primary} />
+                <Text style={styles.featureText}>{feature}</Text>
+              </View>
+            ))}
           </View>
-          <TouchableOpacity onPress={handlePaidOption} activeOpacity={0.8} style={styles.primaryButtonWrap}>
+
+          {/* CTA */}
+          <TouchableOpacity
+            onPress={handlePaidOption}
+            activeOpacity={0.8}
+            style={styles.ctaWrap}
+          >
             <LinearGradient
               colors={[...gradients.primary]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
-              style={styles.primaryButton}
+              style={styles.ctaButton}
             >
-              <Text style={styles.primaryButtonText}>Get FieldSong+</Text>
+              <Text style={styles.ctaText}>Start 7-day free trial</Text>
             </LinearGradient>
+          </TouchableOpacity>
+
+          <Text style={styles.trialNote}>Cancel anytime. No charge until trial ends.</Text>
+
+          {/* Lifetime Option */}
+          <TouchableOpacity onPress={handlePaidOption} activeOpacity={0.7} style={styles.lifetimeRow}>
+            <Text style={styles.lifetimeText}>Or $99 one-time. Access forever.</Text>
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={handlePaidOption} activeOpacity={0.7} style={styles.lifetimeRow}>
-          <Text style={styles.lifetimeText}>$99 one-time. Access forever.</Text>
+        {/* Free Option */}
+        <View style={styles.divider} />
+        <Text style={styles.freeText}>Or start free with the complete daily ritual.</Text>
+        <TouchableOpacity
+          onPress={handleStartFree}
+          disabled={isLoading}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.continueFreeLink}>
+            {isLoading ? 'Loading...' : 'Continue free'}
+          </Text>
         </TouchableOpacity>
       </ScrollView>
 
+      {/* Footer */}
       <View style={styles.footer}>
         <TouchableOpacity onPress={handleStartFree} disabled={isLoading} activeOpacity={0.7}>
-          <Text style={styles.continueFreeText}>Continue free</Text>
+          <Text style={styles.footerFreeText}>
+            {isLoading ? 'Loading...' : 'Continue free'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -128,137 +174,134 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontFamily: fonts.serif.italic,
-    fontSize: 36,
-    lineHeight: 44,
-    color: colors.primary,
-    marginTop: spacing.xl,
-    marginBottom: spacing.md,
+    fontSize: 32,
+    lineHeight: 40,
+    color: colors.textPrimary,
+    marginTop: spacing.md,
+    marginBottom: spacing.sm,
   },
   subtext: {
     fontFamily: fonts.sans.regular,
     fontSize: 15,
-    lineHeight: 24,
-    color: colors.textSecondary,
-    marginBottom: spacing['3xl'],
-  },
-  freeCard: {
-    backgroundColor: colors.surfaceContainerLow,
-    borderRadius: borderRadius.xl,
-    padding: spacing.xl,
-    marginBottom: spacing.lg,
-  },
-  cardLabel: {
-    ...typography.labelMd,
-    color: colors.textSecondary,
-    marginBottom: spacing.md,
-  },
-  cardFeatures: {
-    fontFamily: fonts.sans.regular,
-    fontSize: 14,
     lineHeight: 22,
     color: colors.textSecondary,
     marginBottom: spacing.xl,
-  },
-  outlineButton: {
-    borderWidth: 1,
-    borderColor: colors.primary,
-    borderRadius: borderRadius.full,
-    paddingVertical: spacing.md,
-    alignItems: 'center',
-  },
-  outlineButtonText: {
-    fontFamily: fonts.sans.semiBold,
-    fontSize: 15,
-    color: colors.primary,
-  },
-  disabled: {
-    opacity: 0.5,
   },
   plusCard: {
     backgroundColor: colors.surfaceContainerHigh,
     borderRadius: borderRadius.xl,
     padding: spacing.xl,
-    marginBottom: spacing.xl,
     borderWidth: 2,
     borderColor: colors.primary,
   },
   plusLabel: {
     ...typography.labelMd,
     color: colors.primary,
-    marginBottom: spacing.md,
-  },
-  priceRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
     marginBottom: spacing.lg,
   },
-  price: {
-    fontFamily: fonts.serif.semiBold,
-    fontSize: 28,
-    color: colors.primary,
+  priceToggle: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+    marginBottom: spacing.md,
   },
-  priceUnit: {
-    fontFamily: fonts.sans.regular,
-    fontSize: 16,
+  pill: {
+    flex: 1,
+    paddingVertical: spacing.md,
+    borderRadius: borderRadius.full,
+    alignItems: 'center',
+    backgroundColor: colors.surfaceContainer,
+  },
+  pillSelected: {
+    backgroundColor: colors.primary,
+  },
+  pillText: {
+    fontFamily: fonts.sans.semiBold,
+    fontSize: 13,
     color: colors.textSecondary,
-    marginLeft: 2,
   },
-  priceNote: {
+  pillTextSelected: {
+    color: colors.onPrimary,
+  },
+  savingsText: {
     fontFamily: fonts.sans.regular,
     fontSize: 13,
-    color: colors.textMuted,
-    marginLeft: spacing.md,
-  },
-  plusFeatures: {
-    fontFamily: fonts.sans.medium,
-    fontSize: 14,
-    color: colors.textPrimary,
-    marginBottom: spacing.sm,
+    color: colors.primary,
+    marginBottom: spacing.md,
   },
   featureList: {
+    marginTop: spacing.sm,
     marginBottom: spacing.xl,
+    gap: spacing.sm,
   },
-  featureItem: {
+  featureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  featureText: {
     fontFamily: fonts.sans.regular,
     fontSize: 14,
-    lineHeight: 24,
+    lineHeight: 22,
     color: colors.textSecondary,
-    paddingLeft: spacing.md,
   },
-  primaryButtonWrap: {
+  ctaWrap: {
     borderRadius: borderRadius.full,
     overflow: 'hidden',
   },
-  primaryButton: {
+  ctaButton: {
     paddingVertical: spacing.lg,
-    paddingHorizontal: spacing['3xl'],
     alignItems: 'center',
     borderRadius: borderRadius.full,
   },
-  primaryButtonText: {
+  ctaText: {
     fontFamily: fonts.sans.semiBold,
     fontSize: 16,
     color: colors.onPrimary,
   },
+  trialNote: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
+    marginTop: spacing.md,
+  },
   lifetimeRow: {
     alignItems: 'center',
-    paddingVertical: spacing.md,
-    marginBottom: spacing.lg,
+    marginTop: spacing.lg,
   },
   lifetimeText: {
     fontFamily: fonts.sans.regular,
     fontSize: 14,
     color: colors.textSecondary,
   },
+  divider: {
+    height: 1,
+    backgroundColor: colors.outlineVariant,
+    marginTop: spacing.xl,
+    marginBottom: spacing.xl,
+  },
+  freeText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 15,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    marginBottom: spacing.md,
+  },
+  continueFreeLink: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    color: colors.primary,
+    textAlign: 'center',
+  },
   footer: {
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing['2xl'],
     alignItems: 'center',
   },
-  continueFreeText: {
+  footerFreeText: {
     fontFamily: fonts.sans.regular,
     fontSize: 14,
-    color: colors.textSecondary,
+    color: colors.primary,
     paddingVertical: spacing.sm,
   },
 });
