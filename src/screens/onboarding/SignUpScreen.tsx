@@ -41,29 +41,27 @@ export function SignUpScreen({ navigation, route }: any) {
         return;
       }
     } else {
-      const { error } = await signUp(email, password);
+      const { error, data } = await signUp(email, password);
       if (error) {
         setIsLoading(false);
-        // Handle duplicate account
-        if (
-          error.message?.toLowerCase().includes('already registered') ||
-          error.message?.toLowerCase().includes('already exists') ||
-          error.message?.toLowerCase().includes('user already')
-        ) {
-          Alert.alert(
-            'Account exists',
-            'An account with this email already exists. Would you like to sign in instead?',
-            [
-              { text: 'Cancel', style: 'cancel' },
-              {
-                text: 'Sign In',
-                onPress: () => setIsSignIn(true),
-              },
-            ],
-          );
-          return;
-        }
         Alert.alert('Error', error.message);
+        return;
+      }
+      // Supabase returns a fake user with empty identities for duplicate emails
+      // (security feature to prevent email enumeration)
+      if (data?.user && (!data.user.identities || data.user.identities.length === 0)) {
+        setIsLoading(false);
+        Alert.alert(
+          'Account exists',
+          'An account with this email already exists. Would you like to sign in instead?',
+          [
+            { text: 'Cancel', style: 'cancel' },
+            {
+              text: 'Sign In',
+              onPress: () => setIsSignIn(true),
+            },
+          ],
+        );
         return;
       }
     }

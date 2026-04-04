@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts, spacing, typography, borderRadius, gradients } from '../../config/theme';
+import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
 import { useProfile } from '../../hooks/useProfile';
 import { Intent } from '../../types';
@@ -27,17 +28,39 @@ export function PaywallScreen({ route }: any) {
 
   const handleStartFree = async () => {
     setIsLoading(true);
-    try {
-      const finalIntents = intents.length > 0 ? intents : ['clarity'] as Intent[];
-      const result = await updateIntents(finalIntents);
-      if (result?.error) {
-        Alert.alert('Error', 'Could not save your preferences. Please try again.');
-        setIsLoading(false);
+    const finalIntents = intents.length > 0 ? intents : ['clarity'] as Intent[];
+
+    // Try up to 3 times with delay (auth state may not be ready after signup)
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        // Get user directly from Supabase auth
+        const { data: { user: currentUser } } = await supabase.auth.getUser();
+        const uid = user?.id || currentUser?.id;
+        if (!uid) {
+          // Wait for auth to propagate
+          await new Promise(r => setTimeout(r, 1000));
+          continue;
+        }
+        // Save intents via RPC (bypasses RLS)
+        const { error } = await supabase.rpc('save_onboarding_intents', {
+          p_user_id: uid,
+          p_intents: finalIntents,
+        });
+        if (!error) {
+          // Also update via hook to trigger state change in App.tsx
+          await updateIntents(finalIntents);
+          setIsLoading(false);
+          return;
+        }
+      } catch {
+        // Retry
       }
-    } catch {
-      Alert.alert('Error', 'Something went wrong. Please try again.');
-      setIsLoading(false);
+      await new Promise(r => setTimeout(r, 1000));
     }
+    // If all retries fail, let user through anyway
+    // They can set intents from profile page later
+    try { await updateIntents(finalIntents); } catch {}
+    setIsLoading(false);
   };
 
   const handlePaidOption = () => {
