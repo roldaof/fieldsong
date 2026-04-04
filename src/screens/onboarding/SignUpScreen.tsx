@@ -33,13 +33,39 @@ export function SignUpScreen({ navigation, route }: any) {
       return;
     }
     setIsLoading(true);
-    const { error } = isSignIn
-      ? await signIn(email, password)
-      : await signUp(email, password);
-    if (error) {
-      setIsLoading(false);
-      Alert.alert('Error', error.message);
-      return;
+    if (isSignIn) {
+      const { error } = await signIn(email, password);
+      if (error) {
+        setIsLoading(false);
+        Alert.alert('Error', error.message);
+        return;
+      }
+    } else {
+      const { error } = await signUp(email, password);
+      if (error) {
+        setIsLoading(false);
+        // Handle duplicate account
+        if (
+          error.message?.toLowerCase().includes('already registered') ||
+          error.message?.toLowerCase().includes('already exists') ||
+          error.message?.toLowerCase().includes('user already')
+        ) {
+          Alert.alert(
+            'Account exists',
+            'An account with this email already exists. Would you like to sign in instead?',
+            [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Sign In',
+                onPress: () => setIsSignIn(true),
+              },
+            ],
+          );
+          return;
+        }
+        Alert.alert('Error', error.message);
+        return;
+      }
     }
     // Save the reflection from screen 5 as the user's first daily_entry
     if (reflectionText && verseId) {
@@ -105,8 +131,9 @@ export function SignUpScreen({ navigation, route }: any) {
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
-            textContentType="emailAddress"
+            textContentType={isSignIn ? 'username' : 'emailAddress'}
             autoComplete="email"
+            importantForAutofill="yes"
           />
         </View>
 
@@ -119,8 +146,9 @@ export function SignUpScreen({ navigation, route }: any) {
             secureTextEntry
             placeholder="Your password"
             placeholderTextColor={colors.textMuted}
-            textContentType="password"
-            autoComplete="password"
+            textContentType={isSignIn ? 'password' : 'newPassword'}
+            autoComplete={isSignIn ? 'password' : 'password-new'}
+            importantForAutofill="yes"
           />
         </View>
 
