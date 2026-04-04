@@ -57,7 +57,7 @@ export function PaywallScreen({ route }: any) {
       </View>
 
       <ScrollView style={styles.scrollContent} contentContainerStyle={styles.scrollInner}>
-        <Text style={styles.headline}>Your practice begins.</Text>
+        <Text style={styles.headline}>Your practice{"\n"}begins.</Text>
         <Text style={styles.subtext}>FieldSong is free. FieldSong+ adds depth.</Text>
 
         {/* FieldSong+ Hero Card */}
@@ -86,9 +86,9 @@ export function PaywallScreen({ route }: any) {
             </TouchableOpacity>
           </View>
 
-          {selectedPlan === 'annual' && (
-            <Text style={styles.savingsText}>Save 42% vs monthly</Text>
-          )}
+          <Text style={[styles.savingsText, selectedPlan !== 'annual' && styles.savingsHidden]}>
+            {selectedPlan === 'annual' ? 'Save 42% vs monthly' : ' '}
+          </Text>
 
           {/* Feature List */}
           <View style={styles.featureList}>
@@ -124,22 +124,11 @@ export function PaywallScreen({ route }: any) {
           </TouchableOpacity>
         </View>
 
-        {/* Free Option */}
-        <View style={styles.divider} />
-        <Text style={styles.freeText}>Or start free with the complete daily ritual.</Text>
-        <TouchableOpacity
-          onPress={handleStartFree}
-          disabled={isLoading}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.continueFreeLink}>
-            {isLoading ? 'Loading...' : 'Continue free'}
-          </Text>
-        </TouchableOpacity>
       </ScrollView>
 
-      {/* Footer */}
+      {/* Footer - always visible */}
       <View style={styles.footer}>
+        <Text style={styles.freeText}>Or start free with the complete daily ritual.</Text>
         <TouchableOpacity onPress={handleStartFree} disabled={isLoading} activeOpacity={0.7}>
           <Text style={styles.footerFreeText}>
             {isLoading ? 'Loading...' : 'Continue free'}
@@ -174,11 +163,11 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontFamily: fonts.serif.italic,
-    fontSize: 32,
-    lineHeight: 40,
+    fontSize: 28,
+    lineHeight: 36,
     color: colors.textPrimary,
-    marginTop: spacing.md,
-    marginBottom: spacing.sm,
+    marginTop: spacing.sm,
+    marginBottom: spacing.xs,
   },
   subtext: {
     fontFamily: fonts.sans.regular,
@@ -227,6 +216,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.primary,
     marginBottom: spacing.md,
+    height: 18,
+  },
+  savingsHidden: {
+    opacity: 0,
   },
   featureList: {
     marginTop: spacing.sm,
@@ -282,21 +275,18 @@ const styles = StyleSheet.create({
   },
   freeText: {
     fontFamily: fonts.sans.regular,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.textSecondary,
     textAlign: 'center',
-    marginBottom: spacing.md,
-  },
-  continueFreeLink: {
-    fontFamily: fonts.sans.regular,
-    fontSize: 14,
-    color: colors.primary,
-    textAlign: 'center',
+    marginBottom: spacing.sm,
   },
   footer: {
     paddingHorizontal: spacing.xl,
+    paddingTop: spacing.md,
     paddingBottom: spacing['2xl'],
     alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: colors.outlineVariant,
   },
   footerFreeText: {
     fontFamily: fonts.sans.regular,

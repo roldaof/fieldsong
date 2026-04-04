@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,10 +6,24 @@ import {
   ScrollView,
   Switch,
   Alert,
+  TouchableOpacity,
+  Linking,
+  Platform,
+  Modal,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, fonts, spacing, typography, borderRadius } from '../../config/theme';
+import { Ionicons } from '@expo/vector-icons';
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
+import {
+  colors,
+  fonts,
+  spacing,
+  typography,
+  borderRadius,
+} from '../../config/theme';
 import { useAuth } from '../../hooks/useAuth';
 import { useProfile } from '../../hooks/useProfile';
 import { Button } from '../../components/Button';
@@ -17,7 +31,6 @@ import { supabase } from '../../config/supabase';
 
 function formatTimeDisplay(time: string | null | undefined): string {
   if (!time) return '7:00 AM';
-  // Handle "HH:MM:SS" format from Postgres TIME column
   const match = time.match(/^(\d{1,2}):(\d{2})/);
   if (!match) return time;
   const hour = parseInt(match[1], 10);
@@ -27,88 +40,364 @@ function formatTimeDisplay(time: string | null | undefined): string {
   return `${displayHour}:${minute} ${period}`;
 }
 
+function parseTimeToDate(time: string | null | undefined): Date {
+  const d = new Date();
+  if (!time) {
+    d.setHours(7, 0, 0, 0);
+    return d;
+  }
+  const match = time.match(/^(\d{1,2}):(\d{2})/);
+  if (!match) {
+    d.setHours(7, 0, 0, 0);
+    return d;
+  }
+  d.setHours(parseInt(match[1], 10), parseInt(match[2], 10), 0, 0);
+  return d;
+}
+
+function formatJoinedDate(dateStr: string | null | undefined): string {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const { user, signOut } = useAuth();
-  const { profile } = useProfile(user?.id);
-  const [quietHours, setQuietHours] = useState(false);
+  const { profile, updateRitualTime } = useProfile(user?.id);
+
+  const [emailsPaused, setEmailsPaused] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [selectedTime, setSelectedTime] = useState<Date>(
+    parseTimeToDate(profile?.preferred_send_time),
+  );
 
   const dayCount = Math.max(profile?.practice_day_count ?? 0, 1);
+  const intents = profile?.onboarding_intents ?? [];
+  const subscriptionTier = profile?.subscription_tier ?? 'free';
+  const isFree = subscriptionTier === 'free';
 
-  const handleQuietHoursToggle = async (value: boolean) => {
-    setQuietHours(value);
-    if (user?.id) {
-      // Store quiet hours preference in profile
-      // For MVP, this just controls the local UI state
-      // When email pipeline is added, this will suppress email delivery
-    }
-  };
+  const handleEditIntents = useCallback(() => {
+    Alert.alert('Coming soon', 'Inline intent editing will be available soon.');
+  }, []);
 
-  const handleSignOut = () => {
-    Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+  const handleTimeChange = useCallback(
+    async (_event: DateTimePickerEvent, date?: Date) => {
+      if (Platform.OS === 'android') {
+        setShowTimePicker(false);
+      }
+      if (!date) return;
+      setSelectedTime(date);
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const timeStr = `${hours}:${minutes}`;
+      await updateRitualTime(timeStr, false);
+    },
+    [updateRitualTime],
+  );
+
+  const handleTimePickerDone = useCallback(() => {
+    setShowTimePicker(false);
+  }, []);
+
+  const handlePauseToggle = useCallback((value: boolean) => {
+    setEmailsPaused(value);
+  }, []);
+
+  const handleUpgrade = useCallback(() => {
+    Alert.alert(
+      'Coming soon',
+      'Subscriptions will be available at launch.',
+    );
+  }, []);
+
+  const handleDeleteAccount = useCallback(() => {
+    Alert.alert('Are you sure?', 'This will delete your account.', [
       { text: 'Cancel', style: 'cancel' },
-      { text: 'Sign Out', style: 'destructive', onPress: signOut },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: () => {
+          Alert.alert(
+            'This cannot be undone',
+            'All your data will be permanently deleted.',
+            [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Delete permanently',
+                style: 'destructive',
+                onPress: async () => {
+                  const { error } = await supabase.rpc('delete_user');
+                  if (error) {
+                    Alert.alert('Error', 'Could not delete account. Please try again.');
+                  } else {
+                    Alert.alert('Account deleted', 'Your account has been deleted.');
+                    signOut();
+                  }
+                },
+              },
+            ],
+          );
+        },
+      },
     ]);
-  };
+  }, [signOut]);
+
+  const handleSignOut = useCallback(() => {
+    Alert.alert('Sign out', 'Are you sure you want to sign out?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Sign out', style: 'destructive', onPress: signOut },
+    ]);
+  }, [signOut]);
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.content}>
+        {/* Header */}
         <Text style={styles.headerTitle}>fieldsong</Text>
 
-        <View style={styles.statsCard}>
-          <View style={styles.statRow}>
-            <Text style={styles.statLabel}>PRACTICE DAYS</Text>
-            <Text style={styles.statValue}>{dayCount}</Text>
+        {/* YOUR PRACTICE */}
+        <Text style={styles.sectionTitle}>YOUR PRACTICE</Text>
+        <View style={styles.card}>
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>STREAK</Text>
+            <Text style={styles.rowValueBold}>{dayCount} days</Text>
           </View>
-          <View style={styles.statRow}>
-            <Text style={styles.statLabel}>SUBSCRIPTION</Text>
-            <Text style={styles.statValue}>
-              {(profile?.subscription_tier ?? 'free').toUpperCase()}
+          <View style={styles.divider} />
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>INTENTS</Text>
+            <TouchableOpacity onPress={handleEditIntents}>
+              <Text style={styles.editLink}>Edit</Text>
+            </TouchableOpacity>
+          </View>
+          {intents.length > 0 && (
+            <View style={styles.pillRow}>
+              {intents.map((intent) => (
+                <View key={intent} style={styles.pill}>
+                  <Text style={styles.pillText}>{intent}</Text>
+                </View>
+              ))}
+            </View>
+          )}
+          {profile?.created_at && (
+            <Text style={styles.sinceText}>
+              Since {formatJoinedDate(profile.created_at)}
             </Text>
-          </View>
+          )}
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>SETTINGS</Text>
-
-          <View style={styles.settingRow}>
-            <View>
-              <Text style={styles.settingLabel}>Daily verse time</Text>
-              <Text style={styles.settingValue}>
-                {formatTimeDisplay(profile?.preferred_send_time)}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.settingRow}>
-            <View style={styles.settingTextWrap}>
-              <Text style={styles.settingLabel}>Quiet hours</Text>
-              <Text style={styles.settingSubtext}>
-                Pause notifications between 10 PM and 7 AM
-              </Text>
-            </View>
-            <Switch
-              value={quietHours}
-              onValueChange={handleQuietHoursToggle}
-              trackColor={{ false: colors.surfaceContainerHigh, true: colors.primary }}
-              thumbColor={colors.textPrimary}
+        {/* DELIVERY */}
+        <Text style={styles.sectionTitle}>DELIVERY</Text>
+        <TouchableOpacity
+          style={styles.settingCard}
+          onPress={() => setShowTimePicker(true)}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.settingLabel}>Daily verse time</Text>
+          <View style={styles.settingRight}>
+            <Text style={styles.settingValue}>
+              {formatTimeDisplay(profile?.preferred_send_time)}
+            </Text>
+            <Ionicons
+              name="chevron-forward"
+              size={16}
+              color={colors.textMuted}
+              style={styles.chevron}
             />
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.accountSection}>
-          <Text style={styles.sectionTitle}>ACCOUNT</Text>
-          <Text style={styles.emailText}>{user?.email}</Text>
-          <Button
-            title="Sign Out"
-            variant="secondary"
-            onPress={handleSignOut}
-            style={styles.signOutButton}
+        <View style={styles.settingCard}>
+          <View style={styles.settingTextWrap}>
+            <Text style={styles.settingLabel}>Pause daily emails</Text>
+            <Text style={styles.settingSubtext}>
+              Take a break from verse delivery
+            </Text>
+          </View>
+          <Switch
+            value={emailsPaused}
+            onValueChange={handlePauseToggle}
+            trackColor={{
+              false: colors.surfaceContainerHigh,
+              true: colors.primary,
+            }}
+            thumbColor={colors.textPrimary}
           />
         </View>
 
+        {/* Time Picker */}
+        {Platform.OS === 'ios' && (
+          <Modal
+            visible={showTimePicker}
+            transparent
+            animationType="slide"
+          >
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContent}>
+                <View style={styles.modalHeader}>
+                  <TouchableOpacity onPress={handleTimePickerDone}>
+                    <Text style={styles.modalDone}>Done</Text>
+                  </TouchableOpacity>
+                </View>
+                <DateTimePicker
+                  value={selectedTime}
+                  mode="time"
+                  display="spinner"
+                  onChange={handleTimeChange}
+                  textColor={colors.textPrimary}
+                />
+              </View>
+            </View>
+          </Modal>
+        )}
+        {Platform.OS === 'android' && showTimePicker && (
+          <DateTimePicker
+            value={selectedTime}
+            mode="time"
+            onChange={handleTimeChange}
+          />
+        )}
+
+        {/* SUBSCRIPTION */}
+        <Text style={styles.sectionTitle}>SUBSCRIPTION</Text>
+        <View style={styles.card}>
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>PLAN</Text>
+            <Text style={styles.rowValueBold}>
+              {isFree ? 'FREE' : subscriptionTier.toUpperCase()}
+            </Text>
+          </View>
+          {isFree ? (
+            <Button
+              title="Upgrade to FieldSong+"
+              onPress={handleUpgrade}
+              style={styles.upgradeButton}
+            />
+          ) : (
+            <TouchableOpacity style={styles.manageSub}>
+              <Text style={styles.editLink}>Manage subscription</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {/* ACCOUNT */}
+        <Text style={styles.sectionTitle}>ACCOUNT</Text>
+        <View style={styles.cardNoPad}>
+          <View style={styles.accountRow}>
+            <Ionicons
+              name="mail-outline"
+              size={16}
+              color={colors.textSecondary}
+              style={styles.rowIcon}
+            />
+            <Text style={styles.accountText}>{user?.email}</Text>
+          </View>
+          <View style={styles.divider} />
+          <TouchableOpacity
+            style={styles.accountRow}
+            onPress={handleDeleteAccount}
+          >
+            <Ionicons
+              name="trash-outline"
+              size={16}
+              color="#E57373"
+              style={styles.rowIcon}
+            />
+            <Text style={styles.deleteText}>Delete account</Text>
+          </TouchableOpacity>
+          <View style={styles.divider} />
+          <TouchableOpacity
+            style={styles.accountRow}
+            onPress={handleSignOut}
+          >
+            <Ionicons
+              name="log-out-outline"
+              size={16}
+              color={colors.textSecondary}
+              style={styles.rowIcon}
+            />
+            <Text style={styles.accountText}>Sign out</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* ABOUT */}
+        <Text style={styles.sectionTitle}>ABOUT</Text>
+        <View style={styles.cardNoPad}>
+          <TouchableOpacity
+            style={styles.aboutRow}
+            onPress={() =>
+              Linking.openURL('https://fieldsong.app/privacy')
+            }
+          >
+            <View style={styles.aboutLeft}>
+              <Ionicons
+                name="shield-outline"
+                size={16}
+                color={colors.textPrimary}
+                style={styles.rowIcon}
+              />
+              <Text style={styles.aboutText}>Privacy Policy</Text>
+            </View>
+            <Ionicons
+              name="chevron-forward"
+              size={16}
+              color={colors.textMuted}
+            />
+          </TouchableOpacity>
+          <View style={styles.divider} />
+          <TouchableOpacity
+            style={styles.aboutRow}
+            onPress={() =>
+              Linking.openURL('https://fieldsong.app/terms')
+            }
+          >
+            <View style={styles.aboutLeft}>
+              <Ionicons
+                name="document-text-outline"
+                size={16}
+                color={colors.textPrimary}
+                style={styles.rowIcon}
+              />
+              <Text style={styles.aboutText}>Terms of Service</Text>
+            </View>
+            <Ionicons
+              name="chevron-forward"
+              size={16}
+              color={colors.textMuted}
+            />
+          </TouchableOpacity>
+          <View style={styles.divider} />
+          <TouchableOpacity
+            style={styles.aboutRow}
+            onPress={() =>
+              Linking.openURL(
+                'mailto:hello@fieldsong.app?subject=FieldSong Feedback',
+              )
+            }
+          >
+            <View style={styles.aboutLeft}>
+              <Ionicons
+                name="chatbubble-outline"
+                size={16}
+                color={colors.textPrimary}
+                style={styles.rowIcon}
+              />
+              <Text style={styles.aboutText}>Send Feedback</Text>
+            </View>
+            <Ionicons
+              name="chevron-forward"
+              size={16}
+              color={colors.textMuted}
+            />
+          </TouchableOpacity>
+        </View>
+
+        {/* VERSION */}
         <Text style={styles.version}>FieldSong v1.0.0</Text>
       </ScrollView>
     </View>
@@ -131,36 +420,72 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: spacing.lg,
   },
-  statsCard: {
-    backgroundColor: colors.surfaceContainerLow,
-    borderRadius: borderRadius.xl,
-    padding: spacing.xl,
-    marginBottom: spacing['2xl'],
-  },
-  statRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: spacing.md,
-  },
-  statLabel: {
-    ...typography.labelMd,
-    color: colors.textSecondary,
-  },
-  statValue: {
-    fontFamily: fonts.sans.bold,
-    fontSize: 18,
-    color: colors.primary,
-  },
-  section: {
-    marginBottom: spacing['2xl'],
-  },
   sectionTitle: {
     ...typography.labelMd,
     color: colors.textMuted,
     marginBottom: spacing.lg,
+    marginTop: spacing['2xl'],
   },
-  settingRow: {
+  card: {
+    backgroundColor: colors.surfaceContainerLow,
+    borderRadius: borderRadius.xl,
+    padding: spacing.xl,
+  },
+  cardNoPad: {
+    backgroundColor: colors.surfaceContainerLow,
+    borderRadius: borderRadius.xl,
+    overflow: 'hidden',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  rowLabel: {
+    ...typography.labelMd,
+    color: colors.textSecondary,
+  },
+  rowValueBold: {
+    fontFamily: fonts.sans.bold,
+    fontSize: 18,
+    color: colors.primary,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.outlineVariant,
+    marginVertical: spacing.md,
+  },
+  editLink: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    color: colors.primary,
+  },
+  pillRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: spacing.sm,
+  },
+  pill: {
+    borderWidth: 1,
+    borderColor: colors.primary,
+    borderRadius: borderRadius.full,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    marginRight: spacing.sm,
+    marginTop: spacing.sm,
+  },
+  pillText: {
+    fontFamily: fonts.sans.medium,
+    fontSize: 13,
+    color: colors.primary,
+  },
+  sinceText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 12,
+    color: colors.textMuted,
+    marginTop: spacing.md,
+  },
+  settingCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -169,9 +494,9 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     marginBottom: spacing.sm,
   },
-  settingTextWrap: {
-    flex: 1,
-    marginRight: spacing.lg,
+  settingRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   settingLabel: {
     fontFamily: fonts.sans.medium,
@@ -180,9 +505,12 @@ const styles = StyleSheet.create({
   },
   settingValue: {
     fontFamily: fonts.sans.regular,
-    fontSize: 13,
+    fontSize: 14,
     color: colors.textSecondary,
-    marginTop: spacing.xs,
+  },
+  settingTextWrap: {
+    flex: 1,
+    marginRight: spacing.lg,
   },
   settingSubtext: {
     fontFamily: fonts.sans.regular,
@@ -190,17 +518,68 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     marginTop: spacing.xs,
   },
-  accountSection: {
-    marginBottom: spacing['2xl'],
+  chevron: {
+    marginLeft: spacing.sm,
   },
-  emailText: {
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    backgroundColor: colors.surfaceContainerLow,
+    borderTopLeftRadius: borderRadius.xl,
+    borderTopRightRadius: borderRadius.xl,
+    paddingBottom: spacing['3xl'],
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    padding: spacing.lg,
+  },
+  modalDone: {
+    fontFamily: fonts.sans.semiBold,
+    fontSize: 16,
+    color: colors.primary,
+  },
+  upgradeButton: {
+    marginTop: spacing.lg,
+  },
+  manageSub: {
+    marginTop: spacing.lg,
+  },
+  accountRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing.lg,
+  },
+  rowIcon: {
+    marginRight: spacing.md,
+  },
+  accountText: {
     fontFamily: fonts.sans.regular,
     fontSize: 14,
     color: colors.textSecondary,
-    marginBottom: spacing.lg,
   },
-  signOutButton: {
-    marginTop: spacing.sm,
+  deleteText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    color: '#E57373',
+  },
+  aboutRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: spacing.lg,
+  },
+  aboutLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  aboutText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    color: colors.textPrimary,
   },
   version: {
     fontFamily: fonts.sans.regular,
