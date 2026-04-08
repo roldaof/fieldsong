@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useMemo } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { PACKAGE_TYPE } from 'react-native-purchases';
 import { colors, fonts, spacing, typography, borderRadius, gradients } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
 import { useProfile } from '../../hooks/useProfile';
+import { useSubscription } from '../../hooks/useSubscription';
 import { Intent } from '../../types';
 
 const FEATURES = [
@@ -22,32 +24,40 @@ export function PaywallScreen({ route }: any) {
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const { updateIntents } = useProfile(user?.id);
+  const { offerings, purchase } = useSubscription();
   const [isLoading, setIsLoading] = useState(false);
+  const [purchasing, setPurchasing] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<'annual' | 'monthly'>('annual');
   const intents: Intent[] = route.params?.intents ?? [];
 
-  const handleStartFree = async () => {
+  const packages = useMemo(() => {
+    const current = offerings?.current;
+    if (!current) return { annual: null, monthly: null, lifetime: null };
+    return {
+      annual: current.annual,
+      monthly: current.monthly,
+      lifetime: current.lifetime,
+    };
+  }, [offerings]);
+
+  const saveIntentsAndContinue = async () => {
     setIsLoading(true);
     const finalIntents = intents.length > 0 ? intents : ['clarity'] as Intent[];
 
     // Try up to 3 times with delay (auth state may not be ready after signup)
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        // Get user directly from Supabase auth
         const { data: { user: currentUser } } = await supabase.auth.getUser();
         const uid = user?.id || currentUser?.id;
         if (!uid) {
-          // Wait for auth to propagate
           await new Promise(r => setTimeout(r, 1000));
           continue;
         }
-        // Save intents via RPC (bypasses RLS)
         const { error } = await supabase.rpc('save_onboarding_intents', {
           p_user_id: uid,
           p_intents: finalIntents,
         });
         if (!error) {
-          // Also update via hook to trigger state change in App.tsx
           await updateIntents(finalIntents);
           setIsLoading(false);
           return;
@@ -57,18 +67,33 @@ export function PaywallScreen({ route }: any) {
       }
       await new Promise(r => setTimeout(r, 1000));
     }
-    // If all retries fail, let user through anyway
-    // They can set intents from profile page later
     try { await updateIntents(finalIntents); } catch {}
     setIsLoading(false);
   };
 
-  const handlePaidOption = () => {
-    Alert.alert(
-      'Coming soon',
-      'Subscriptions will be available at launch. Starting free instead.',
-      [{ text: 'OK', onPress: handleStartFree }],
-    );
+  const handlePurchase = async () => {
+    const pkg = selectedPlan === 'annual' ? packages.annual : packages.monthly;
+    if (!pkg) {
+      // Offerings not loaded — fall through to free
+      await saveIntentsAndContinue();
+      return;
+    }
+    setPurchasing(true);
+    const success = await purchase(pkg);
+    setPurchasing(false);
+    // Whether purchase succeeded or not, save intents and continue
+    await saveIntentsAndContinue();
+  };
+
+  const handleLifetime = async () => {
+    if (!packages.lifetime) {
+      await saveIntentsAndContinue();
+      return;
+    }
+    setPurchasing(true);
+    const success = await purchase(packages.lifetime);
+    setPurchasing(false);
+    await saveIntentsAndContinue();
   };
 
   return (
@@ -95,7 +120,7 @@ export function PaywallScreen({ route }: any) {
               activeOpacity={0.8}
             >
               <Text style={[styles.pillText, selectedPlan === 'annual' && styles.pillTextSelected]}>
-                Annual $34.99/yr
+                Annual {packages.annual?.product.priceString ?? '$34.99'}/yr
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -104,7 +129,7 @@ export function PaywallScreen({ route }: any) {
               activeOpacity={0.8}
             >
               <Text style={[styles.pillText, selectedPlan === 'monthly' && styles.pillTextSelected]}>
-                Monthly $4.99/mo
+                Monthly {packages.monthly?.product.priceString ?? '$4.99'}/mo
               </Text>
             </TouchableOpacity>
           </View>
@@ -125,9 +150,10 @@ export function PaywallScreen({ route }: any) {
 
           {/* CTA */}
           <TouchableOpacity
-            onPress={handlePaidOption}
+            onPress={handlePurchase}
             activeOpacity={0.8}
             style={styles.ctaWrap}
+            disabled={purchasing}
           >
             <LinearGradient
               colors={[...gradients.primary]}
@@ -135,15 +161,21 @@ export function PaywallScreen({ route }: any) {
               end={{ x: 1, y: 1 }}
               style={styles.ctaButton}
             >
-              <Text style={styles.ctaText}>Start 7-day free trial</Text>
+              {purchasing ? (
+                <ActivityIndicator color={colors.onPrimary} />
+              ) : (
+                <Text style={styles.ctaText}>Start 7-day free trial</Text>
+              )}
             </LinearGradient>
           </TouchableOpacity>
 
           <Text style={styles.trialNote}>Cancel anytime. No charge until trial ends.</Text>
 
           {/* Lifetime Option */}
-          <TouchableOpacity onPress={handlePaidOption} activeOpacity={0.7} style={styles.lifetimeRow}>
-            <Text style={styles.lifetimeText}>Or $99 one-time. Access forever.</Text>
+          <TouchableOpacity onPress={handleLifetime} activeOpacity={0.7} style={styles.lifetimeRow} disabled={purchasing}>
+            <Text style={styles.lifetimeText}>
+              Or {packages.lifetime?.product.priceString ?? '$99'} one-time. Access forever.
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -152,7 +184,7 @@ export function PaywallScreen({ route }: any) {
       {/* Footer - always visible */}
       <View style={styles.footer}>
         <Text style={styles.freeText}>Or start free with the complete daily ritual.</Text>
-        <TouchableOpacity onPress={handleStartFree} disabled={isLoading} activeOpacity={0.7}>
+        <TouchableOpacity onPress={saveIntentsAndContinue} disabled={isLoading} activeOpacity={0.7}>
           <Text style={styles.footerFreeText}>
             {isLoading ? 'Loading...' : 'Continue free'}
           </Text>

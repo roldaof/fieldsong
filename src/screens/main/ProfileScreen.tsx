@@ -12,6 +12,7 @@ import {
   Modal,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import Constants from 'expo-constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker, {
@@ -26,8 +27,19 @@ import {
 } from '../../config/theme';
 import { useAuth } from '../../hooks/useAuth';
 import { useProfile } from '../../hooks/useProfile';
+import { useSubscription } from '../../hooks/useSubscription';
 import { Button } from '../../components/Button';
 import { supabase } from '../../config/supabase';
+import { Intent } from '../../types';
+
+const INTENT_OPTIONS: { intent: Intent; label: string }[] = [
+  { intent: 'clarity', label: 'Clarity' },
+  { intent: 'courage', label: 'Courage' },
+  { intent: 'patience', label: 'Patience' },
+  { intent: 'acceptance', label: 'Acceptance' },
+  { intent: 'discipline', label: 'Discipline' },
+  { intent: 'perspective', label: 'Perspective' },
+];
 
 function formatTimeDisplay(time: string | null | undefined): string {
   if (!time) return '7:00 AM';
@@ -68,22 +80,19 @@ function formatJoinedDate(dateStr: string | null | undefined): string {
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const { user, signOut } = useAuth();
-  const { profile, updateRitualTime } = useProfile(user?.id);
+  const { profile, practiceDays, updateRitualTime, updateEmailsPaused, updatePushNotifications, updateIntents } = useProfile(user?.id);
+  const { isPaid, restore } = useSubscription();
 
-  const [emailsPaused, setEmailsPaused] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [showIntentEditor, setShowIntentEditor] = useState(false);
+  const [editingIntents, setEditingIntents] = useState<Intent[]>([]);
   const [selectedTime, setSelectedTime] = useState<Date>(
     parseTimeToDate(profile?.preferred_send_time),
   );
 
-  const dayCount = Math.max(profile?.practice_day_count ?? 0, 1);
   const intents = profile?.onboarding_intents ?? [];
-  const subscriptionTier = profile?.subscription_tier ?? 'free';
-  const isFree = subscriptionTier === 'free';
-
-  const handleEditIntents = useCallback(() => {
-    Alert.alert('Coming soon', 'Inline intent editing will be available soon.');
-  }, []);
+  const isFree = !isPaid;
+  const appVersion = Constants.expoConfig?.version ?? '1.0.0';
 
   const handleTimeChange = useCallback(
     async (_event: DateTimePickerEvent, date?: Date) => {
@@ -104,14 +113,40 @@ export function ProfileScreen() {
     setShowTimePicker(false);
   }, []);
 
-  const handlePauseToggle = useCallback((value: boolean) => {
-    setEmailsPaused(value);
+  const handleEditIntents = useCallback(() => {
+    setEditingIntents([...intents]);
+    setShowIntentEditor(true);
+  }, [intents]);
+
+  const toggleEditingIntent = useCallback((intent: Intent) => {
+    setEditingIntents((prev) => {
+      if (prev.includes(intent)) return prev.filter((i) => i !== intent);
+      if (prev.length >= 3) return prev;
+      return [...prev, intent];
+    });
   }, []);
+
+  const handleSaveIntents = useCallback(async () => {
+    if (editingIntents.length === 0) return;
+    const { error } = await updateIntents(editingIntents);
+    if (error) {
+      Alert.alert('Error', 'Could not update intents. Please try again.');
+    }
+    setShowIntentEditor(false);
+  }, [editingIntents, updateIntents]);
+
+  const handlePauseToggle = useCallback(async (value: boolean) => {
+    await updateEmailsPaused(value);
+  }, [updateEmailsPaused]);
+
+  const handlePushToggle = useCallback(async (value: boolean) => {
+    await updatePushNotifications(value);
+  }, [updatePushNotifications]);
 
   const handleUpgrade = useCallback(() => {
     Alert.alert(
-      'Coming soon',
-      'Subscriptions will be available at launch.',
+      'FieldSong+',
+      'Subscriptions are not yet available. You\'ll be notified when FieldSong+ launches.',
     );
   }, []);
 
@@ -165,8 +200,8 @@ export function ProfileScreen() {
         <Text style={styles.sectionTitle}>YOUR PRACTICE</Text>
         <View style={styles.card}>
           <View style={styles.row}>
-            <Text style={styles.rowLabel}>STREAK</Text>
-            <Text style={styles.rowValueBold}>{dayCount} days</Text>
+            <Text style={styles.rowLabel}>YOUR PRACTICE</Text>
+            <Text style={styles.rowValueBold}>Day {practiceDays}</Text>
           </View>
           <View style={styles.divider} />
           <View style={styles.row}>
@@ -220,8 +255,26 @@ export function ProfileScreen() {
             </Text>
           </View>
           <Switch
-            value={emailsPaused}
+            value={profile?.emails_paused ?? false}
             onValueChange={handlePauseToggle}
+            trackColor={{
+              false: colors.surfaceContainerHigh,
+              true: colors.primary,
+            }}
+            thumbColor={colors.textPrimary}
+          />
+        </View>
+
+        <View style={styles.settingCard}>
+          <View style={styles.settingTextWrap}>
+            <Text style={styles.settingLabel}>Push notifications</Text>
+            <Text style={styles.settingSubtext}>
+              Get notified when your verse is ready
+            </Text>
+          </View>
+          <Switch
+            value={profile?.push_notifications_enabled ?? true}
+            onValueChange={handlePushToggle}
             trackColor={{
               false: colors.surfaceContainerHigh,
               true: colors.primary,
@@ -263,23 +316,77 @@ export function ProfileScreen() {
           />
         )}
 
+        {/* Intent Editor Modal */}
+        <Modal
+          visible={showIntentEditor}
+          transparent
+          animationType="slide"
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.intentModalContent}>
+              <View style={styles.intentModalHeader}>
+                <TouchableOpacity onPress={() => setShowIntentEditor(false)}>
+                  <Text style={styles.intentModalCancel}>Cancel</Text>
+                </TouchableOpacity>
+                <Text style={styles.intentModalTitle}>Edit Intents</Text>
+                <TouchableOpacity onPress={handleSaveIntents}>
+                  <Text style={styles.modalDone}>Save</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.intentModalSubtext}>Pick up to 3. This shapes your daily verses.</Text>
+              <View style={styles.intentGrid}>
+                {INTENT_OPTIONS.map(({ intent, label }) => {
+                  const isSelected = editingIntents.includes(intent);
+                  return (
+                    <TouchableOpacity
+                      key={intent}
+                      style={[styles.intentChip, isSelected && styles.intentChipSelected]}
+                      onPress={() => toggleEditingIntent(intent)}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={[styles.intentChipText, isSelected && styles.intentChipTextSelected]}>
+                        {label}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </View>
+          </View>
+        </Modal>
+
         {/* SUBSCRIPTION */}
         <Text style={styles.sectionTitle}>SUBSCRIPTION</Text>
         <View style={styles.card}>
           <View style={styles.row}>
             <Text style={styles.rowLabel}>PLAN</Text>
             <Text style={styles.rowValueBold}>
-              {isFree ? 'FREE' : subscriptionTier.toUpperCase()}
+              {isFree ? 'FREE' : 'FIELDSONG+'}
             </Text>
           </View>
           {isFree ? (
-            <Button
-              title="Upgrade to FieldSong+"
-              onPress={handleUpgrade}
-              style={styles.upgradeButton}
-            />
+            <>
+              <Button
+                title="Upgrade to FieldSong+"
+                onPress={handleUpgrade}
+                style={styles.upgradeButton}
+              />
+              <TouchableOpacity
+                style={styles.manageSub}
+                onPress={restore}
+              >
+                <Text style={styles.editLink}>Restore purchases</Text>
+              </TouchableOpacity>
+            </>
           ) : (
-            <TouchableOpacity style={styles.manageSub}>
+            <TouchableOpacity
+              style={styles.manageSub}
+              onPress={() => Linking.openURL(
+                Platform.OS === 'ios'
+                  ? 'https://apps.apple.com/account/subscriptions'
+                  : 'https://play.google.com/store/account/subscriptions'
+              )}
+            >
               <Text style={styles.editLink}>Manage subscription</Text>
             </TouchableOpacity>
           )}
@@ -398,7 +505,7 @@ export function ProfileScreen() {
         </View>
 
         {/* VERSION */}
-        <Text style={styles.version}>FieldSong v1.0.0</Text>
+        <Text style={styles.version}>FieldSong v{appVersion}</Text>
       </ScrollView>
     </View>
   );
@@ -587,5 +694,60 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     textAlign: 'center',
     marginTop: spacing.xl,
+  },
+  intentModalContent: {
+    backgroundColor: colors.surfaceContainerLow,
+    borderTopLeftRadius: borderRadius.xl,
+    borderTopRightRadius: borderRadius.xl,
+    paddingBottom: spacing['4xl'],
+  },
+  intentModalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: spacing.lg,
+  },
+  intentModalTitle: {
+    fontFamily: fonts.sans.semiBold,
+    fontSize: 16,
+    color: colors.textPrimary,
+  },
+  intentModalCancel: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 16,
+    color: colors.textSecondary,
+  },
+  intentModalSubtext: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    marginBottom: spacing.xl,
+  },
+  intentGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingHorizontal: spacing.lg,
+    gap: spacing.sm,
+  },
+  intentChip: {
+    borderWidth: 1,
+    borderColor: colors.outlineVariant,
+    borderRadius: borderRadius.full,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+  },
+  intentChipSelected: {
+    borderColor: colors.primary,
+    backgroundColor: colors.surfaceContainerHighest,
+  },
+  intentChipText: {
+    fontFamily: fonts.sans.medium,
+    fontSize: 14,
+    color: colors.textSecondary,
+  },
+  intentChipTextSelected: {
+    color: colors.primary,
   },
 });

@@ -14,6 +14,7 @@ import { colors, fonts, spacing, typography, borderRadius } from '../../config/t
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
 import { useProfile } from '../../hooks/useProfile';
+import { useSubscription } from '../../hooks/useSubscription';
 import { VerseBookmark } from '../../types';
 
 const FREE_BOOKMARK_LIMIT = 5;
@@ -22,11 +23,10 @@ export function SavedScreen() {
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const { profile } = useProfile(user?.id);
+  const { isPaid } = useSubscription();
   const [bookmarks, setBookmarks] = useState<VerseBookmark[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
-
-  const isPaid = profile?.subscription_tier !== 'free';
 
   const fetchBookmarks = useCallback(async () => {
     if (!user?.id) return;

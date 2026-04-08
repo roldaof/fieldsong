@@ -194,7 +194,7 @@ export function FirstVerseScreen({ navigation, route }: any) {
           <Button
             title="Continue"
             onPress={() =>
-              navigation.navigate('SignUp', {
+              navigation.navigate('ReviewPrompt', {
                 intents,
                 reflectionText: reflectionText.trim(),
               })

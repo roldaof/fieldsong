@@ -28,199 +28,241 @@ interface Verse {
   reflection_prompt: string;
 }
 
+function buildPreheader(verse: Verse): string {
+  // First ~90 chars visible in inbox preview
+  const text = verse.modern_interpretation;
+  const truncated = text.length > 90 ? text.slice(0, 87) + "..." : text;
+  return truncated;
+}
+
 function buildEmailHtml(verse: Verse, dayCount: number): string {
-  return `
-<!DOCTYPE html>
-<html>
+  const preheader = buildPreheader(verse);
+  // Shared inline style fragments
+  const sans = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+  const serif = "Georgia, 'Times New Roman', Times, serif";
+
+  return `<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="dark">
+  <meta name="supported-color-schemes" content="dark">
+  <title>Your daily verse from FieldSong</title>
+  <!--[if mso]>
+  <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+  <![endif]-->
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #131313;
-      color: #E8E2D6;
-      font-family: Georgia, 'Times New Roman', serif;
-    }
-    .container {
-      max-width: 560px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    .brand {
-      font-style: italic;
-      color: #D4AF37;
-      font-size: 20px;
-    }
-    .day-label {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #D4AF37;
-      margin-bottom: 24px;
-    }
-    .sanskrit {
-      font-style: italic;
-      color: #A09A8E;
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-    .translation {
-      font-size: 20px;
-      line-height: 1.5;
-      color: #E8E2D6;
-      margin-bottom: 8px;
-    }
-    .reference {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #A09A8E;
-      margin-bottom: 32px;
-    }
-    .section-label {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #D4AF37;
-      margin-bottom: 12px;
-      margin-top: 32px;
-    }
-    .interpretation {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 15px;
-      line-height: 1.7;
-      color: #E8E2D6;
-    }
-    .stoic-card {
-      background-color: #1C1B1B;
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 12px;
-    }
-    .stoic-quote {
-      font-style: italic;
-      font-size: 16px;
-      line-height: 1.6;
-      color: #E8E2D6;
-      margin-bottom: 8px;
-    }
-    .stoic-source {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.5px;
-      color: #A09A8E;
-      margin-bottom: 16px;
-    }
-    .stoic-bridge {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #A09A8E;
-    }
-    .action-text {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      color: #E8E2D6;
-      font-weight: 600;
-    }
-    .reflection-text {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      color: #E8E2D6;
-    }
-    .reply-prompt {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 13px;
-      color: #A09A8E;
-      margin-top: 32px;
-      padding-top: 20px;
-      border-top: 1px solid #2A2A2A;
-      text-align: center;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #2A2A2A;
-    }
-    .footer-brand {
-      font-style: italic;
-      color: #A09A8E;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-    .footer-text {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 11px;
-      color: #6B6560;
-    }
+    body, table, td { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
     a { color: #D4AF37; text-decoration: none; }
+    @media only screen and (max-width: 600px) {
+      .email-container { width: 100% !important; }
+      .fluid { max-width: 100% !important; height: auto !important; }
+    }
+    :root { color-scheme: dark; supported-color-schemes: dark; }
   </style>
 </head>
-<body>
-  <div class="container">
-    <div class="header">
-      <span class="brand">fieldsong</span>
-    </div>
-    
-    <div class="day-label">DAY ${dayCount} OF YOUR CLARITY PRACTICE</div>
-    
-    <div class="sanskrit">${verse.sanskrit_line}</div>
-    
-    <div class="translation">"${verse.translation}"</div>
-    
-    <div class="reference">BHAGAVAD GITA ${verse.chapter}.${verse.verse_number}</div>
-    
-    <div class="section-label">IN PLAIN TERMS</div>
-    <div class="interpretation">${verse.modern_interpretation}</div>
-    
-    <div class="section-label">STOIC PARALLEL</div>
-    <div class="stoic-card">
-      <div class="stoic-quote">"${verse.stoic_parallel_quote}"</div>
-      <div class="stoic-source">${verse.stoic_parallel_source}</div>
-      <div class="stoic-bridge">${verse.stoic_bridge}</div>
-    </div>
-    
-    <div class="section-label">TRY THIS TODAY</div>
-    <div class="action-text">${verse.action_step}</div>
-    
-    <div class="section-label">REFLECT</div>
-    <div class="reflection-text">${verse.reflection_prompt}</div>
-    
-    <div class="reply-prompt">
-      Reply to this email to save your reflection as today's journal entry.
-    </div>
-    
-    <div class="footer">
-      <div class="footer-brand">fieldsong</div>
-      <div class="footer-text">
-        Ancient clarity for modern decisions.<br>
-        <a href="https://fieldsong.app">fieldsong.app</a>
-      </div>
-    </div>
+<body style="margin:0; padding:0; background-color:#0E0E0E; font-family:${serif};">
+  <!-- Preheader (hidden inbox preview text) -->
+  <div style="display:none; font-size:1px; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden; mso-hide:all;">
+    ${preheader}${"&#847; &zwnj; &nbsp; ".repeat(20)}
   </div>
+
+  <!-- Outer wrapper: full-width dark background -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#0E0E0E;" bgcolor="#0E0E0E">
+    <tr>
+      <td align="center" valign="top" style="padding:0;">
+
+        <!-- Inner container: max 560px -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="560" class="email-container" style="max-width:560px; background-color:#131313;" bgcolor="#131313">
+
+          <!-- Brand header -->
+          <tr>
+            <td align="center" style="padding:40px 24px 8px;">
+              <span style="font-family:${serif}; font-style:italic; font-size:22px; color:#D4AF37;">fieldsong</span>
+            </td>
+          </tr>
+
+          <!-- Day label -->
+          <tr>
+            <td style="padding:16px 24px 24px; font-family:${sans}; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#D4AF37;">
+              DAY ${dayCount} OF YOUR CLARITY PRACTICE
+            </td>
+          </tr>
+
+          <!-- Sanskrit -->
+          <tr>
+            <td style="padding:0 24px 16px; font-family:${serif}; font-style:italic; font-size:15px; line-height:24px; color:#8A847A;">
+              ${verse.sanskrit_line}
+            </td>
+          </tr>
+
+          <!-- Translation -->
+          <tr>
+            <td style="padding:0 24px 8px; font-family:${serif}; font-size:21px; line-height:32px; color:#E8E2D6;">
+              &ldquo;${verse.translation}&rdquo;
+            </td>
+          </tr>
+
+          <!-- Verse reference -->
+          <tr>
+            <td style="padding:4px 24px 32px; font-family:${sans}; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#8A847A;">
+              BHAGAVAD GITA ${verse.chapter}.${verse.verse_number}
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="padding:0 24px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr><td style="border-top:1px solid #2A2A2A; font-size:1px; line-height:1px;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- IN PLAIN TERMS label -->
+          <tr>
+            <td style="padding:28px 24px 10px; font-family:${sans}; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#D4AF37;">
+              IN PLAIN TERMS
+            </td>
+          </tr>
+
+          <!-- Interpretation -->
+          <tr>
+            <td style="padding:0 24px 28px; font-family:${sans}; font-size:15px; line-height:26px; color:#D0CABD;">
+              ${verse.modern_interpretation}
+            </td>
+          </tr>
+
+          <!-- STOIC PARALLEL label -->
+          <tr>
+            <td style="padding:0 24px 12px; font-family:${sans}; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#D4AF37;">
+              STOIC PARALLEL
+            </td>
+          </tr>
+
+          <!-- Stoic card -->
+          <tr>
+            <td style="padding:0 24px 28px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#1C1B1B; border-radius:12px;" bgcolor="#1C1B1B">
+                <tr>
+                  <td style="padding:20px 20px 8px; font-family:${serif}; font-style:italic; font-size:17px; line-height:27px; color:#E8E2D6;">
+                    &ldquo;${verse.stoic_parallel_quote}&rdquo;
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 20px 14px; font-family:${sans}; font-size:11px; letter-spacing:0.5px; color:#8A847A;">
+                    ${verse.stoic_parallel_source}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 20px 20px; font-family:${sans}; font-size:14px; line-height:22px; color:#8A847A;">
+                    ${verse.stoic_bridge}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="padding:0 24px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr><td style="border-top:1px solid #2A2A2A; font-size:1px; line-height:1px;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- TRY THIS TODAY label -->
+          <tr>
+            <td style="padding:28px 24px 10px; font-family:${sans}; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#D4AF37;">
+              TRY THIS TODAY
+            </td>
+          </tr>
+
+          <!-- Action step -->
+          <tr>
+            <td style="padding:0 24px 28px; font-family:${sans}; font-size:16px; line-height:26px; color:#E8E2D6; font-weight:600;">
+              ${verse.action_step}
+            </td>
+          </tr>
+
+          <!-- REFLECT label -->
+          <tr>
+            <td style="padding:0 24px 10px; font-family:${sans}; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#D4AF37;">
+              REFLECT
+            </td>
+          </tr>
+
+          <!-- Reflection prompt -->
+          <tr>
+            <td style="padding:0 24px 12px; font-family:${sans}; font-size:15px; line-height:25px; color:#D0CABD;">
+              ${verse.reflection_prompt}
+            </td>
+          </tr>
+
+          <!-- Reply CTA -->
+          <tr>
+            <td style="padding:24px 24px 0;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr><td style="border-top:1px solid #2A2A2A; font-size:1px; line-height:1px;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:20px 24px 32px; font-family:${sans}; font-size:13px; line-height:20px; color:#8A847A;">
+              Reply to this email to save your reflection as today&rsquo;s journal entry.
+            </td>
+          </tr>
+
+          <!-- Footer divider -->
+          <tr>
+            <td style="padding:0 24px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr><td style="border-top:1px solid #2A2A2A; font-size:1px; line-height:1px;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="padding:24px 24px 12px; font-family:${serif}; font-style:italic; font-size:14px; color:#6B6560;">
+              fieldsong
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:0 24px 8px; font-family:${sans}; font-size:11px; line-height:18px; color:#4A4540;">
+              Ancient clarity for modern decisions.<br>
+              <a href="https://fieldsong.app" style="color:#D4AF37; text-decoration:none;">fieldsong.app</a>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:0 24px 40px; font-family:${sans}; font-size:11px; line-height:18px; color:#4A4540;">
+              <a href="https://fieldsong.app/unsubscribe" style="color:#4A4540; text-decoration:underline;">Unsubscribe</a>
+            </td>
+          </tr>
+
+        </table>
+        <!-- /Inner container -->
+
+      </td>
+    </tr>
+  </table>
+  <!-- /Outer wrapper -->
 </body>
 </html>`;
 }
 
-function buildSubject(verse: Verse): string {
-  // Short, intriguing subject lines
+function buildSubject(verse: Verse, dayCount: number): string {
   const subjects = [
-    `Gita ${verse.chapter}.${verse.verse_number}`,
-    `Today's clarity`,
-    `Your morning verse`,
+    `Day ${dayCount}: Your clarity practice`,
+    `A verse for today`,
+    `Your daily verse is here`,
+    `Day ${dayCount} — pause and read this`,
   ];
   return subjects[Math.floor(Math.random() * subjects.length)];
 }
@@ -245,7 +287,7 @@ Deno.serve(async (req: Request) => {
 
     let usersQuery = supabase
       .from("profiles")
-      .select("id, email, preferred_send_time, practice_day_count, onboarding_intents, timezone")
+      .select("id, email, preferred_send_time, practice_day_count, onboarding_intents, timezone, emails_paused")
       .not("email", "is", null);
 
     if (targetUserId) {
@@ -271,6 +313,12 @@ Deno.serve(async (req: Request) => {
 
     for (const user of users) {
       if (!user.email || !user.onboarding_intents?.length) continue;
+
+      // Skip users who have paused emails
+      if (user.emails_paused) {
+        results.push({ user_id: user.id, status: "paused" });
+        continue;
+      }
 
       // Get today's verse for this user
       const intent = user.onboarding_intents[0];
@@ -315,7 +363,7 @@ Deno.serve(async (req: Request) => {
         body: JSON.stringify({
           from: FROM_EMAIL,
           to: user.email,
-          subject: buildSubject(verse),
+          subject: buildSubject(verse, dayCount),
           html: buildEmailHtml(verse, dayCount),
           reply_to: `journal+${user.id}@fieldsong.app`,
         }),

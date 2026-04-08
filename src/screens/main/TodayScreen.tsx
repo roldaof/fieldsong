@@ -21,6 +21,7 @@ import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
 import { useVerse } from '../../hooks/useVerse';
 import { useProfile } from '../../hooks/useProfile';
+import { useSubscription } from '../../hooks/useSubscription';
 
 import { VerseCard } from '../../components/VerseCard';
 import { InterpretationCard } from '../../components/InterpretationCard';
@@ -42,9 +43,9 @@ export function TodayScreen() {
   const selectedIntent: Intent = profile?.onboarding_intents?.[0] ?? 'clarity';
   const [bookmarked, setBookmarked] = useState(false);
   const dayCount = Math.max(profile?.practice_day_count ?? 0, 1);
+  const { isPaid } = useSubscription();
   const [journeys, setJourneys] = useState<Journey[]>([]);
   const [userJourneys, setUserJourneys] = useState<UserJourney[]>([]);
-  const isPaid = profile?.subscription_tier !== 'free';
 
   const fetchJourneys = useCallback(async () => {
     const { data: jData } = await supabase

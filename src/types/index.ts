@@ -33,7 +33,9 @@ export interface Profile {
   longest_practice: number | null;
   subscription_tier: 'free' | 'seeker';
   onboarding_intents: Intent[];
+  emails_paused: boolean;
   push_token: string | null;
+  push_notifications_enabled: boolean;
   stripe_customer_id: string | null;
   revenuecat_id: string | null;
   subscription_active: boolean | null;
@@ -74,6 +76,7 @@ export type OnboardingStackParamList = {
   IntentQuiz: undefined;
   Mirror: { intents: Intent[] };
   FirstVerse: { intents: Intent[] };
+  ReviewPrompt: { intents: Intent[]; reflectionText: string };
   MicroReflection: { intents: Intent[]; verseId: number; reflectionPrompt: string };
   SignUp: { intents: Intent[]; verseId: number; reflectionText: string };
   Paywall: { intents: Intent[] };

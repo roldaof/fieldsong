@@ -5,6 +5,7 @@ import { Profile, Intent } from '../types';
 export function useProfile(userId: string | undefined) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [practiceDays, setPracticeDays] = useState(0);
 
   const fetchProfile = useCallback(async () => {
     if (!userId) return;
@@ -18,18 +19,37 @@ export function useProfile(userId: string | undefined) {
     setLoading(false);
   }, [userId]);
 
+  const fetchPracticeDays = useCallback(async () => {
+    if (!userId) return;
+    const { data, error } = await supabase
+      .from('daily_entries')
+      .select('created_at')
+      .eq('user_id', userId);
+    if (error || !data || data.length === 0) {
+      setPracticeDays(0);
+      return;
+    }
+    // Count total unique days with entries (not consecutive)
+    const uniqueDays = new Set<string>();
+    for (const entry of data) {
+      const d = new Date(entry.created_at);
+      uniqueDays.add(`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`);
+    }
+    setPracticeDays(uniqueDays.size);
+  }, [userId]);
+
   useEffect(() => {
     if (!userId) {
       setLoading(false);
       return;
     }
     fetchProfile();
-  }, [userId, fetchProfile]);
+    fetchPracticeDays();
+  }, [userId, fetchProfile, fetchPracticeDays]);
 
   const updateIntents = useCallback(
     async (intents: Intent[]) => {
       if (!userId) return { error: new Error('No user') };
-      // Use RPC function to bypass RLS issues
       const { error } = await supabase.rpc('save_onboarding_intents', {
         p_user_id: userId,
         p_intents: intents,
@@ -63,5 +83,52 @@ export function useProfile(userId: string | undefined) {
     [userId],
   );
 
-  return { profile, loading, fetchProfile, updateIntents, updateRitualTime };
+  const updateEmailsPaused = useCallback(
+    async (paused: boolean) => {
+      if (!userId) return { error: new Error('No user') };
+      const { error } = await supabase
+        .from('profiles')
+        .update({ emails_paused: paused })
+        .eq('id', userId);
+      if (error) {
+        console.warn('updateEmailsPaused error:', error.message);
+      } else {
+        setProfile((prev) =>
+          prev ? { ...prev, emails_paused: paused } : null,
+        );
+      }
+      return { error };
+    },
+    [userId],
+  );
+
+  const updatePushNotifications = useCallback(
+    async (enabled: boolean) => {
+      if (!userId) return { error: new Error('No user') };
+      const { error } = await supabase
+        .from('profiles')
+        .update({ push_notifications_enabled: enabled })
+        .eq('id', userId);
+      if (error) {
+        console.warn('updatePushNotifications error:', error.message);
+      } else {
+        setProfile((prev) =>
+          prev ? { ...prev, push_notifications_enabled: enabled } : null,
+        );
+      }
+      return { error };
+    },
+    [userId],
+  );
+
+  return {
+    profile,
+    loading,
+    practiceDays,
+    fetchProfile,
+    updateIntents,
+    updateRitualTime,
+    updateEmailsPaused,
+    updatePushNotifications,
+  };
 }
