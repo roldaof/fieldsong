@@ -210,3 +210,23 @@ RETURNS SETOF public.verses AS $$
     random()
   LIMIT 1;
 $$ LANGUAGE sql SECURITY DEFINER;
+
+-- Delete the currently authenticated user.
+-- Relies on ON DELETE CASCADE from auth.users → profiles → daily_entries,
+-- verse_bookmarks, and verse_history to remove all user-owned rows.
+-- SECURITY DEFINER lets the function delete from auth.users even though
+-- the calling role (authenticated) has no direct privilege on that table.
+CREATE OR REPLACE FUNCTION public.delete_user()
+RETURNS VOID AS $$
+DECLARE
+  uid UUID := auth.uid();
+BEGIN
+  IF uid IS NULL THEN
+    RAISE EXCEPTION 'Not authenticated';
+  END IF;
+  DELETE FROM auth.users WHERE id = uid;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
+
+REVOKE ALL ON FUNCTION public.delete_user() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.delete_user() TO authenticated;

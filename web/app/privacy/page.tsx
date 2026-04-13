@@ -56,7 +56,9 @@ export default function Privacy() {
       <p>
         We retain your data for as long as your account is active. When you
         delete your account (available in Profile &gt; Delete account), all
-        your data is permanently removed from our servers.
+        your data is permanently removed from our servers. If you can&rsquo;t
+        access the app, you can also request deletion at{' '}
+        <a href="/delete-account">fieldsong.app/delete-account</a>.
       </p>
 
       <h2>Your Rights</h2>
