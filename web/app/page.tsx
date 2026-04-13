@@ -63,35 +63,37 @@ export default function Home() {
       </section>
 
       <section className="section">
-        <div className="section-title">What you get</div>
-        <div className="features">
-          <div className="feature-card">
-            <h3>Daily ritual</h3>
-            <p>
-              A curated Gita verse, modern interpretation, Stoic parallel, and
-              reflection prompt — delivered every morning.
-            </p>
-          </div>
-          <div className="feature-card">
-            <h3>Cross-tradition wisdom</h3>
-            <p>
-              East meets West. Each verse is paired with a quote from Marcus
-              Aurelius, Seneca, or Epictetus.
-            </p>
-          </div>
-          <div className="feature-card">
-            <h3>Journal</h3>
-            <p>
-              Save your reflections and revisit them. Track your practice over
-              time.
-            </p>
-          </div>
-          <div className="feature-card">
-            <h3>Email delivery</h3>
-            <p>
-              Your verse arrives by email too. Reply to save a journal entry —
-              no app needed.
-            </p>
+        <div className="features-wrap">
+          <div className="section-title">What you get</div>
+          <div className="features">
+            <div className="feature-card">
+              <h3>Daily ritual</h3>
+              <p>
+                A curated Gita verse, modern interpretation, Stoic parallel,
+                and reflection prompt delivered every morning.
+              </p>
+            </div>
+            <div className="feature-card">
+              <h3>Cross-tradition wisdom</h3>
+              <p>
+                East meets West. Each verse is paired with a quote from Marcus
+                Aurelius, Seneca, or Epictetus.
+              </p>
+            </div>
+            <div className="feature-card">
+              <h3>Journal</h3>
+              <p>
+                Save your reflections and revisit them. Track your practice
+                over time.
+              </p>
+            </div>
+            <div className="feature-card">
+              <h3>Email delivery</h3>
+              <p>
+                Your verse arrives by email too. Reply to save a journal
+                entry, no app needed.
+              </p>
+            </div>
           </div>
         </div>
       </section>

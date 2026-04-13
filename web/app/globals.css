@@ -116,12 +116,15 @@ a:hover {
   margin-bottom: 24px;
 }
 
+.features-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
 .features {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
-  max-width: 720px;
-  margin: 0 auto;
 }
 
 @media (min-width: 600px) {

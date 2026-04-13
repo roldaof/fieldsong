@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'FieldSong — Daily Clarity Ritual',
+  title: 'FieldSong: Daily Clarity Ritual',
   description:
     'A daily Bhagavad Gita verse paired with Stoic philosophy. Build a clarity practice that fits your morning.',
   openGraph: {
-    title: 'FieldSong — Daily Clarity Ritual',
+    title: 'FieldSong: Daily Clarity Ritual',
     description:
       'Ancient wisdom, modern practice. A Bhagavad Gita verse and Stoic quote delivered daily.',
     url: 'https://fieldsong.app',
