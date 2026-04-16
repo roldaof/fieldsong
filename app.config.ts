@@ -43,5 +43,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnYnpxbmJlZ296cGNnZG5meGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NDg3NjYsImV4cCI6MjA5MDEyNDc2Nn0.qs6RH_rBXf46jbqFcl3IdJut4Ss9FP9ucregSBayI7c',
     sentryDsn: process.env.SENTRY_DSN ?? '',
     revenueCatApiKey: process.env.REVENUECAT_API_KEY ?? 'test_RJRMRSgomWZDaWHURTuLatUmVtw',
+    eas: {
+      projectId: '87ae27d6-9636-47a8-b55d-e9e26b0a574d',
+    },
   },
 });
