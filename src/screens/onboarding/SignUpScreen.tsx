@@ -159,6 +159,26 @@ export function SignUpScreen({ navigation, route }: any) {
           style={styles.submitButton}
         />
 
+        {isSignIn && (
+          <TouchableOpacity
+            onPress={async () => {
+              if (!email) {
+                Alert.alert('Enter your email', 'Type your email address above, then tap Forgot password.');
+                return;
+              }
+              const { error } = await supabase.auth.resetPasswordForEmail(email);
+              if (error) {
+                Alert.alert('Error', error.message);
+              } else {
+                Alert.alert('Check your email', 'If an account exists for that address, we\'ve sent a password reset link.');
+              }
+            }}
+            style={styles.forgotPassword}
+          >
+            <Text style={styles.forgotPasswordText}>Forgot password?</Text>
+          </TouchableOpacity>
+        )}
+
         <TouchableOpacity
           onPress={() => setIsSignIn(!isSignIn)}
           style={styles.toggleAuth}
@@ -260,6 +280,15 @@ const styles = StyleSheet.create({
   submitButton: {
     marginTop: spacing.xl,
     marginBottom: spacing.lg,
+  },
+  forgotPassword: {
+    alignItems: 'center',
+    paddingVertical: spacing.sm,
+  },
+  forgotPasswordText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 14,
+    color: colors.textSecondary,
   },
   toggleAuth: {
     alignItems: 'center',

@@ -36,7 +36,6 @@ export function ReviewPromptScreen({ navigation, route }: any) {
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.emoji}>&#10024;</Text>
         <Text style={styles.headline}>
           That was your first{'\n'}clarity moment.
         </Text>
@@ -79,11 +78,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: spacing.xl,
     paddingBottom: spacing['6xl'],
-  },
-  emoji: {
-    fontSize: 40,
-    textAlign: 'center',
-    marginBottom: spacing.xl,
   },
   headline: {
     fontFamily: fonts.serif.italic,
