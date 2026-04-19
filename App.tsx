@@ -21,7 +21,7 @@ import {
   Manrope_600SemiBold,
   Manrope_700Bold,
 } from '@expo-google-fonts/manrope';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthProvider, useAuth } from './src/hooks/useAuth';
 import { useProfile } from './src/hooks/useProfile';
@@ -100,6 +100,7 @@ function OnboardingNavigator() {
 }
 
 function TabNavigator() {
+  const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -110,6 +111,7 @@ function TabNavigator() {
           borderTopWidth: 0,
           elevation: 0,
           paddingTop: 10,
+          paddingBottom: Math.max(insets.bottom, 16),
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textMuted,
