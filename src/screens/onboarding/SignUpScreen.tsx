@@ -130,7 +130,7 @@ export function SignUpScreen({ navigation, route }: any) {
             autoCapitalize="none"
             autoCorrect={false}
             textContentType={isSignIn ? 'username' : 'emailAddress'}
-            autoComplete="email"
+            autoComplete={isSignIn ? 'username' : 'email'}
             importantForAutofill="yes"
           />
         </View>
