@@ -112,6 +112,7 @@ function TabNavigator() {
           elevation: 0,
           paddingTop: 10,
           paddingBottom: Math.max(insets.bottom, 16),
+          height: 60 + Math.max(insets.bottom, 16),
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textMuted,
