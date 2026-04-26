@@ -34,7 +34,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [
     'expo-font',
     'expo-secure-store',
-    ['@sentry/react-native/expo', {}],
+    ['@sentry/react-native/expo', { enableAutoUpload: false }],
   ],
   extra: {
     supabaseUrl: process.env.SUPABASE_URL ?? 'https://rgbzqnbegozpcgdnfxfy.supabase.co',
