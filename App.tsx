@@ -169,6 +169,7 @@ function MainNavigator() {
       }}
     >
       <MainStack.Screen name="Tabs" component={TabNavigator} />
+      <MainStack.Screen name="Paywall" component={PaywallScreen} />
       <MainStack.Screen name="Journeys" component={JourneysScreen} />
       <MainStack.Screen name="JourneyDay" component={JourneyDayScreen} />
     </MainStack.Navigator>

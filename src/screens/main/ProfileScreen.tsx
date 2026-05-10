@@ -15,6 +15,7 @@ import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
@@ -79,6 +80,7 @@ function formatJoinedDate(dateStr: string | null | undefined): string {
 
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation<any>();
   const { user, signOut } = useAuth();
   const { profile, practiceDays, updateRitualTime, updateEmailsPaused, updatePushNotifications, updateIntents } = useProfile(user?.id);
   const { isPaid, restore } = useSubscription();
@@ -144,11 +146,11 @@ export function ProfileScreen() {
   }, [updatePushNotifications]);
 
   const handleUpgrade = useCallback(() => {
-    Alert.alert(
-      'FieldSong+',
-      'Subscriptions are not yet available. You\'ll be notified when FieldSong+ launches.',
-    );
-  }, []);
+    navigation.navigate('Paywall', {
+      intents,
+      fromProfile: true,
+    });
+  }, [intents, navigation]);
 
   const handleDeleteAccount = useCallback(() => {
     Alert.alert('Are you sure?', 'This will delete your account.', [

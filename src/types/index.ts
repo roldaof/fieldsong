@@ -111,6 +111,7 @@ export type MainTabParamList = {
 
 export type MainStackParamList = {
   Tabs: undefined;
+  Paywall: { intents: Intent[]; fromProfile?: boolean };
   JourneyDay: { journeyId: number; userJourneyId?: string };
   Journeys: undefined;
 };

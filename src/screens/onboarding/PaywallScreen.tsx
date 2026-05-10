@@ -4,7 +4,6 @@ import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { PACKAGE_TYPE } from 'react-native-purchases';
 import { colors, fonts, spacing, typography, borderRadius, gradients } from '../../config/theme';
 import { supabase } from '../../config/supabase';
 import { useAuth } from '../../hooks/useAuth';
@@ -20,25 +19,36 @@ const FEATURES = [
   'Weekly wisdom digest',
 ];
 
-export function PaywallScreen({ route }: any) {
+export function PaywallScreen({ route, navigation }: any) {
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const { updateIntents } = useProfile(user?.id);
-  const { offerings, purchase } = useSubscription();
+  const { offerings, loading: offeringsLoading, purchase, restore } = useSubscription();
   const [isLoading, setIsLoading] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<'annual' | 'monthly'>('annual');
   const intents: Intent[] = route.params?.intents ?? [];
+  const fromProfile = !!route.params?.fromProfile;
 
   const packages = useMemo(() => {
     const current = offerings?.current;
     if (!current) return { annual: null, monthly: null, lifetime: null };
+
+    const findByIdentifier = (identifier: string) =>
+      current.availablePackages.find((pkg) => pkg.identifier === identifier) ?? null;
+
     return {
-      annual: current.annual,
-      monthly: current.monthly,
-      lifetime: current.lifetime,
+      annual: current.annual ?? findByIdentifier('$rc_annual'),
+      monthly: current.monthly ?? findByIdentifier('$rc_monthly'),
+      lifetime: current.lifetime ?? findByIdentifier('$rc_lifetime'),
     };
   }, [offerings]);
+
+  const finishPaywall = () => {
+    if (fromProfile && navigation?.canGoBack?.()) {
+      navigation.goBack();
+    }
+  };
 
   const saveIntentsAndContinue = async () => {
     setIsLoading(true);
@@ -60,6 +70,7 @@ export function PaywallScreen({ route }: any) {
         if (!error) {
           await updateIntents(finalIntents);
           setIsLoading(false);
+          finishPaywall();
           return;
         }
       } catch {
@@ -69,32 +80,51 @@ export function PaywallScreen({ route }: any) {
     }
     try { await updateIntents(finalIntents); } catch {}
     setIsLoading(false);
+    finishPaywall();
+  };
+
+  const showProductsUnavailable = () => {
+    Alert.alert(
+      'Products unavailable',
+      'FieldSong+ products are still loading or unavailable. Please try again in a moment, or continue free for now.',
+    );
   };
 
   const handlePurchase = async () => {
     const pkg = selectedPlan === 'annual' ? packages.annual : packages.monthly;
     if (!pkg) {
-      // Offerings not loaded — fall through to free
-      await saveIntentsAndContinue();
+      showProductsUnavailable();
       return;
     }
     setPurchasing(true);
     const success = await purchase(pkg);
     setPurchasing(false);
-    // Whether purchase succeeded or not, save intents and continue
-    await saveIntentsAndContinue();
+    if (success) {
+      await saveIntentsAndContinue();
+    }
   };
 
   const handleLifetime = async () => {
     if (!packages.lifetime) {
-      await saveIntentsAndContinue();
+      showProductsUnavailable();
       return;
     }
     setPurchasing(true);
     const success = await purchase(packages.lifetime);
     setPurchasing(false);
-    await saveIntentsAndContinue();
+    if (success) {
+      await saveIntentsAndContinue();
+    }
   };
+
+  const handleRestore = async () => {
+    const restored = await restore();
+    if (restored) {
+      await saveIntentsAndContinue();
+    }
+  };
+
+  const purchaseDisabled = purchasing || offeringsLoading || isLoading;
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
@@ -118,6 +148,7 @@ export function PaywallScreen({ route }: any) {
               style={[styles.pill, selectedPlan === 'annual' && styles.pillSelected]}
               onPress={() => setSelectedPlan('annual')}
               activeOpacity={0.8}
+              disabled={purchaseDisabled}
             >
               <Text style={[styles.pillText, selectedPlan === 'annual' && styles.pillTextSelected]}>
                 Annual {packages.annual?.product.priceString ?? '$34.99'}/yr
@@ -127,6 +158,7 @@ export function PaywallScreen({ route }: any) {
               style={[styles.pill, selectedPlan === 'monthly' && styles.pillSelected]}
               onPress={() => setSelectedPlan('monthly')}
               activeOpacity={0.8}
+              disabled={purchaseDisabled}
             >
               <Text style={[styles.pillText, selectedPlan === 'monthly' && styles.pillTextSelected]}>
                 Monthly {packages.monthly?.product.priceString ?? '$4.99'}/mo
@@ -153,15 +185,15 @@ export function PaywallScreen({ route }: any) {
             onPress={handlePurchase}
             activeOpacity={0.8}
             style={styles.ctaWrap}
-            disabled={purchasing}
+            disabled={purchaseDisabled}
           >
             <LinearGradient
               colors={[...gradients.primary]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
-              style={styles.ctaButton}
+              style={[styles.ctaButton, purchaseDisabled && styles.ctaButtonDisabled]}
             >
-              {purchasing ? (
+              {purchaseDisabled ? (
                 <ActivityIndicator color={colors.onPrimary} />
               ) : (
                 <Text style={styles.ctaText}>Start 7-day free trial</Text>
@@ -172,10 +204,14 @@ export function PaywallScreen({ route }: any) {
           <Text style={styles.trialNote}>Cancel anytime. No charge until trial ends.</Text>
 
           {/* Lifetime Option */}
-          <TouchableOpacity onPress={handleLifetime} activeOpacity={0.7} style={styles.lifetimeRow} disabled={purchasing}>
-            <Text style={styles.lifetimeText}>
+          <TouchableOpacity onPress={handleLifetime} activeOpacity={0.7} style={styles.lifetimeRow} disabled={purchaseDisabled}>
+            <Text style={[styles.lifetimeText, purchaseDisabled && styles.disabledText]}>
               Or {packages.lifetime?.product.priceString ?? '$99'} one-time. Access forever.
             </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleRestore} activeOpacity={0.7} style={styles.restoreRow} disabled={purchaseDisabled}>
+            <Text style={[styles.restoreText, purchaseDisabled && styles.disabledText]}>Restore purchases</Text>
           </TouchableOpacity>
         </View>
 
@@ -184,7 +220,7 @@ export function PaywallScreen({ route }: any) {
       {/* Footer - always visible */}
       <View style={styles.footer}>
         <Text style={styles.freeText}>Or start free with the complete daily ritual.</Text>
-        <TouchableOpacity onPress={saveIntentsAndContinue} disabled={isLoading} activeOpacity={0.7}>
+        <TouchableOpacity onPress={saveIntentsAndContinue} disabled={isLoading || purchasing} activeOpacity={0.7}>
           <Text style={styles.footerFreeText}>
             {isLoading ? 'Loading...' : 'Continue free'}
           </Text>
@@ -260,26 +296,25 @@ const styles = StyleSheet.create({
   },
   pillText: {
     fontFamily: fonts.sans.semiBold,
-    fontSize: 13,
+    fontSize: 12,
     color: colors.textSecondary,
   },
   pillTextSelected: {
     color: colors.onPrimary,
   },
   savingsText: {
-    fontFamily: fonts.sans.regular,
-    fontSize: 13,
+    fontFamily: fonts.sans.semiBold,
+    fontSize: 12,
     color: colors.primary,
-    marginBottom: spacing.md,
-    height: 18,
+    textAlign: 'center',
+    marginBottom: spacing.lg,
   },
   savingsHidden: {
     opacity: 0,
   },
   featureList: {
-    marginTop: spacing.sm,
-    marginBottom: spacing.xl,
     gap: spacing.sm,
+    marginBottom: spacing.xl,
   },
   featureRow: {
     flexDirection: 'row',
@@ -287,66 +322,87 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   featureText: {
+    flex: 1,
     fontFamily: fonts.sans.regular,
     fontSize: 14,
-    lineHeight: 22,
-    color: colors.textSecondary,
+    lineHeight: 20,
+    color: colors.textPrimary,
   },
   ctaWrap: {
     borderRadius: borderRadius.full,
     overflow: 'hidden',
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 4,
   },
   ctaButton: {
     paddingVertical: spacing.lg,
     alignItems: 'center',
-    borderRadius: borderRadius.full,
+    justifyContent: 'center',
+    minHeight: 56,
+  },
+  ctaButtonDisabled: {
+    opacity: 0.75,
   },
   ctaText: {
-    fontFamily: fonts.sans.semiBold,
+    fontFamily: fonts.sans.bold,
     fontSize: 16,
     color: colors.onPrimary,
   },
   trialNote: {
     fontFamily: fonts.sans.regular,
-    fontSize: 13,
+    fontSize: 12,
     color: colors.textMuted,
     textAlign: 'center',
     marginTop: spacing.md,
   },
   lifetimeRow: {
-    alignItems: 'center',
     marginTop: spacing.lg,
+    paddingTop: spacing.lg,
+    borderTopWidth: 1,
+    borderTopColor: colors.outline,
+    alignItems: 'center',
   },
   lifetimeText: {
-    fontFamily: fonts.sans.regular,
+    fontFamily: fonts.sans.medium,
     fontSize: 14,
-    color: colors.textSecondary,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: colors.outlineVariant,
-    marginTop: spacing.xl,
-    marginBottom: spacing.xl,
-  },
-  freeText: {
-    fontFamily: fonts.sans.regular,
-    fontSize: 14,
-    color: colors.textSecondary,
+    color: colors.primary,
     textAlign: 'center',
-    marginBottom: spacing.sm,
+  },
+  restoreRow: {
+    marginTop: spacing.md,
+    alignItems: 'center',
+  },
+  restoreText: {
+    fontFamily: fonts.sans.medium,
+    fontSize: 13,
+    color: colors.textSecondary,
+    textDecorationLine: 'underline',
+  },
+  disabledText: {
+    opacity: 0.6,
   },
   footer: {
     paddingHorizontal: spacing.xl,
     paddingTop: spacing.md,
-    paddingBottom: spacing['2xl'],
-    alignItems: 'center',
+    paddingBottom: spacing.lg,
+    backgroundColor: colors.surface,
     borderTopWidth: 1,
-    borderTopColor: colors.outlineVariant,
+    borderTopColor: colors.outline,
+    alignItems: 'center',
+  },
+  freeText: {
+    fontFamily: fonts.sans.regular,
+    fontSize: 13,
+    color: colors.textMuted,
+    marginBottom: spacing.sm,
   },
   footerFreeText: {
-    fontFamily: fonts.sans.regular,
-    fontSize: 14,
-    color: colors.primary,
-    paddingVertical: spacing.sm,
+    fontFamily: fonts.sans.semiBold,
+    fontSize: 15,
+    color: colors.textSecondary,
+    textDecorationLine: 'underline',
   },
 });
