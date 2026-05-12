@@ -201,7 +201,7 @@ export function PaywallScreen({ route, navigation }: any) {
             </LinearGradient>
           </TouchableOpacity>
 
-          <Text style={styles.trialNote}>Cancel anytime. No charge until trial ends.</Text>
+          <Text style={styles.trialNote}>7-day free trial, then $34.99/year. Auto-renews. Cancel anytime.</Text>
 
           {/* Lifetime Option */}
           <TouchableOpacity onPress={handleLifetime} activeOpacity={0.7} style={styles.lifetimeRow} disabled={purchaseDisabled}>
