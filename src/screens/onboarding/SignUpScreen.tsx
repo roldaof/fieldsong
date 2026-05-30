@@ -14,6 +14,11 @@ import { colors, fonts, spacing, typography, borderRadius } from '../../config/t
 import { Button } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../config/supabase';
+import * as WebBrowser from 'expo-web-browser';
+import * as Linking from 'expo-linking';
+
+// Dismisses the in-app browser cleanly once the OAuth redirect returns.
+WebBrowser.maybeCompleteAuthSession();
 
 export function SignUpScreen({ navigation, route }: any) {
   const insets = useSafeAreaInsets();
@@ -86,9 +91,43 @@ export function SignUpScreen({ navigation, route }: any) {
   };
 
   const handleOAuth = async (provider: 'apple' | 'google') => {
-    const { error } = await supabase.auth.signInWithOAuth({ provider });
-    if (error) {
-      Alert.alert('OAuth not configured yet. Please use email signup.');
+    try {
+      const redirectTo = Linking.createURL('auth/callback');
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: { redirectTo, skipBrowserRedirect: true },
+      });
+      if (error || !data?.url) {
+        Alert.alert('Sign-in failed', error?.message ?? 'Could not start sign-in.');
+        return;
+      }
+
+      const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo);
+      if (result.type !== 'success' || !result.url) {
+        // User dismissed the browser before completing sign-in.
+        return;
+      }
+
+      const { queryParams } = Linking.parse(result.url);
+      const errorDescription = queryParams?.error_description as string | undefined;
+      if (errorDescription) {
+        Alert.alert('Sign-in failed', errorDescription);
+        return;
+      }
+      const code = queryParams?.code as string | undefined;
+      if (!code) {
+        Alert.alert('Sign-in failed', 'No authorization code returned.');
+        return;
+      }
+
+      const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+      if (exchangeError) {
+        Alert.alert('Sign-in failed', exchangeError.message);
+        return;
+      }
+      // AuthProvider's onAuthStateChange picks up the new session and routes in.
+    } catch (e) {
+      Alert.alert('Sign-in failed', e instanceof Error ? e.message : 'Unexpected error.');
     }
   };
 
